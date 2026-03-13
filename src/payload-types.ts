@@ -69,6 +69,8 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    partners: Partner;
+    customers: Customer;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +80,8 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    partners: PartnersSelect<false> | PartnersSelect<true>;
+    customers: CustomersSelect<false> | CustomersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -86,10 +90,23 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
-  fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
-  locale: null;
+  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en' | 'el') | ('en' | 'el')[];
+  globals: {
+    layout: Layout;
+    home: Home;
+    about: About;
+    contact: Contact;
+  };
+  globalsSelect: {
+    layout: LayoutSelect<false> | LayoutSelect<true>;
+    home: HomeSelect<false> | HomeSelect<true>;
+    about: AboutSelect<false> | AboutSelect<true>;
+    contact: ContactSelect<false> | ContactSelect<true>;
+  };
+  locale: 'en' | 'el';
+  widgets: {
+    collections: CollectionsWidget;
+  };
   user: User;
   jobs: {
     tasks: unknown;
@@ -160,6 +177,40 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners".
+ */
+export interface Partner {
+  id: string;
+  /**
+   * The name of the partner.
+   */
+  name: string;
+  /**
+   * The logo of the partner. Recommended box: 250x250px.
+   */
+  logo: string | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customers".
+ */
+export interface Customer {
+  id: string;
+  /**
+   * The name of the customer.
+   */
+  name: string;
+  /**
+   * The logo of the customer. Recommended box: 250x250px.
+   */
+  logo: string | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -189,6 +240,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'partners';
+        value: string | Partner;
+      } | null)
+    | ({
+        relationTo: 'customers';
+        value: string | Customer;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -274,6 +333,26 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners_select".
+ */
+export interface PartnersSelect<T extends boolean = true> {
+  name?: T;
+  logo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customers_select".
+ */
+export interface CustomersSelect<T extends boolean = true> {
+  name?: T;
+  logo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -311,6 +390,224 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "layout".
+ */
+export interface Layout {
+  id: string;
+  /**
+   * The header of the website, which is displayed on all pages.
+   */
+  header: {
+    /**
+     * The logo of the website. Recommended box: 250x250px.
+     */
+    logo: string | Media;
+    menu?:
+      | {
+          /**
+           * The label of the navigation item.
+           */
+          label: string;
+          type: 'link' | 'submenu';
+          /**
+           * The link of the navigation item. Can be an internal or external link.
+           */
+          link?: string | null;
+          /**
+           * Whether the navigation item should be emphasized.
+           */
+          emphasized?: boolean | null;
+          /**
+           * The submenu items. Only displayed if the type is "Submenu".
+           */
+          submenu?:
+            | {
+                /**
+                 * The label of the submenu item.
+                 */
+                label: string;
+                /**
+                 * The link of the submenu item. Can be an internal or external link.
+                 */
+                link: string;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * The footer of the website, which is displayed on all pages.
+   */
+  footer: {
+    /**
+     * The logo of the website. Recommended box: 250x250px.
+     */
+    logo: string | Media;
+    /**
+     * The copyright text for the footer.
+     */
+    copyrightsContent: string;
+    /**
+     * The services label for the footer.
+     */
+    servicesLabel: string;
+    /**
+     * The products label for the footer.
+     */
+    productsLabel: string;
+    /**
+     * The contact section of the footer.
+     */
+    contactSection: {
+      /**
+       * The label of the contact section.
+       */
+      label: string;
+      /**
+       * The header of the contact section.
+       */
+      header: string;
+      /**
+       * The label of the action.
+       */
+      actionLabel: string;
+    };
+  };
+  /**
+   * General settings for the website.
+   */
+  general: {
+    /**
+     * The name of the company, used in the SEO component.
+     */
+    companyName: string;
+    /**
+     * The favicon of the website. Recommended box: 32x32px.
+     */
+    favicon: string | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home".
+ */
+export interface Home {
+  id: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about".
+ */
+export interface About {
+  id: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact".
+ */
+export interface Contact {
+  id: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "layout_select".
+ */
+export interface LayoutSelect<T extends boolean = true> {
+  header?:
+    | T
+    | {
+        logo?: T;
+        menu?:
+          | T
+          | {
+              label?: T;
+              type?: T;
+              link?: T;
+              emphasized?: T;
+              submenu?:
+                | T
+                | {
+                    label?: T;
+                    link?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+      };
+  footer?:
+    | T
+    | {
+        logo?: T;
+        copyrightsContent?: T;
+        servicesLabel?: T;
+        productsLabel?: T;
+        contactSection?:
+          | T
+          | {
+              label?: T;
+              header?: T;
+              actionLabel?: T;
+            };
+      };
+  general?:
+    | T
+    | {
+        companyName?: T;
+        favicon?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home_select".
+ */
+export interface HomeSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about_select".
+ */
+export interface AboutSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact_select".
+ */
+export interface ContactSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections_widget".
+ */
+export interface CollectionsWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
