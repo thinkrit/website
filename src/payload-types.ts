@@ -500,6 +500,183 @@ export interface Layout {
  */
 export interface Home {
   id: string;
+  /**
+   * The sections of the home page, consisting of various blocks.
+   */
+  sections: (
+    | {
+        /**
+         * A short label for the section block, used for identification purposes.
+         */
+        label: string;
+        /**
+         * The header text for the section block.
+         */
+        header: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        /**
+         * The content text for the section block.
+         */
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        /**
+         * The action button for the section block.
+         */
+        action: {
+          /**
+           * The label for the action button.
+           */
+          label: string;
+          /**
+           * The URL the action button will link to.
+           */
+          url: string;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'section_01';
+      }
+    | {
+        /**
+         * The header text for the section block.
+         */
+        header: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        /**
+         * The content text for the section block.
+         */
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        /**
+         * The label for the discover more button.
+         */
+        discoverMoreLabel: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'section_02';
+      }
+    | {
+        /**
+         * A short label for the section block, used for identification purposes.
+         */
+        label: string;
+        /**
+         * The header text for the section block.
+         */
+        header: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        items?:
+          | {
+              /**
+               * The item title.
+               */
+              title: string;
+              /**
+               * The item description.
+               */
+              description: string;
+              /**
+               * The icon identifier for the item.
+               */
+              icon: string | Media;
+              /**
+               * The URL linked from the item action.
+               */
+              actionUrl: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'section_03';
+      }
+  )[];
+  /**
+   * The slug of the home page.
+   */
+  slug: string;
+  /**
+   * Search Engine Optimization (SEO) settings for the page.
+   */
+  seo: {
+    /**
+     * The SEO title for the page, used in search engine results and browser tabs.
+     */
+    title: string;
+    /**
+     * The SEO description for the page, used in search engine results.
+     */
+    description: string;
+    /**
+     * The image used for SEO purposes, such as when sharing the page on social media.
+     */
+    metaImage: string | Media;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -577,6 +754,59 @@ export interface LayoutSelect<T extends boolean = true> {
  * via the `definition` "home_select".
  */
 export interface HomeSelect<T extends boolean = true> {
+  sections?:
+    | T
+    | {
+        section_01?:
+          | T
+          | {
+              label?: T;
+              header?: T;
+              content?: T;
+              action?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        section_02?:
+          | T
+          | {
+              header?: T;
+              content?: T;
+              discoverMoreLabel?: T;
+              id?: T;
+              blockName?: T;
+            };
+        section_03?:
+          | T
+          | {
+              label?: T;
+              header?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    icon?: T;
+                    actionUrl?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  slug?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        metaImage?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
