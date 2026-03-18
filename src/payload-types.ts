@@ -655,6 +655,159 @@ export interface Home {
         blockName?: string | null;
         blockType: 'section_03';
       }
+    | {
+        /**
+         * The content for the section block.
+         */
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'section_04';
+      }
+    | {
+        /**
+         * The label for the section block.
+         */
+        label: string;
+        items: {
+          /**
+           * The header for the item.
+           */
+          header: string;
+          /**
+           * The content for the item.
+           */
+          content: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          };
+          /**
+           * The link for the item.
+           */
+          link: string;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'section_05';
+      }
+    | {
+        /**
+         * The label for the section block.
+         */
+        label: string;
+        /**
+         * The header for the section block.
+         */
+        header: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        /**
+         * The content for the section block.
+         */
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        customers?: (string | Customer)[] | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'section_06';
+      }
+    | {
+        /**
+         * The label for the section block.
+         */
+        label: string;
+        /**
+         * The header for the section block.
+         */
+        header: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        /**
+         * The content for the section block.
+         */
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        partners?: (string | Partner)[] | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'section_07';
+      }
   )[];
   /**
    * The slug of the home page.
@@ -795,6 +948,48 @@ export interface HomeSelect<T extends boolean = true> {
                     actionUrl?: T;
                     id?: T;
                   };
+              id?: T;
+              blockName?: T;
+            };
+        section_04?:
+          | T
+          | {
+              content?: T;
+              id?: T;
+              blockName?: T;
+            };
+        section_05?:
+          | T
+          | {
+              label?: T;
+              items?:
+                | T
+                | {
+                    header?: T;
+                    content?: T;
+                    link?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        section_06?:
+          | T
+          | {
+              label?: T;
+              header?: T;
+              content?: T;
+              customers?: T;
+              id?: T;
+              blockName?: T;
+            };
+        section_07?:
+          | T
+          | {
+              label?: T;
+              header?: T;
+              content?: T;
+              partners?: T;
               id?: T;
               blockName?: T;
             };
