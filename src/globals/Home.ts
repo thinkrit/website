@@ -1,47 +1,177 @@
-import { Section_02_Block } from '@/blocks/sections/section_02.block'
-import { Section_01_Block } from '@/blocks/sections/section_01.block'
+import { CtaFields } from '@/shared/fields/CtaFields'
+import { PageFields } from '@/shared/fields/PageFields'
 import { GlobalConfig } from 'payload'
-import { SeoField } from '@/shared/fields/seo.field'
-import { Section_03_Block } from '@/blocks/sections/section_03.block'
-import { Section_04_Block } from '@/blocks/sections/section_04.block'
-import { Section_05_Block } from '@/blocks/sections/section_05.block'
-import { Section_06_Block } from '@/blocks/sections/section_06.block'
-import { Section_07_Block } from '@/blocks/sections/section_07.block'
 
 export const Home: GlobalConfig = {
   slug: 'home',
-  admin: {
-    group: 'Globals',
-  },
   fields: [
     {
-      name: 'sections',
-      type: 'blocks',
-      label: 'Sections',
-      required: true,
-      blocks: [
-        Section_01_Block,
-        Section_02_Block,
-        Section_03_Block,
-        Section_04_Block,
-        Section_05_Block,
-        Section_06_Block,
-        Section_07_Block,
+      name: 'heroSection',
+      type: 'group',
+      fields: [
+        {
+          name: 'header',
+          type: 'text',
+          localized: true,
+          required: true,
+        },
+        {
+          name: 'tagline',
+          type: 'textarea',
+          localized: true,
+          required: true,
+        },
+        {
+          name: 'description',
+          type: 'richText',
+          localized: true,
+          required: true,
+        },
+        {
+          name: 'discoverModeLabel',
+          type: 'text',
+          localized: true,
+          required: true,
+        },
       ],
-      admin: {
-        description: 'The sections of the home page, consisting of various blocks.',
-      },
     },
     {
-      name: 'slug',
-      type: 'text',
-      label: 'Slug',
-      required: true,
-      admin: {
-        description: 'The slug of the home page.',
-        position: 'sidebar',
-      },
+      name: 'aboutSection',
+      type: 'group',
+      fields: [
+        {
+          name: 'header',
+          type: 'text',
+          localized: true,
+          required: true,
+        },
+        {
+          name: 'tagline',
+          type: 'richText',
+          localized: true,
+          required: true,
+        },
+        {
+          name: 'description',
+          type: 'richText',
+          localized: true,
+          required: true,
+        },
+        {
+          name: 'cta',
+          type: 'group',
+          fields: CtaFields,
+        },
+      ],
     },
-    SeoField,
+    {
+      name: 'servicesSection',
+      type: 'group',
+      fields: [
+        {
+          name: 'header',
+          type: 'text',
+          localized: true,
+          required: true,
+        },
+        {
+          name: 'tagline',
+          type: 'richText',
+          localized: true,
+          required: true,
+        },
+        // {
+        //   name: 'services',
+        //   type: 'relationship',
+        //   relationTo: 'services',
+        //   hasMany: true,
+        // },
+      ],
+    },
+    {
+      name: 'productsSection',
+      type: 'group',
+      fields: [
+        {
+          name: 'header',
+          type: 'text',
+          localized: true,
+          required: true,
+        },
+        {
+          name: 'tagline',
+          type: 'richText',
+          localized: true,
+          required: true,
+        },
+        // {
+        //   name: 'products',
+        //   type: 'relationship',
+        //   relationTo: 'products',
+        //   hasMany: true,
+        // },
+      ],
+    },
+    {
+      name: 'partnersSection',
+      type: 'group',
+      fields: [
+        {
+          name: 'header',
+          type: 'text',
+          localized: true,
+          required: true,
+        },
+        {
+          name: 'tagline',
+          type: 'richText',
+          localized: true,
+          required: true,
+        },
+        {
+          name: 'description',
+          type: 'richText',
+          localized: true,
+          required: true,
+        },
+        {
+          name: 'partners',
+          type: 'relationship',
+          relationTo: 'partners',
+          hasMany: true,
+        },
+      ],
+    },
+    {
+      name: 'customersSection',
+      type: 'group',
+      fields: [
+        {
+          name: 'header',
+          type: 'text',
+          localized: true,
+          required: true,
+        },
+        {
+          name: 'tagline',
+          type: 'richText',
+          localized: true,
+          required: true,
+        },
+        {
+          name: 'description',
+          type: 'richText',
+          localized: true,
+          required: true,
+        },
+        {
+          name: 'customers',
+          type: 'relationship',
+          relationTo: 'customers',
+          hasMany: true,
+        },
+      ],
+    },
+    ...PageFields,
   ],
 }

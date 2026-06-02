@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="110" viewBox="0 0 300 110" role="img" aria-labelledby="title">
+  <title id="title">Rapid</title>
+  <g fill="#fff">
+    <path d="M26 24a30 30 0 1 0 30 30h-15a15 15 0 1 1-15-15V24Z"/>
+    <path d="M49 15v38L24 28Z"/>
+  </g>
+  <text x="77" y="69" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="54" font-weight="800" letter-spacing="-1">RAPID</text>
+</svg>

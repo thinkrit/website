@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="110" viewBox="0 0 360 110" role="img" aria-labelledby="title">
+  <title id="title">proLogistik Group</title>
+  <path fill="#fff" d="M8 55c29 10 60 2 78-24 8 13 23 22 42 24-26 22-74 27-120 0Z"/>
+  <path fill="#fff" d="M48 50c17-5 31-15 41-31 9 15 28 25 57 31-41 11-80 11-98 0Z" opacity=".95"/>
+  <text x="151" y="60" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="800">proLogistik</text>
+  <text x="153" y="92" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="8">GROUP</text>
+</svg>

@@ -2,9 +2,6 @@ import type { CollectionConfig } from 'payload'
 
 export const Media: CollectionConfig = {
   slug: 'media',
-  admin: {
-    group: 'Management',
-  },
   access: {
     read: () => true,
   },
@@ -12,6 +9,7 @@ export const Media: CollectionConfig = {
     {
       name: 'alt',
       type: 'text',
+      localized: true,
       required: true,
     },
   ],

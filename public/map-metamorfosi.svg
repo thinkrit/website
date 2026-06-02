@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="520" viewBox="0 0 760 520" role="img" aria-labelledby="title">
+  <title id="title">Map of Metamorfosi</title>
+  <rect width="760" height="520" rx="12" fill="#eeeeef"/>
+  <g stroke="#ffffff" stroke-width="7" stroke-linecap="round" fill="none" opacity=".95">
+    <path d="M-20 440C86 360 154 315 264 286s204-70 320-188"/>
+    <path d="M75 16c58 82 94 151 109 238s64 149 154 221"/>
+    <path d="M318-16c-6 85-29 155-69 213s-67 128-48 218"/>
+    <path d="M510 28c-52 80-113 140-181 180s-130 92-176 156"/>
+    <path d="M720 120c-116 52-206 108-271 168s-129 99-238 118"/>
+    <path d="M68 200c112 14 214 12 307-7s170-10 230 32"/>
+  </g>
+  <g stroke="#d5d5d8" stroke-width="18" stroke-linecap="round" fill="none">
+    <path d="M-10 424c130-70 247-99 351-87s239-33 425-135"/>
+    <path d="M80 520c93-104 193-177 300-219s199-99 276-174"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" fill="#8f8f94" font-weight="700">
+    <text x="410" y="330" font-size="31">Metamorfosi</text>
+    <text x="410" y="363" font-size="27" opacity=".7">Metamorphosi</text>
+    <text x="72" y="154" font-size="22" opacity=".7">AG. SOTIRA</text>
+    <text x="78" y="408" font-size="22" opacity=".7">NEKROTAFEIO</text>
+    <text x="594" y="220" font-size="18" transform="rotate(-28 594 220)" opacity=".7">Geor. Papandreou</text>
+  </g>
+  <text x="25" y="492" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="700" fill="#7a7a80">Google</text>
+  <text x="620" y="492" font-family="Inter, Arial, sans-serif" font-size="16" fill="#7a7a80">Map data ©2026</text>
+</svg>

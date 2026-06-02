@@ -64,13 +64,17 @@ export type SupportedTimezones =
 export interface Config {
   auth: {
     users: UserAuthOperations;
+    'payload-mcp-api-keys': PayloadMcpApiKeyAuthOperations;
   };
   blocks: {};
   collections: {
+    products: Product;
+    services: Service;
+    customers: Customer;
+    partners: Partner;
     users: User;
     media: Media;
-    partners: Partner;
-    customers: Customer;
+    'payload-mcp-api-keys': PayloadMcpApiKey;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,10 +82,13 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
+    products: ProductsSelect<false> | ProductsSelect<true>;
+    services: ServicesSelect<false> | ServicesSelect<true>;
+    customers: CustomersSelect<false> | CustomersSelect<true>;
+    partners: PartnersSelect<false> | PartnersSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    partners: PartnersSelect<false> | PartnersSelect<true>;
-    customers: CustomersSelect<false> | CustomersSelect<true>;
+    'payload-mcp-api-keys': PayloadMcpApiKeysSelect<false> | PayloadMcpApiKeysSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -92,22 +99,22 @@ export interface Config {
   };
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en' | 'el') | ('en' | 'el')[];
   globals: {
-    layout: Layout;
+    shared: Shared;
     home: Home;
-    about: About;
     contact: Contact;
+    company: Company;
   };
   globalsSelect: {
-    layout: LayoutSelect<false> | LayoutSelect<true>;
+    shared: SharedSelect<false> | SharedSelect<true>;
     home: HomeSelect<false> | HomeSelect<true>;
-    about: AboutSelect<false> | AboutSelect<true>;
     contact: ContactSelect<false> | ContactSelect<true>;
+    company: CompanySelect<false> | CompanySelect<true>;
   };
   locale: 'en' | 'el';
   widgets: {
     collections: CollectionsWidget;
   };
-  user: User;
+  user: User | PayloadMcpApiKey;
   jobs: {
     tasks: unknown;
     workflows: unknown;
@@ -130,6 +137,446 @@ export interface UserAuthOperations {
     email: string;
     password: string;
   };
+}
+export interface PayloadMcpApiKeyAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: string;
+  heroSection: {
+    title: string;
+    header: string;
+    description: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    service: string | Service;
+    image?: (string | null) | Media;
+  };
+  featuresSection?: {
+    features?:
+      | {
+          title: string;
+          description: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          };
+          icon: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  howItWorksSection: {
+    header: string;
+    tagline: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    steps?:
+      | {
+          title: string;
+          description: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          };
+          image?: (string | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  technologiesSection: {
+    header: string;
+    tagline: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    description: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    technologies?:
+      | {
+          name: string;
+          description: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  focusSection: {
+    header: string;
+    tagline: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+  };
+  implementationsSection: {
+    header: string;
+    tagline: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    caseStudies?:
+      | {
+          title: string;
+          description: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  title: string;
+  slug: string;
+  seo: {
+    title: string;
+    description: string;
+    keywords?:
+      | {
+          keyword: string;
+          id?: string | null;
+        }[]
+      | null;
+    image?: (string | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services".
+ */
+export interface Service {
+  id: string;
+  heroSection: {
+    title: string;
+    header: string;
+    description: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+  };
+  featuresSection: {
+    header: string;
+    features?:
+      | {
+          title: string;
+          description: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  approachSection: {
+    header: string;
+    tagline: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    steps?:
+      | {
+          title: string;
+          description: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  focusSection: {
+    header: string;
+    tagline: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+  };
+  implementationsSection: {
+    header: string;
+    tagline: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    caseStudies?:
+      | {
+          title: string;
+          description: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  title: string;
+  slug: string;
+  seo: {
+    title: string;
+    description: string;
+    keywords?:
+      | {
+          keyword: string;
+          id?: string | null;
+        }[]
+      | null;
+    image?: (string | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: string;
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customers".
+ */
+export interface Customer {
+  id: string;
+  name: string;
+  logo: string | Media;
+  website: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners".
+ */
+export interface Partner {
+  id: string;
+  name: string;
+  logo: string | Media;
+  website: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -157,57 +604,141 @@ export interface User {
   collection: 'users';
 }
 /**
+ * API keys control which collections, resources, tools, and prompts MCP clients can access
+ *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
+ * via the `definition` "payload-mcp-api-keys".
  */
-export interface Media {
-  id: string;
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "partners".
- */
-export interface Partner {
+export interface PayloadMcpApiKey {
   id: string;
   /**
-   * The name of the partner.
+   * The user that the API key is associated with.
    */
-  name: string;
+  user: string | User;
   /**
-   * The logo of the partner. Recommended box: 250x250px.
+   * A useful label for the API key.
    */
-  logo: string | Media;
+  label?: string | null;
+  /**
+   * The purpose of the API key.
+   */
+  description?: string | null;
+  products?: {
+    /**
+     * Allow clients to find products.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create products.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update products.
+     */
+    update?: boolean | null;
+  };
+  services?: {
+    /**
+     * Allow clients to find services.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create services.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update services.
+     */
+    update?: boolean | null;
+  };
+  customers?: {
+    /**
+     * Allow clients to find customers.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create customers.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update customers.
+     */
+    update?: boolean | null;
+  };
+  partners?: {
+    /**
+     * Allow clients to find partners.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create partners.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update partners.
+     */
+    update?: boolean | null;
+  };
+  media?: {
+    /**
+     * Allow clients to find media.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create media.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update media.
+     */
+    update?: boolean | null;
+  };
+  shared?: {
+    /**
+     * Allow clients to find shared global.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to update shared global.
+     */
+    update?: boolean | null;
+  };
+  home?: {
+    /**
+     * Allow clients to find home global.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to update home global.
+     */
+    update?: boolean | null;
+  };
+  contact?: {
+    /**
+     * Allow clients to find contact global.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to update contact global.
+     */
+    update?: boolean | null;
+  };
+  company?: {
+    /**
+     * Allow clients to find company global.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to update company global.
+     */
+    update?: boolean | null;
+  };
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "customers".
- */
-export interface Customer {
-  id: string;
-  /**
-   * The name of the customer.
-   */
-  name: string;
-  /**
-   * The logo of the customer. Recommended box: 250x250px.
-   */
-  logo: string | Media;
-  updatedAt: string;
-  createdAt: string;
+  enableAPIKey?: boolean | null;
+  apiKey?: string | null;
+  apiKeyIndex?: string | null;
+  collection: 'payload-mcp-api-keys';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -234,6 +765,22 @@ export interface PayloadLockedDocument {
   id: string;
   document?:
     | ({
+        relationTo: 'products';
+        value: string | Product;
+      } | null)
+    | ({
+        relationTo: 'services';
+        value: string | Service;
+      } | null)
+    | ({
+        relationTo: 'customers';
+        value: string | Customer;
+      } | null)
+    | ({
+        relationTo: 'partners';
+        value: string | Partner;
+      } | null)
+    | ({
         relationTo: 'users';
         value: string | User;
       } | null)
@@ -242,18 +789,19 @@ export interface PayloadLockedDocument {
         value: string | Media;
       } | null)
     | ({
-        relationTo: 'partners';
-        value: string | Partner;
-      } | null)
-    | ({
-        relationTo: 'customers';
-        value: string | Customer;
+        relationTo: 'payload-mcp-api-keys';
+        value: string | PayloadMcpApiKey;
       } | null);
   globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: string | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'payload-mcp-api-keys';
+        value: string | PayloadMcpApiKey;
+      };
   updatedAt: string;
   createdAt: string;
 }
@@ -263,10 +811,15 @@ export interface PayloadLockedDocument {
  */
 export interface PayloadPreference {
   id: string;
-  user: {
-    relationTo: 'users';
-    value: string | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'payload-mcp-api-keys';
+        value: string | PayloadMcpApiKey;
+      };
   key?: string | null;
   value?:
     | {
@@ -290,6 +843,193 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  heroSection?:
+    | T
+    | {
+        title?: T;
+        header?: T;
+        description?: T;
+        service?: T;
+        image?: T;
+      };
+  featuresSection?:
+    | T
+    | {
+        features?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              icon?: T;
+              id?: T;
+            };
+      };
+  howItWorksSection?:
+    | T
+    | {
+        header?: T;
+        tagline?: T;
+        steps?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              image?: T;
+              id?: T;
+            };
+      };
+  technologiesSection?:
+    | T
+    | {
+        header?: T;
+        tagline?: T;
+        description?: T;
+        technologies?:
+          | T
+          | {
+              name?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+  focusSection?:
+    | T
+    | {
+        header?: T;
+        tagline?: T;
+      };
+  implementationsSection?:
+    | T
+    | {
+        header?: T;
+        tagline?: T;
+        caseStudies?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+  title?: T;
+  slug?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        keywords?:
+          | T
+          | {
+              keyword?: T;
+              id?: T;
+            };
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services_select".
+ */
+export interface ServicesSelect<T extends boolean = true> {
+  heroSection?:
+    | T
+    | {
+        title?: T;
+        header?: T;
+        description?: T;
+      };
+  featuresSection?:
+    | T
+    | {
+        header?: T;
+        features?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+  approachSection?:
+    | T
+    | {
+        header?: T;
+        tagline?: T;
+        steps?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+  focusSection?:
+    | T
+    | {
+        header?: T;
+        tagline?: T;
+      };
+  implementationsSection?:
+    | T
+    | {
+        header?: T;
+        tagline?: T;
+        caseStudies?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+  title?: T;
+  slug?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        keywords?:
+          | T
+          | {
+              keyword?: T;
+              id?: T;
+            };
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customers_select".
+ */
+export interface CustomersSelect<T extends boolean = true> {
+  name?: T;
+  logo?: T;
+  website?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners_select".
+ */
+export interface PartnersSelect<T extends boolean = true> {
+  name?: T;
+  logo?: T;
+  website?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -333,23 +1073,76 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "partners_select".
+ * via the `definition` "payload-mcp-api-keys_select".
  */
-export interface PartnersSelect<T extends boolean = true> {
-  name?: T;
-  logo?: T;
+export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
+  user?: T;
+  label?: T;
+  description?: T;
+  products?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+      };
+  services?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+      };
+  customers?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+      };
+  partners?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+      };
+  media?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+      };
+  shared?:
+    | T
+    | {
+        find?: T;
+        update?: T;
+      };
+  home?:
+    | T
+    | {
+        find?: T;
+        update?: T;
+      };
+  contact?:
+    | T
+    | {
+        find?: T;
+        update?: T;
+      };
+  company?:
+    | T
+    | {
+        find?: T;
+        update?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "customers_select".
- */
-export interface CustomersSelect<T extends boolean = true> {
-  name?: T;
-  logo?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  enableAPIKey?: T;
+  apiKey?: T;
+  apiKeyIndex?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -393,46 +1186,24 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "layout".
+ * via the `definition` "shared".
  */
-export interface Layout {
+export interface Shared {
   id: string;
-  /**
-   * The header of the website, which is displayed on all pages.
-   */
-  header: {
-    /**
-     * The logo of the website. Recommended box: 250x250px.
-     */
-    logo: string | Media;
-    menu?:
+  logo: string | Media;
+  favicon: string | Media;
+  siteTitle: string;
+  header?: {
+    links?:
       | {
-          /**
-           * The label of the navigation item.
-           */
           label: string;
-          type: 'link' | 'submenu';
-          /**
-           * The link of the navigation item. Can be an internal or external link.
-           */
+          primary?: boolean | null;
           link?: string | null;
-          /**
-           * Whether the navigation item should be emphasized.
-           */
-          emphasized?: boolean | null;
-          /**
-           * The submenu items. Only displayed if the type is "Submenu".
-           */
-          submenu?:
+          subLinks?:
             | {
-                /**
-                 * The label of the submenu item.
-                 */
                 label: string;
-                /**
-                 * The link of the submenu item. Can be an internal or external link.
-                 */
-                link: string;
+                url: string;
+                absolute?: boolean | null;
                 id?: string | null;
               }[]
             | null;
@@ -440,56 +1211,45 @@ export interface Layout {
         }[]
       | null;
   };
-  /**
-   * The footer of the website, which is displayed on all pages.
-   */
   footer: {
-    /**
-     * The logo of the website. Recommended box: 250x250px.
-     */
-    logo: string | Media;
-    /**
-     * The copyright text for the footer.
-     */
-    copyrightsContent: string;
-    /**
-     * The services label for the footer.
-     */
-    servicesLabel: string;
-    /**
-     * The products label for the footer.
-     */
-    productsLabel: string;
-    /**
-     * The contact section of the footer.
-     */
-    contactSection: {
-      /**
-       * The label of the contact section.
-       */
-      label: string;
-      /**
-       * The header of the contact section.
-       */
+    top: {
       header: string;
-      /**
-       * The label of the action.
-       */
-      actionLabel: string;
+      tagline: string;
+      cta: {
+        label: string;
+        url: string;
+        absolute?: boolean | null;
+        id?: string | null;
+      };
     };
-  };
-  /**
-   * General settings for the website.
-   */
-  general: {
-    /**
-     * The name of the company, used in the SEO component.
-     */
-    companyName: string;
-    /**
-     * The favicon of the website. Recommended box: 32x32px.
-     */
-    favicon: string | Media;
+    middle: {
+      logo: string | Media;
+      linkGroups?:
+        | {
+            label: string;
+            links?:
+              | {
+                  label: string;
+                  url: string;
+                  absolute?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+          }[]
+        | null;
+    };
+    bottom: {
+      copyright: string;
+      links?:
+        | {
+            label: string;
+            url: string;
+            absolute?: boolean | null;
+            id?: string | null;
+          }[]
+        | null;
+    };
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -500,345 +1260,182 @@ export interface Layout {
  */
 export interface Home {
   id: string;
-  /**
-   * The sections of the home page, consisting of various blocks.
-   */
-  sections: (
-    | {
-        /**
-         * A short label for the section block, used for identification purposes.
-         */
-        label: string;
-        /**
-         * The header text for the section block.
-         */
-        header: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
+  heroSection: {
+    header: string;
+    tagline: string;
+    description: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
           [k: string]: unknown;
-        };
-        /**
-         * The content text for the section block.
-         */
-        content: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        };
-        /**
-         * The action button for the section block.
-         */
-        action: {
-          /**
-           * The label for the action button.
-           */
-          label: string;
-          /**
-           * The URL the action button will link to.
-           */
-          url: string;
-        };
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'section_01';
-      }
-    | {
-        /**
-         * The header text for the section block.
-         */
-        header: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        };
-        /**
-         * The content text for the section block.
-         */
-        content: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        };
-        /**
-         * The label for the discover more button.
-         */
-        discoverMoreLabel: string;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'section_02';
-      }
-    | {
-        /**
-         * A short label for the section block, used for identification purposes.
-         */
-        label: string;
-        /**
-         * The header text for the section block.
-         */
-        header: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        };
-        items?:
-          | {
-              /**
-               * The item title.
-               */
-              title: string;
-              /**
-               * The item description.
-               */
-              description: string;
-              /**
-               * The icon identifier for the item.
-               */
-              icon: string | Media;
-              /**
-               * The URL linked from the item action.
-               */
-              actionUrl: string;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'section_03';
-      }
-    | {
-        /**
-         * The content for the section block.
-         */
-        content: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        };
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'section_04';
-      }
-    | {
-        /**
-         * The label for the section block.
-         */
-        label: string;
-        items: {
-          /**
-           * The header for the item.
-           */
-          header: string;
-          /**
-           * The content for the item.
-           */
-          content: {
-            root: {
-              type: string;
-              children: {
-                type: any;
-                version: number;
-                [k: string]: unknown;
-              }[];
-              direction: ('ltr' | 'rtl') | null;
-              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-              indent: number;
-              version: number;
-            };
-            [k: string]: unknown;
-          };
-          /**
-           * The link for the item.
-           */
-          link: string;
-          id?: string | null;
         }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'section_05';
-      }
-    | {
-        /**
-         * The label for the section block.
-         */
-        label: string;
-        /**
-         * The header for the section block.
-         */
-        header: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        };
-        /**
-         * The content for the section block.
-         */
-        content: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        };
-        customers?: (string | Customer)[] | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'section_06';
-      }
-    | {
-        /**
-         * The label for the section block.
-         */
-        label: string;
-        /**
-         * The header for the section block.
-         */
-        header: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        };
-        /**
-         * The content for the section block.
-         */
-        content: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        };
-        partners?: (string | Partner)[] | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'section_07';
-      }
-  )[];
-  /**
-   * The slug of the home page.
-   */
-  slug: string;
-  /**
-   * Search Engine Optimization (SEO) settings for the page.
-   */
-  seo: {
-    /**
-     * The SEO title for the page, used in search engine results and browser tabs.
-     */
-    title: string;
-    /**
-     * The SEO description for the page, used in search engine results.
-     */
-    description: string;
-    /**
-     * The image used for SEO purposes, such as when sharing the page on social media.
-     */
-    metaImage: string | Media;
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    discoverModeLabel: string;
   };
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about".
- */
-export interface About {
-  id: string;
+  aboutSection: {
+    header: string;
+    tagline: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    description: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    cta: {
+      label: string;
+      url: string;
+      absolute?: boolean | null;
+      id?: string | null;
+    };
+  };
+  servicesSection: {
+    header: string;
+    tagline: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+  };
+  productsSection: {
+    header: string;
+    tagline: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+  };
+  partnersSection: {
+    header: string;
+    tagline: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    description: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    partners?: (string | Partner)[] | null;
+  };
+  customersSection: {
+    header: string;
+    tagline: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    description: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    customers?: (string | Customer)[] | null;
+  };
+  title: string;
+  slug: string;
+  seo: {
+    title: string;
+    description: string;
+    keywords?:
+      | {
+          keyword: string;
+          id?: string | null;
+        }[]
+      | null;
+    image?: (string | null) | Media;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -848,30 +1445,234 @@ export interface About {
  */
 export interface Contact {
   id: string;
+  heroSection: {
+    title: string;
+    description: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+  };
+  contactSection: {
+    header: string;
+    address: string;
+    phone: string;
+    email: string;
+    social?:
+      | {
+          label: string;
+          url: string;
+          absolute?: boolean | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  sendMessageSection: {
+    header: string;
+    tagline: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    formLabels: {
+      firstnameLabel: string;
+      lastnameLabel: string;
+      emailLabel: string;
+      phoneLabel: string;
+      messageLabel: string;
+      submitLabel: string;
+    };
+  };
+  title: string;
+  slug: string;
+  seo: {
+    title: string;
+    description: string;
+    keywords?:
+      | {
+          keyword: string;
+          id?: string | null;
+        }[]
+      | null;
+    image?: (string | null) | Media;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "layout_select".
+ * via the `definition` "company".
  */
-export interface LayoutSelect<T extends boolean = true> {
+export interface Company {
+  id: string;
+  heroSection: {
+    title: string;
+    description: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+  };
+  aboutSection: {
+    header: string;
+    tagline: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    description: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+  };
+  foundersSection: {
+    header: string;
+    tagline: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    founders?:
+      | {
+          name: string;
+          role: string;
+          image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  teamSection: {
+    header: string;
+    tagline: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    teamMembers?:
+      | {
+          name: string;
+          role: string;
+          department: string;
+          image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  manifestoSection: {
+    header: string;
+    tagline: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shared_select".
+ */
+export interface SharedSelect<T extends boolean = true> {
+  logo?: T;
+  favicon?: T;
+  siteTitle?: T;
   header?:
     | T
     | {
-        logo?: T;
-        menu?:
+        links?:
           | T
           | {
               label?: T;
-              type?: T;
+              primary?: T;
               link?: T;
-              emphasized?: T;
-              submenu?:
+              subLinks?:
                 | T
                 | {
                     label?: T;
-                    link?: T;
+                    url?: T;
+                    absolute?: T;
                     id?: T;
                   };
               id?: T;
@@ -880,23 +1681,52 @@ export interface LayoutSelect<T extends boolean = true> {
   footer?:
     | T
     | {
-        logo?: T;
-        copyrightsContent?: T;
-        servicesLabel?: T;
-        productsLabel?: T;
-        contactSection?:
+        top?:
           | T
           | {
-              label?: T;
               header?: T;
-              actionLabel?: T;
+              tagline?: T;
+              cta?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    absolute?: T;
+                    id?: T;
+                  };
             };
-      };
-  general?:
-    | T
-    | {
-        companyName?: T;
-        favicon?: T;
+        middle?:
+          | T
+          | {
+              logo?: T;
+              linkGroups?:
+                | T
+                | {
+                    label?: T;
+                    links?:
+                      | T
+                      | {
+                          label?: T;
+                          url?: T;
+                          absolute?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+            };
+        bottom?:
+          | T
+          | {
+              copyright?: T;
+              links?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    absolute?: T;
+                    id?: T;
+                  };
+            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -907,110 +1737,72 @@ export interface LayoutSelect<T extends boolean = true> {
  * via the `definition` "home_select".
  */
 export interface HomeSelect<T extends boolean = true> {
-  sections?:
+  heroSection?:
     | T
     | {
-        section_01?:
+        header?: T;
+        tagline?: T;
+        description?: T;
+        discoverModeLabel?: T;
+      };
+  aboutSection?:
+    | T
+    | {
+        header?: T;
+        tagline?: T;
+        description?: T;
+        cta?:
           | T
           | {
               label?: T;
-              header?: T;
-              content?: T;
-              action?:
-                | T
-                | {
-                    label?: T;
-                    url?: T;
-                  };
+              url?: T;
+              absolute?: T;
               id?: T;
-              blockName?: T;
-            };
-        section_02?:
-          | T
-          | {
-              header?: T;
-              content?: T;
-              discoverMoreLabel?: T;
-              id?: T;
-              blockName?: T;
-            };
-        section_03?:
-          | T
-          | {
-              label?: T;
-              header?: T;
-              items?:
-                | T
-                | {
-                    title?: T;
-                    description?: T;
-                    icon?: T;
-                    actionUrl?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        section_04?:
-          | T
-          | {
-              content?: T;
-              id?: T;
-              blockName?: T;
-            };
-        section_05?:
-          | T
-          | {
-              label?: T;
-              items?:
-                | T
-                | {
-                    header?: T;
-                    content?: T;
-                    link?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        section_06?:
-          | T
-          | {
-              label?: T;
-              header?: T;
-              content?: T;
-              customers?: T;
-              id?: T;
-              blockName?: T;
-            };
-        section_07?:
-          | T
-          | {
-              label?: T;
-              header?: T;
-              content?: T;
-              partners?: T;
-              id?: T;
-              blockName?: T;
             };
       };
+  servicesSection?:
+    | T
+    | {
+        header?: T;
+        tagline?: T;
+      };
+  productsSection?:
+    | T
+    | {
+        header?: T;
+        tagline?: T;
+      };
+  partnersSection?:
+    | T
+    | {
+        header?: T;
+        tagline?: T;
+        description?: T;
+        partners?: T;
+      };
+  customersSection?:
+    | T
+    | {
+        header?: T;
+        tagline?: T;
+        description?: T;
+        customers?: T;
+      };
+  title?: T;
   slug?: T;
   seo?:
     | T
     | {
         title?: T;
         description?: T;
-        metaImage?: T;
+        keywords?:
+          | T
+          | {
+              keyword?: T;
+              id?: T;
+            };
+        image?: T;
       };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about_select".
- */
-export interface AboutSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -1020,6 +1812,116 @@ export interface AboutSelect<T extends boolean = true> {
  * via the `definition` "contact_select".
  */
 export interface ContactSelect<T extends boolean = true> {
+  heroSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  contactSection?:
+    | T
+    | {
+        header?: T;
+        address?: T;
+        phone?: T;
+        email?: T;
+        social?:
+          | T
+          | {
+              label?: T;
+              url?: T;
+              absolute?: T;
+              id?: T;
+            };
+      };
+  sendMessageSection?:
+    | T
+    | {
+        header?: T;
+        tagline?: T;
+        formLabels?:
+          | T
+          | {
+              firstnameLabel?: T;
+              lastnameLabel?: T;
+              emailLabel?: T;
+              phoneLabel?: T;
+              messageLabel?: T;
+              submitLabel?: T;
+            };
+      };
+  title?: T;
+  slug?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        keywords?:
+          | T
+          | {
+              keyword?: T;
+              id?: T;
+            };
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "company_select".
+ */
+export interface CompanySelect<T extends boolean = true> {
+  heroSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  aboutSection?:
+    | T
+    | {
+        header?: T;
+        tagline?: T;
+        description?: T;
+      };
+  foundersSection?:
+    | T
+    | {
+        header?: T;
+        tagline?: T;
+        founders?:
+          | T
+          | {
+              name?: T;
+              role?: T;
+              image?: T;
+              id?: T;
+            };
+      };
+  teamSection?:
+    | T
+    | {
+        header?: T;
+        tagline?: T;
+        teamMembers?:
+          | T
+          | {
+              name?: T;
+              role?: T;
+              department?: T;
+              image?: T;
+              id?: T;
+            };
+      };
+  manifestoSection?:
+    | T
+    | {
+        header?: T;
+        tagline?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

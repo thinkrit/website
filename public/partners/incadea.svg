@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="330" height="110" viewBox="0 0 330 110" role="img" aria-labelledby="title">
+  <title id="title">incadea</title>
+  <text x="0" y="72" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="62" font-weight="700">incadea</text>
+  <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="7">
+    <rect x="248" y="22" width="49" height="49" rx="5"/>
+    <rect x="277" y="39" width="49" height="49" rx="5"/>
+    <path d="M278 56h-33a10 10 0 0 1 0-20h29"/>
+    <path d="M296 54h25a10 10 0 0 1 0 20h-28"/>
+  </g>
+</svg>
