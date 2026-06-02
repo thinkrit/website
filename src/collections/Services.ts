@@ -1,8 +1,17 @@
 import { PageFields } from '@/shared/fields/PageFields'
 import { CollectionConfig } from 'payload'
 
+import { revalidateCollection, revalidateCollectionDelete } from '@/hooks/revalidate'
+
 export const Services: CollectionConfig = {
   slug: 'services',
+  admin: {
+    useAsTitle: 'title',
+  },
+  hooks: {
+    afterChange: [revalidateCollection('services')],
+    afterDelete: [revalidateCollectionDelete('services')],
+  },
   fields: [
     {
       name: 'heroSection',

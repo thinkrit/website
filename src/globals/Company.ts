@@ -1,7 +1,12 @@
 import { GlobalConfig } from 'payload'
 
+import { revalidateGlobal } from '@/hooks/revalidate'
+
 export const Company: GlobalConfig = {
   slug: 'company',
+  hooks: {
+    afterChange: [revalidateGlobal('company')],
+  },
   fields: [
     {
       name: 'heroSection',

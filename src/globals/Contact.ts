@@ -2,8 +2,13 @@ import { CtaFields } from '@/shared/fields/CtaFields'
 import { PageFields } from '@/shared/fields/PageFields'
 import { GlobalConfig } from 'payload'
 
+import { revalidateGlobal } from '@/hooks/revalidate'
+
 export const Contact: GlobalConfig = {
   slug: 'contact',
+  hooks: {
+    afterChange: [revalidateGlobal('contact')],
+  },
   fields: [
     {
       name: 'heroSection',

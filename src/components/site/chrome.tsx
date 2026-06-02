@@ -4,8 +4,8 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 
 import { DesktopNav } from '@/components/site/DesktopNav'
-import { fieldArray, fieldLink, fieldRecord, fieldText, mediaUrl } from '@/lib/payload-local'
-import { getCopy, localizedPath, type LinkGroup, type LinkItem, type Locale } from '@/lib/site-data'
+import { fieldArray, fieldLink, fieldRecord, fieldText, mediaUrl, type LinkGroup, type LinkItem } from '@/lib/payload-local'
+import { localizedPath, type Locale } from '@/lib/routing'
 
 type SharedDoc = Record<string, unknown> | null
 
@@ -73,8 +73,7 @@ export function Header({
   shared: SharedDoc
   forceServicesOpen?: boolean
 }) {
-  const copy = getCopy(locale).shared
-  const nav = readNav(shared, copy.nav)
+  const nav = readNav(shared)
   const contactHref = localizedPath(locale, nav.contact.url)
 
   return (
@@ -190,18 +189,17 @@ export function FooterCta({
   shared: SharedDoc
   showButton?: boolean
 }) {
-  const copy = getCopy(locale).shared.footer
   const footer = fieldRecord(shared?.footer)
   const top = fieldRecord(footer?.top)
-  const tagline = fieldText(top?.tagline, copy.tagline)
+  const tagline = fieldText(top?.tagline)
   const cta = fieldRecord(top?.cta)
-  const ctaLabel = fieldText(cta?.label, copy.cta.label)
-  const ctaHref = fieldLink(cta) || copy.cta.url
+  const ctaLabel = fieldText(cta?.label)
+  const ctaHref = fieldLink(cta) || '/contact'
 
   return (
     <section className="bg-[var(--think-footer-gray)] pb-4 pt-20 lg:pt-24">
       <Container className="grid gap-10 md:grid-cols-[260px_1fr]">
-        <SectionLabel label={fieldText(top?.header, copy.label)} />
+        <SectionLabel label={fieldText(top?.header)} />
         <div className="max-w-2xl">
           <h2 className="text-balance text-2xl font-medium leading-tight text-zinc-950 sm:text-3xl md:text-5xl">{tagline}</h2>
           {showButton ? (
@@ -220,13 +218,12 @@ export function FooterCta({
 }
 
 export function SiteFooter({ locale, shared }: { locale: Locale; shared: SharedDoc }) {
-  const copy = getCopy(locale).shared.footer
   const footer = fieldRecord(shared?.footer)
   const middle = fieldRecord(footer?.middle)
   const bottom = fieldRecord(footer?.bottom)
-  const groups = readFooterGroups(middle, copy.groups)
-  const bottomLinks = readLinks(bottom?.links, copy.bottomLinks)
-  const copyright = fieldText(bottom?.copyright, copy.copyright)
+  const groups = readFooterGroups(middle)
+  const bottomLinks = readLinks(bottom?.links)
+  const copyright = fieldText(bottom?.copyright)
 
   return (
     <footer className="mx-auto mt-24 w-[calc(100%-32px)] max-w-[1450px] rounded-[24px] bg-white px-8 py-10 text-zinc-950 sm:w-[calc(100%-48px)] sm:px-12 lg:px-16">
@@ -285,7 +282,7 @@ export function ScrollCue({ label }: { label: string }) {
 
 export type NavData = ReturnType<typeof readNav>
 
-function readNav(shared: SharedDoc, fallback: ReturnType<typeof getCopy>['shared']['nav']) {
+function readNav(shared: SharedDoc) {
   const header = fieldRecord(shared?.header)
   const links = fieldArray(header?.links)
   const services = links[0]
@@ -295,41 +292,39 @@ function readNav(shared: SharedDoc, fallback: ReturnType<typeof getCopy>['shared
 
   return {
     services: {
-      label: fieldText(services?.label, fallback.services),
-      links: readLinks(services?.subLinks, fallback.serviceLinks),
+      label: fieldText(services?.label),
+      links: readLinks(services?.subLinks),
     },
     products: {
-      label: fieldText(products?.label, fallback.products),
-      links: readLinks(products?.subLinks, fallback.productLinks),
+      label: fieldText(products?.label),
+      links: readLinks(products?.subLinks),
     },
     company: {
-      label: fieldText(company?.label, fallback.company),
+      label: fieldText(company?.label),
       url: fieldLink(company) || '/company',
     },
     contact: {
-      label: fieldText(contact?.label, fallback.contact),
+      label: fieldText(contact?.label),
       url: fieldLink(contact) || '/contact',
     },
   }
 }
 
-function readFooterGroups(middle: Record<string, unknown> | null, fallback: LinkGroup[]): LinkGroup[] {
+function readFooterGroups(middle: Record<string, unknown> | null): LinkGroup[] {
   const groups = fieldArray(middle?.linkGroups)
-  if (groups.length === 0) return fallback
 
-  return groups.map((group, index) => ({
-    label: fieldText(group.label, fallback[index]?.label || ''),
-    links: readLinks(group.links, fallback[index]?.links || []),
+  return groups.map((group) => ({
+    label: fieldText(group.label),
+    links: readLinks(group.links),
   }))
 }
 
-function readLinks(value: unknown, fallback: LinkItem[]): LinkItem[] {
+function readLinks(value: unknown): LinkItem[] {
   const links = fieldArray(value)
-  if (links.length === 0) return fallback
 
-  return links.map((link, index) => ({
-    label: fieldText(link.label, fallback[index]?.label || ''),
-    url: fieldLink(link) || fallback[index]?.url || '/',
-    absolute: Boolean(link.absolute ?? fallback[index]?.absolute),
+  return links.map((link) => ({
+    label: fieldText(link.label),
+    url: fieldLink(link) || '/',
+    absolute: Boolean(link.absolute),
   }))
 }

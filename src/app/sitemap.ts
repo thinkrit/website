@@ -1,23 +1,26 @@
 import type { MetadataRoute } from 'next'
 
-import { getSiteUrl } from '@/lib/site-data'
+import { getSiteUrl, locales, localizedPath } from '@/lib/routing'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = getSiteUrl()
   const routes = ['/', '/company', '/contact', '/services/development', '/products/contactnow']
-  const localizedRoutes = routes.map((route) => `/el${route === '/' ? '' : route}`)
   const now = new Date()
 
-  return [...routes, ...localizedRoutes].map((route) => ({
-    url: `${siteUrl}${route}`,
-    lastModified: now,
-    changeFrequency: route === '/' || route === '/el' ? 'weekly' : 'monthly',
-    priority: route === '/' || route === '/el' ? 1 : 0.8,
-    alternates: {
-      languages: {
-        en: `${siteUrl}${route.startsWith('/el') ? route.replace('/el', '') || '/' : route}`,
-        el: `${siteUrl}${route.startsWith('/el') ? route : `/el${route === '/' ? '' : route}`}`,
+  const languages = (route: string) =>
+    Object.fromEntries(
+      locales.map((locale) => [locale, `${siteUrl}${localizedPath(locale, route)}`]),
+    )
+
+  return locales.flatMap((locale) =>
+    routes.map((route) => ({
+      url: `${siteUrl}${localizedPath(locale, route)}`,
+      lastModified: now,
+      changeFrequency: route === '/' ? 'weekly' : 'monthly',
+      priority: route === '/' ? 1 : 0.8,
+      alternates: {
+        languages: languages(route),
       },
-    },
-  }))
+    })),
+  )
 }

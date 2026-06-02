@@ -7,7 +7,8 @@ import { useEffect, useRef, useState } from 'react'
 const HOVER_CLOSE_DELAY = 120
 
 import type { NavData } from '@/components/site/chrome'
-import { localizedPath, type LinkItem, type Locale } from '@/lib/site-data'
+import type { LinkItem } from '@/lib/payload-local'
+import { localizedPath, type Locale } from '@/lib/routing'
 
 type OpenMenu = 'services' | 'products' | null
 

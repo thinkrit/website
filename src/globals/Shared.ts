@@ -1,8 +1,13 @@
 import { CtaFields } from '@/shared/fields/CtaFields'
 import { GlobalConfig } from 'payload'
 
+import { revalidateGlobal } from '@/hooks/revalidate'
+
 export const Shared: GlobalConfig = {
   slug: 'shared',
+  hooks: {
+    afterChange: [revalidateGlobal('shared')],
+  },
   fields: [
     {
       name: 'logo',

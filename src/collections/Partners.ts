@@ -1,9 +1,15 @@
 import type { CollectionConfig } from 'payload'
 
+import { revalidateCollection, revalidateCollectionDelete } from '@/hooks/revalidate'
+
 export const Partners: CollectionConfig = {
   slug: 'partners',
   admin: {
     useAsTitle: 'name',
+  },
+  hooks: {
+    afterChange: [revalidateCollection('partners')],
+    afterDelete: [revalidateCollectionDelete('partners')],
   },
   fields: [
     {

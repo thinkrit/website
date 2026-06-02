@@ -36,6 +36,12 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.resolve(dirname),
   },
+  experimental: {
+    // Enables the `'use cache'` directive used by the Payload data layer
+    // (lib/payload-local.ts) to cache reads indefinitely until a tag is
+    // invalidated via revalidateTag (hooks/revalidate.ts).
+    useCache: true,
+  },
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })

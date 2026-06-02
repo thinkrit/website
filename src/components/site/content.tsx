@@ -16,7 +16,8 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 
 import { Container, SectionLabel } from '@/components/site/chrome'
-import { localizedPath, type CaseStudy, type Feature, type Locale, type ServiceCard, type Step } from '@/lib/site-data'
+import type { CaseStudy, Feature, ServiceCard, Step } from '@/lib/payload-local'
+import { localizedPath, type Locale } from '@/lib/routing'
 
 export function HighlightedTitle({
   text,
@@ -74,7 +75,7 @@ export function ServiceTile({
   return (
     <Link
       className={`group flex min-h-[260px] flex-col justify-between rounded-[20px] p-8 transition hover:-translate-y-1 ${tones[card.tone]}`}
-      href={localizedPath(locale, `/services/${card.title.toLowerCase().replace(/\s+/g, '-')}`)}
+      href={localizedPath(locale, `/services/${card.slug}`)}
     >
       <div className="flex items-start justify-between">
         {card.title === 'Cloud' ? <Cloud className="h-9 w-9 text-white" /> : card.title === 'Consulting' ? <MessageSquare className="h-9 w-9 text-white" /> : <Code2 className="h-9 w-9 text-white" />}
@@ -187,7 +188,7 @@ export function ProductSteps({ title, steps }: { title: ReactNode; steps: Step[]
                   <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-500">{step.description}</p>
                 </div>
               </div>
-              <ImagePanel aspect="aspect-[5/3]" />
+              <ImagePanel aspect="aspect-[5/3]" src={step.image} />
             </div>
           ))}
         </div>

@@ -6,31 +6,51 @@ import { notFound } from 'next/navigation'
 import { Container, SectionLabel, FooterCta, HeroFrame, ScrollCue } from '@/components/site/chrome'
 import { HighlightedTitle, ServiceTile } from '@/components/site/content'
 import { HyperspeedHeroBackground } from '@/components/site/HyperspeedHeroBackground'
-import { fieldArray, fieldRecord, fieldText, getGlobalDoc, mediaUrl } from '@/lib/payload-local'
-import { getCopy, isLocale, localizedPath } from '@/lib/site-data'
+import {
+  fieldArray,
+  fieldLink,
+  fieldRecord,
+  fieldText,
+  getCollectionDocs,
+  getGlobalDoc,
+  mediaUrl,
+  type ServiceCard,
+} from '@/lib/payload-local'
+import { isLocale, localizedPath } from '@/lib/routing'
 
-export const dynamic = 'force-dynamic'
+// Cache the rendered page indefinitely. It is rebuilt only when a Payload
+// create/update/delete invalidates a matching cache tag (see hooks/revalidate.ts).
+export const dynamic = 'force-static'
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   if (!isLocale(locale)) notFound()
 
-  const [shared, home] = await Promise.all([getGlobalDoc('shared', locale), getGlobalDoc('home', locale)])
-  const fallback = getCopy(locale).home
+  const [shared, home, servicesDocs, productsDocs] = await Promise.all([
+    getGlobalDoc('shared', locale),
+    getGlobalDoc('home', locale),
+    getCollectionDocs('services', locale),
+    getCollectionDocs('products', locale),
+  ])
+  if (!shared || !home) notFound()
+
   const hero = fieldRecord(home?.heroSection)
   const about = fieldRecord(home?.aboutSection)
   const services = fieldRecord(home?.servicesSection)
   const products = fieldRecord(home?.productsSection)
   const partners = fieldRecord(home?.partnersSection)
   const customers = fieldRecord(home?.customersSection)
+  const aboutCta = fieldRecord(about?.cta)
 
-  const heroTitle = fieldText(hero?.header, fallback.hero.title)
-  const heroDescription = fieldText(hero?.description, fallback.hero.description)
-  const heroCta = fieldText(hero?.discoverModeLabel, fallback.hero.cta)
-  const aboutTitle = fieldText(about?.tagline, fallback.about.title)
-  const aboutDescription = fieldText(about?.description, fallback.about.description)
-  const servicesTitle = fieldText(services?.tagline, fallback.services.title)
-  const productsTitle = fieldText(products?.tagline, fallback.products.title)
+  const heroTitle = fieldText(hero?.header)
+  const heroDescription = fieldText(hero?.description)
+  const heroCta = fieldText(hero?.discoverModeLabel)
+  const aboutTitle = fieldText(about?.tagline)
+  const aboutDescription = fieldText(about?.description)
+  const servicesTitle = fieldText(services?.tagline)
+  const productsTitle = fieldText(products?.tagline)
+  const serviceCards = readServiceCards(servicesDocs)
+  const productItems = readProductItems(productsDocs)
 
   return (
     <>
@@ -46,7 +66,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
 
       <section className="py-24 lg:py-28">
         <Container className="grid gap-10 md:grid-cols-[260px_1fr]">
-          <SectionLabel label={fieldText(about?.header, fallback.about.label)} />
+          <SectionLabel label={fieldText(about?.header)} />
           <div className="max-w-4xl">
             <HighlightedTitle
               className="text-balance text-2xl font-medium leading-tight text-zinc-950 sm:text-3xl md:text-5xl"
@@ -56,9 +76,9 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
             <p className="mt-10 max-w-3xl text-base leading-loose text-zinc-600">{aboutDescription}</p>
             <Link
               className="mt-8 inline-flex rounded-lg bg-zinc-950 px-6 py-4 text-[12px] font-semibold uppercase leading-none !text-white transition hover:bg-zinc-800"
-              href={localizedPath(locale, '/company')}
+              href={localizedPath(locale, fieldLink(aboutCta) || '/company')}
             >
-              {fallback.about.cta}
+              {fieldText(aboutCta?.label)}
             </Link>
           </div>
         </Container>
@@ -66,13 +86,13 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
 
       <section className="bg-[var(--think-soft)] py-20 lg:py-24">
         <Container className="grid gap-12 lg:grid-cols-[360px_1fr]">
-          <SectionLabel label={fieldText(services?.header, fallback.services.label)} />
+          <SectionLabel label={fieldText(services?.header)} />
           <h2 className="max-w-4xl text-balance text-2xl font-medium leading-tight text-zinc-950 sm:text-3xl md:text-5xl">
             {servicesTitle}
           </h2>
         </Container>
         <Container className="mt-16 grid gap-8 md:grid-cols-3">
-          {fallback.services.cards.map((card) => (
+          {serviceCards.map((card) => (
             <ServiceTile card={card} key={card.title} locale={locale} />
           ))}
         </Container>
@@ -88,12 +108,12 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
 
       <section className="pb-24">
         <Container>
-          <SectionLabel label={fieldText(products?.header, fallback.products.label)} />
+          <SectionLabel label={fieldText(products?.header)} />
           <div className="mt-10 border-y border-zinc-200">
-            {fallback.products.items.map((item, index) => (
+            {productItems.map((item, index) => (
               <Link
                 className="grid gap-4 border-b border-zinc-200 py-8 transition last:border-b-0 hover:bg-zinc-50 sm:grid-cols-[56px_1fr_44px]"
-                href={localizedPath(locale, `/products/${item.title.toLowerCase().replace('.', '').replace(/\s+/g, '-')}`)}
+                href={localizedPath(locale, `/products/${item.slug}`)}
                 key={item.title}
               >
                 <span className="text-2xl font-medium text-[var(--think-red)]">{String(index + 1).padStart(2, '0')}</span>
@@ -112,17 +132,17 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
 
       <section className="mx-2 rounded-3xl bg-zinc-950 py-24 text-white lg:py-32">
         <LogoShowcase
-          description={fieldText(partners?.description, fallback.partners.description)}
-          label={fieldText(partners?.header, fallback.partners.label)}
-          logos={readLogos(partners?.partners, fallback.partners.logos)}
-          title={fieldText(partners?.tagline, fallback.partners.title)}
+          description={fieldText(partners?.description)}
+          label={fieldText(partners?.header)}
+          logos={readLogos(partners?.partners)}
+          title={fieldText(partners?.tagline)}
         />
         <LogoShowcase
           className="mt-28 lg:mt-40"
-          description={fieldText(customers?.description, fallback.customers.description)}
-          label={fieldText(customers?.header, fallback.customers.label)}
-          logos={readLogos(customers?.customers, fallback.customers.logos)}
-          title={fieldText(customers?.tagline, fallback.customers.title)}
+          description={fieldText(customers?.description)}
+          label={fieldText(customers?.header)}
+          logos={readLogos(customers?.customers)}
+          title={fieldText(customers?.tagline)}
         />
       </section>
 
@@ -170,12 +190,30 @@ function LogoShowcase({
   )
 }
 
-function readLogos(value: unknown, fallback: Array<{ alt: string; src: string }>) {
+function readLogos(value: unknown) {
   const docs = fieldArray(value)
-  if (docs.length === 0) return fallback
+
+  return docs.map((doc) => ({
+    alt: fieldText(doc.name),
+    src: mediaUrl(doc.logo),
+  }))
+}
+
+function readServiceCards(docs: Record<string, unknown>[]): ServiceCard[] {
+  const tones: ServiceCard['tone'][] = ['red', 'dark', 'gray']
 
   return docs.map((doc, index) => ({
-    alt: fieldText(doc.name, fallback[index]?.alt || ''),
-    src: mediaUrl(doc.logo, fallback[index]?.src || '/placeholder-panel.svg'),
+    title: fieldText(doc.title),
+    description: fieldText(fieldRecord(doc.heroSection)?.description),
+    slug: fieldText(doc.slug),
+    tone: tones[index % tones.length],
+  }))
+}
+
+function readProductItems(docs: Record<string, unknown>[]) {
+  return docs.map((doc) => ({
+    title: fieldText(doc.title),
+    description: fieldText(fieldRecord(doc.heroSection)?.description),
+    slug: fieldText(doc.slug),
   }))
 }

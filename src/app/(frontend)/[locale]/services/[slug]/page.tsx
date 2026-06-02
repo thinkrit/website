@@ -3,10 +3,12 @@ import { notFound } from 'next/navigation'
 import { Container, FooterCta, HeroFrame, SectionLabel } from '@/components/site/chrome'
 import { ApproachSplit, CaseStudies, FeatureRows, FocusStatement } from '@/components/site/content'
 import { PixelBlastHeroBackground } from '@/components/site/PixelBlastHeroBackground'
-import { fieldArray, fieldRecord, fieldText, getCollectionDoc, getGlobalDoc } from '@/lib/payload-local'
-import { getCopy, isLocale, type CaseStudy, type Feature, type Step } from '@/lib/site-data'
+import { fieldArray, fieldRecord, fieldText, getCollectionDoc, getGlobalDoc, type CaseStudy, type Feature, type Step } from '@/lib/payload-local'
+import { isLocale } from '@/lib/routing'
 
-export const dynamic = 'force-dynamic'
+// Cache the rendered page indefinitely. It is rebuilt only when a Payload
+// create/update/delete invalidates a matching cache tag (see hooks/revalidate.ts).
+export const dynamic = 'force-static'
 
 export default async function Page({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params
@@ -16,7 +18,8 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
     getGlobalDoc('shared', locale),
     getCollectionDoc('services', slug, locale),
   ])
-  const fallback = getCopy(locale).service
+  if (!shared || !service) notFound()
+
   const hero = fieldRecord(service?.heroSection)
   const features = fieldRecord(service?.featuresSection)
   const approach = fieldRecord(service?.approachSection)
@@ -28,41 +31,41 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
       <HeroFrame background={<PixelBlastHeroBackground />} compact locale={locale} shared={shared}>
         <div>
           <h1 className="text-balance text-3xl font-medium leading-tight text-zinc-950 sm:text-4xl md:text-6xl">
-            {fieldText(hero?.title, fallback.hero.title)}
+            {fieldText(hero?.title)}
           </h1>
         </div>
         <div className="self-end border-l border-zinc-200 pl-8">
-          <SectionLabel label={fieldText(hero?.header, fallback.hero.label)} />
+          <SectionLabel label={fieldText(hero?.header)} />
           <p className="mt-8 max-w-3xl text-base leading-loose text-zinc-700">
-            {fieldText(hero?.description, fallback.hero.description)}
+            {fieldText(hero?.description)}
           </p>
         </div>
       </HeroFrame>
 
       <section className="pb-24 pt-24">
         <Container>
-          <SectionLabel label={fieldText(features?.header, fallback.features.label)} />
+          <SectionLabel label={fieldText(features?.header)} />
         </Container>
       </section>
       <div className="pb-24">
-        <FeatureRows features={readFeatures(features?.features, fallback.features.items)} />
+        <FeatureRows features={readFeatures(features?.features)} />
       </div>
 
       <ApproachSplit
-        label={fieldText(approach?.header, fallback.approach.label)}
-        steps={readSteps(approach?.steps, fallback.approach.steps)}
-        title={fieldText(approach?.tagline, fallback.approach.title)}
+        label={fieldText(approach?.header)}
+        steps={readSteps(approach?.steps)}
+        title={fieldText(approach?.tagline)}
       />
 
       <FocusStatement
-        label={fieldText(focus?.header, fallback.focus.label)}
-        title={fieldText(focus?.tagline, fallback.focus.title)}
+        label={fieldText(focus?.header)}
+        title={fieldText(focus?.tagline)}
       />
 
       <CaseStudies
-        label={fieldText(implementations?.header, fallback.implementations.label)}
-        studies={readCaseStudies(implementations?.caseStudies, fallback.implementations.caseStudies)}
-        title={fieldText(implementations?.tagline, fallback.implementations.title)}
+        label={fieldText(implementations?.header)}
+        studies={readCaseStudies(implementations?.caseStudies)}
+        title={fieldText(implementations?.tagline)}
       />
 
       <FooterCta locale={locale} shared={shared} />
@@ -70,32 +73,29 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
   )
 }
 
-function readFeatures(value: unknown, fallback: Feature[]): Feature[] {
+function readFeatures(value: unknown): Feature[] {
   const features = fieldArray(value)
-  if (features.length === 0) return fallback
 
-  return features.map((feature, index) => ({
-    title: fieldText(feature.title, fallback[index]?.title || ''),
-    description: fieldText(feature.description, fallback[index]?.description || ''),
+  return features.map((feature) => ({
+    title: fieldText(feature.title),
+    description: fieldText(feature.description),
   }))
 }
 
-function readSteps(value: unknown, fallback: Step[]): Step[] {
+function readSteps(value: unknown): Step[] {
   const steps = fieldArray(value)
-  if (steps.length === 0) return fallback
 
-  return steps.map((step, index) => ({
-    title: fieldText(step.title, fallback[index]?.title || ''),
-    description: fieldText(step.description, fallback[index]?.description || ''),
+  return steps.map((step) => ({
+    title: fieldText(step.title),
+    description: fieldText(step.description),
   }))
 }
 
-function readCaseStudies(value: unknown, fallback: CaseStudy[]): CaseStudy[] {
+function readCaseStudies(value: unknown): CaseStudy[] {
   const studies = fieldArray(value)
-  if (studies.length === 0) return fallback
 
-  return studies.map((study, index) => ({
-    title: fieldText(study.title, fallback[index]?.title || ''),
-    description: fieldText(study.description, fallback[index]?.description || ''),
+  return studies.map((study) => ({
+    title: fieldText(study.title),
+    description: fieldText(study.description),
   }))
 }

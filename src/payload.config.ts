@@ -45,6 +45,13 @@ export default buildConfig({
   sharp,
   plugins: [
     mcpPlugin({
+      overrideApiKeyCollection: (collection) => ({
+        ...collection,
+        admin: {
+          ...collection.admin,
+          group: 'Admin',
+        },
+      }),
       collections: {
         products: {
           description: 'Product pages and product implementation details.',

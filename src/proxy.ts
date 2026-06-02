@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
-import { locales } from '@/lib/site-data'
+import { locales } from '@/lib/routing'
 
 const DEFAULT_LOCALE = 'en'
 
