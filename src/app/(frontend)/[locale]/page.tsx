@@ -153,12 +153,12 @@ function LogoShowcase({
           <p className="mt-8 max-w-3xl text-lg leading-loose text-white/90 sm:text-xl md:text-2xl">{description}</p>
         </div>
       </div>
-      <div className="mt-24 grid items-center gap-x-14 gap-y-14 sm:grid-cols-2 lg:mt-40 lg:grid-cols-4">
+      <div className="mt-24 grid items-center gap-x-24 gap-y-20 sm:grid-cols-2 lg:mt-40 lg:grid-cols-4">
         {logos.map((logo) => (
           <div className="flex min-h-24 items-center justify-center lg:justify-start" key={`${label}-${logo.alt}`}>
             <Image
               alt={logo.alt}
-              className="max-h-24 w-auto object-contain"
+              className="max-h-16 w-auto max-w-45 object-contain grayscale transition duration-300 hover:grayscale-0"
               height={130}
               src={logo.src}
               width={360}

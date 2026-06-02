@@ -37,20 +37,20 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
         <Container className="grid gap-10 md:grid-cols-[260px_1fr]">
           <SectionLabel label={fieldText(info?.header, fallback.info.label)} />
           <div className="grid gap-12 lg:grid-cols-[1fr_440px]">
-            <div className="text-xl font-medium leading-snug text-zinc-950 sm:text-2xl">
+            <div className="text-lg font-medium leading-snug text-zinc-950 sm:text-xl">
               <p>{fallback.info.company}</p>
               <p className="whitespace-pre-line">{fieldText(info?.address, fallback.info.address)}</p>
 
               <div className="mt-10">
-                <p className="text-lg font-semibold uppercase text-zinc-400">{fallback.info.phoneLabel}</p>
+                <p className="text-base font-semibold uppercase text-zinc-400">{fallback.info.phoneLabel}</p>
                 <p>{fieldText(info?.phone, fallback.info.phone)}</p>
               </div>
               <div className="mt-8">
-                <p className="text-lg font-semibold uppercase text-zinc-400">{fallback.info.emailLabel}</p>
+                <p className="text-base font-semibold uppercase text-zinc-400">{fallback.info.emailLabel}</p>
                 <p>{fieldText(info?.email, fallback.info.email)}</p>
               </div>
               <div className="mt-8">
-                <p className="text-lg font-semibold uppercase text-zinc-400">{fallback.info.socialLabel}</p>
+                <p className="text-base font-semibold uppercase text-zinc-400">{fallback.info.socialLabel}</p>
                 <p>{fallback.info.social}</p>
               </div>
             </div>
@@ -71,7 +71,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
         <Container className="grid gap-10 md:grid-cols-[260px_1fr]">
           <SectionLabel label={fieldText(message?.header, fallback.form.label)} />
           <form className="max-w-5xl">
-            <h2 className="max-w-3xl text-balance text-2xl font-medium leading-tight text-zinc-950 sm:text-3xl md:text-5xl">
+            <h2 className="max-w-3xl text-balance text-xl font-medium leading-tight text-zinc-950 sm:text-2xl md:text-4xl">
               {fieldText(message?.tagline, fallback.form.title)}
             </h2>
             <div className="mt-14 grid gap-6 sm:grid-cols-2">
