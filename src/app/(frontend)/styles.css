@@ -82,8 +82,6 @@ textarea:focus {
   visibility: hidden;
 }
 
-.nav-menu:hover .nav-menu-panel,
-.nav-menu:focus-within .nav-menu-panel,
 .nav-menu-panel.is-open {
   opacity: 1;
   pointer-events: auto;

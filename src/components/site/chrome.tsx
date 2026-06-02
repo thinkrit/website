@@ -1,8 +1,9 @@
-import { ArrowDown, ArrowUp, ChevronDown, Menu } from 'lucide-react'
+import { ArrowDown, ArrowUp, Menu } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 
+import { DesktopNav } from '@/components/site/DesktopNav'
 import { fieldArray, fieldLink, fieldRecord, fieldText, mediaUrl } from '@/lib/payload-local'
 import { getCopy, localizedPath, type LinkGroup, type LinkItem, type Locale } from '@/lib/site-data'
 
@@ -49,11 +50,12 @@ export function Logo({
   className?: string
 }) {
   const src = variant === 'red' ? mediaUrl(shared?.logo, logoByVariant.red) : logoByVariant[variant]
+  const width = className.includes('w-') ? '' : 'w-[74px]'
 
   return (
     <Image
       alt="ThinkRIT"
-      className={`h-auto w-[74px] ${className}`}
+      className={`h-auto ${width} ${className}`.trim()}
       height={72}
       priority
       src={src}
@@ -65,12 +67,10 @@ export function Logo({
 export function Header({
   locale,
   shared,
-  logoVariant = 'red',
   forceServicesOpen = false,
 }: {
   locale: Locale
   shared: SharedDoc
-  logoVariant?: LogoVariant
   forceServicesOpen?: boolean
 }) {
   const copy = getCopy(locale).shared
@@ -80,41 +80,30 @@ export function Header({
   return (
     <header className="relative z-20 mx-auto flex w-full max-w-[1320px] items-start justify-between gap-4 px-5 pt-7 sm:px-8 lg:px-12">
       <Link aria-label="ThinkRIT home" href={localizedPath(locale, '/')}>
-        <Logo shared={shared} variant={logoVariant} />
+        <Logo className="w-[110px]" shared={shared} variant="red" />
       </Link>
 
-      <div className="hidden items-start gap-3 lg:flex">
-        <nav className="flex rounded-lg bg-white text-[13px] font-semibold uppercase leading-none text-zinc-700 shadow-[0_1px_0_rgba(0,0,0,0.03)]">
-          <NavDropdown
-            forceOpen={forceServicesOpen}
-            items={nav.services.links}
-            label={nav.services.label}
-            locale={locale}
-          />
-          <NavDropdown items={nav.products.links} label={nav.products.label} locale={locale} />
-          <Link className="px-8 py-5 transition hover:text-black" href={localizedPath(locale, nav.company.url)}>
-            {nav.company.label}
-          </Link>
-        </nav>
-        <Link
-          className="rounded-lg bg-zinc-950 px-7 py-5 text-[13px] font-semibold uppercase leading-none !text-white transition hover:bg-zinc-800"
-          href={contactHref}
-        >
-          {nav.contact.label}
-        </Link>
-      </div>
+      <DesktopNav
+        contactHref={contactHref}
+        forceServicesOpen={forceServicesOpen}
+        locale={locale}
+        nav={nav}
+      />
 
       <details className="group relative lg:hidden">
         <summary className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-lg bg-white text-zinc-900 shadow-sm [&::-webkit-details-marker]:hidden">
           <Menu aria-hidden className="h-5 w-5" />
         </summary>
         <div className="absolute right-0 top-13 w-56 rounded-lg bg-white p-2 text-sm font-semibold uppercase text-zinc-800 shadow-xl">
+          <MobileGroupLabel label={nav.services.label} />
           {nav.services.links.map((item) => (
             <MobileLink item={item} key={item.label} locale={locale} />
           ))}
+          <MobileGroupLabel label={nav.products.label} />
           {nav.products.links.map((item) => (
             <MobileLink item={item} key={item.label} locale={locale} />
           ))}
+          <hr className="my-2 border-zinc-100" />
           <MobileLink item={nav.company} locale={locale} />
           <MobileLink item={nav.contact} locale={locale} />
         </div>
@@ -123,41 +112,11 @@ export function Header({
   )
 }
 
-function NavDropdown({
-  label,
-  items,
-  locale,
-  forceOpen,
-}: {
-  label: string
-  items: LinkItem[]
-  locale: Locale
-  forceOpen?: boolean
-}) {
+function MobileGroupLabel({ label }: { label: string }) {
   return (
-    <div className="nav-menu relative">
-      <button className="flex items-center gap-2 px-8 py-5 uppercase transition hover:text-black" type="button">
-        <span>{label}</span>
-        <ChevronDown aria-hidden className="h-4 w-4" />
-      </button>
-      <div
-        className={`nav-menu-panel absolute left-0 top-full min-w-44 pt-2 text-[12px] transition ${
-          forceOpen ? 'is-open' : ''
-        }`}
-      >
-        <div className="rounded-lg bg-white p-3 shadow-xl">
-          {items.map((item) => (
-            <Link
-              className="block rounded-md px-3 py-3 uppercase text-zinc-800 transition hover:bg-zinc-100"
-              href={localizedPath(locale, item.url)}
-              key={item.label}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </div>
-      </div>
-    </div>
+    <p className="px-3 pb-1 pt-3 text-[11px] font-semibold uppercase tracking-wide text-zinc-400 first:pt-1">
+      {label}
+    </p>
   )
 }
 
@@ -192,7 +151,7 @@ export function HeroFrame({
 
   return (
     <section
-      className={`relative mx-2 mt-2 overflow-visible rounded-lg ${
+      className={`relative mx-2 mt-2 overflow-visible rounded-3xl ${
         isHome
           ? hasBackground
             ? 'bg-zinc-950 text-white'
@@ -202,23 +161,18 @@ export function HeroFrame({
     >
       {background ? (
         <div
-          className="pointer-events-none absolute overflow-hidden rounded-lg"
+          className="pointer-events-none absolute z-0 overflow-hidden rounded-3xl"
           style={{ inset: 0, pointerEvents: 'none' }}
         >
           {background}
         </div>
       ) : null}
-      <Header
-        forceServicesOpen={forceServicesOpen}
-        locale={locale}
-        logoVariant={isHome ? 'white' : 'red'}
-        shared={shared}
-      />
+      <Header forceServicesOpen={forceServicesOpen} locale={locale} shared={shared} />
       <div
         className={`relative z-10 mx-auto grid w-full max-w-[1320px] px-5 pb-10 pt-24 sm:px-8 lg:px-12 ${
           compact
-            ? 'min-h-[430px] content-end gap-12 md:grid-cols-[1fr_1.35fr]'
-            : 'min-h-[min(720px,calc(100svh-64px))] content-end gap-10 md:grid-cols-[1.2fr_1fr]'
+            ? 'min-h-[min(540px,calc(100svh-64px))] content-end gap-12 md:grid-cols-[1fr_1.35fr]'
+            : 'min-h-[min(620px,calc(100svh-64px))] content-end gap-10 md:grid-cols-[1.2fr_1fr]'
         }`}
       >
         {children}
@@ -249,7 +203,7 @@ export function FooterCta({
       <Container className="grid gap-10 md:grid-cols-[260px_1fr]">
         <SectionLabel label={fieldText(top?.header, copy.label)} />
         <div className="max-w-2xl">
-          <h2 className="text-balance text-4xl font-medium leading-tight text-zinc-950 md:text-5xl">{tagline}</h2>
+          <h2 className="text-balance text-2xl font-medium leading-tight text-zinc-950 sm:text-3xl md:text-5xl">{tagline}</h2>
           {showButton ? (
             <Link
               className="mt-8 inline-flex rounded-lg bg-zinc-950 px-6 py-4 text-[12px] font-semibold uppercase leading-none !text-white transition hover:bg-zinc-800"
@@ -328,6 +282,8 @@ export function ScrollCue({ label }: { label: string }) {
     </div>
   )
 }
+
+export type NavData = ReturnType<typeof readNav>
 
 function readNav(shared: SharedDoc, fallback: ReturnType<typeof getCopy>['shared']['nav']) {
   const header = fieldRecord(shared?.header)

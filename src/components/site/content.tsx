@@ -106,7 +106,7 @@ export function FeatureColumns({ features }: { features: Feature[] }) {
           key={`${feature.title}-${index}`}
         >
           <FeatureIcon name={feature.icon} />
-          <h2 className="mt-8 max-w-[260px] text-3xl font-medium leading-tight text-zinc-950">{feature.title}</h2>
+          <h2 className="mt-8 max-w-[260px] text-2xl font-medium leading-tight text-zinc-950 sm:text-3xl">{feature.title}</h2>
           <p className="mt-4 max-w-[280px] text-base leading-relaxed text-zinc-600">{feature.description}</p>
         </div>
       ))}
@@ -121,7 +121,7 @@ export function FeatureRows({ features }: { features: Feature[] }) {
         <details className="group border-b border-zinc-200 last:border-b-0" key={feature.title}>
           <summary className="cursor-pointer list-none text-zinc-950 [&::-webkit-details-marker]:hidden">
             <Container className="flex items-center justify-between gap-6 py-8">
-              <span className="text-3xl font-medium leading-tight">{feature.title}</span>
+              <span className="text-xl font-medium leading-tight sm:text-3xl">{feature.title}</span>
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-[var(--think-red)] text-white">
                 <Plus className="h-6 w-6 transition group-open:rotate-45" />
               </span>
@@ -151,7 +151,7 @@ export function ApproachSplit({
         <div className="bg-zinc-950 px-5 py-20 text-white sm:px-8 lg:bg-transparent lg:px-12 lg:py-24">
           <div className="max-w-xl">
             <SectionLabel label={label} light />
-            <h2 className="mt-12 text-balance text-4xl font-medium leading-tight text-white md:text-5xl">{title}</h2>
+            <h2 className="mt-12 text-balance text-2xl font-medium leading-tight text-white sm:text-3xl md:text-4xl">{title}</h2>
           </div>
         </div>
         <div>
@@ -201,7 +201,7 @@ export function FocusStatement({ label, title }: { label: string; title: string 
     <section className="py-24 lg:py-32">
       <Container>
         <SectionLabel label={label} />
-        <h2 className="mt-12 text-balance text-5xl font-medium leading-tight text-zinc-950 lg:text-6xl">{title}</h2>
+        <h2 className="mt-12 text-balance text-2xl font-medium leading-tight text-zinc-950 sm:text-3xl md:text-5xl">{title}</h2>
       </Container>
     </section>
   )
@@ -220,7 +220,7 @@ export function CaseStudies({
     <section className="bg-[var(--think-implementation-gray)] py-20 lg:py-24">
       <Container className="grid gap-12 lg:grid-cols-[360px_1fr]">
         <SectionLabel label={label} />
-        <h2 className="max-w-4xl text-balance text-4xl font-medium leading-tight text-zinc-950 md:text-5xl">{title}</h2>
+        <h2 className="max-w-4xl text-balance text-2xl font-medium leading-tight text-zinc-950 md:text-3xl">{title}</h2>
       </Container>
       <Container className="mt-16">
         <div className="grid gap-8 md:grid-cols-3">
