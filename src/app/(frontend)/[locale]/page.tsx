@@ -18,8 +18,6 @@ import {
 } from '@/lib/payload-local'
 import { isLocale, localizedPath } from '@/lib/routing'
 
-// Cache the rendered page indefinitely. It is rebuilt only when a Payload
-// create/update/delete invalidates a matching cache tag (see hooks/revalidate.ts).
 export const dynamic = 'force-static'
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
@@ -54,9 +52,16 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
 
   return (
     <>
-      <HeroFrame background={<HyperspeedHeroBackground />} locale={locale} shared={shared} variant="home">
+      <HeroFrame
+        background={<HyperspeedHeroBackground />}
+        locale={locale}
+        shared={shared}
+        variant="home"
+      >
         <div className="flex h-full flex-col justify-between gap-16">
-          <h1 className="text-balance text-3xl font-medium leading-tight text-white sm:text-4xl md:text-7xl">{heroTitle}</h1>
+          <h1 className="text-balance text-3xl font-medium leading-tight text-white sm:text-4xl md:text-7xl">
+            {heroTitle}
+          </h1>
           <ScrollCue label={heroCta} />
         </div>
         <div className="self-end border-l border-white/35 pl-8 text-white/85 md:max-w-md">
@@ -73,7 +78,9 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
               highlight="future of the market"
               text={aboutTitle}
             />
-            <p className="mt-10 max-w-3xl text-base leading-loose text-zinc-600">{aboutDescription}</p>
+            <p className="mt-10 max-w-3xl text-base leading-loose text-zinc-600">
+              {aboutDescription}
+            </p>
             <Link
               className="mt-8 inline-flex rounded-lg bg-zinc-950 px-6 py-4 text-[12px] font-semibold uppercase leading-none !text-white transition hover:bg-zinc-800"
               href={localizedPath(locale, fieldLink(aboutCta) || '/company')}
@@ -116,9 +123,13 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
                 href={localizedPath(locale, `/products/${item.slug}`)}
                 key={item.title}
               >
-                <span className="text-2xl font-medium text-[var(--think-red)]">{String(index + 1).padStart(2, '0')}</span>
+                <span className="text-2xl font-medium text-[var(--think-red)]">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
                 <span>
-                  <span className="block text-2xl font-medium leading-tight text-zinc-950">{item.title}</span>
+                  <span className="block text-2xl font-medium leading-tight text-zinc-950">
+                    {item.title}
+                  </span>
                   <span className="mt-2 block text-sm text-zinc-500">{item.description}</span>
                 </span>
                 <span className="flex h-9 w-9 items-center justify-center rounded-md bg-[var(--think-red)] text-white">
@@ -169,13 +180,20 @@ function LogoShowcase({
       <div className="grid gap-12 lg:grid-cols-[360px_1fr]">
         <SectionLabel label={label} light />
         <div className="max-w-3xl">
-          <h2 className="text-balance text-2xl font-medium leading-tight text-white sm:text-3xl md:text-5xl">{title}</h2>
-          <p className="mt-8 max-w-3xl text-lg leading-loose text-white/90 sm:text-xl md:text-2xl">{description}</p>
+          <h2 className="text-balance text-2xl font-medium leading-tight text-white sm:text-3xl md:text-5xl">
+            {title}
+          </h2>
+          <p className="mt-8 max-w-3xl text-lg leading-loose text-white/90 sm:text-xl md:text-2xl">
+            {description}
+          </p>
         </div>
       </div>
       <div className="mt-24 grid items-center gap-x-24 gap-y-20 sm:grid-cols-2 lg:mt-40 lg:grid-cols-4">
         {logos.map((logo) => (
-          <div className="flex min-h-24 items-center justify-center lg:justify-start" key={`${label}-${logo.alt}`}>
+          <div
+            className="flex min-h-24 items-center justify-center lg:justify-start"
+            key={`${label}-${logo.alt}`}
+          >
             <Image
               alt={logo.alt}
               className="max-h-16 w-auto max-w-45 object-contain grayscale transition duration-300 hover:grayscale-0"
