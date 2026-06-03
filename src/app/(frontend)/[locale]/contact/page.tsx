@@ -54,7 +54,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
       </HeroFrame>
 
       <section className="py-24 lg:py-28">
-        <Container className="grid gap-10 md:grid-cols-[260px_1fr]">
+        <Container className="grid gap-10 lg:grid-cols-[260px_1fr]">
           <SectionLabel label={fieldText(info?.header)} />
           <div className="grid gap-12 lg:grid-cols-[1fr_440px]">
             <div className="text-lg font-medium leading-snug text-zinc-950 sm:text-xl">
@@ -100,7 +100,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
       </section>
 
       <section className="pb-24 lg:pb-32">
-        <Container className="grid gap-10 md:grid-cols-[260px_1fr]">
+        <Container className="grid gap-10 lg:grid-cols-[260px_1fr]">
           <SectionLabel label={fieldText(message?.header)} />
           <div className="max-w-5xl">
             <h2 className="max-w-3xl text-balance text-xl font-medium leading-tight text-zinc-950 sm:text-2xl md:text-4xl">

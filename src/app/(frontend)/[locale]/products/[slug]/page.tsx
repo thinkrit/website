@@ -106,7 +106,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
             </p>
           </div>
         </Container>
-        <Container className="mt-16 grid gap-8 md:grid-cols-4">
+        <Container className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {readTechnologies(technologies?.technologies).map((technology, index) => (
             <article className="min-h-[190px] rounded-3xl border border-white/15 p-8" key={`${technology.title}-${index}`}>
               <Code2 className="h-7 w-7 text-white/25" />

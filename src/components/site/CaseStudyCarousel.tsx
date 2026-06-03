@@ -19,7 +19,7 @@ export function CaseStudyCarousel({ studies }: { studies: CaseStudy[] }) {
 
   return (
     <div aria-label="Case studies" aria-live="polite" role="region">
-      <div className="grid gap-8 md:grid-cols-3">
+      <div className="grid gap-8 lg:grid-cols-3">
         {visible.map((study, index) => (
           <article className="min-h-[280px] rounded-[20px] bg-white p-8" key={`${study.title}-${index}`}>
             <Circle aria-hidden="true" className="h-10 w-10 fill-zinc-950 text-zinc-950" />

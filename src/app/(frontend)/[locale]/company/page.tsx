@@ -51,7 +51,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
       </HeroFrame>
 
       <section className="py-24 lg:py-28">
-        <Container className="grid gap-10 md:grid-cols-[260px_1fr]">
+        <Container className="grid gap-10 lg:grid-cols-[260px_1fr]">
           <SectionLabel label={fieldText(about?.header)} />
           <div className="max-w-4xl">
             <h2 className="text-balance text-2xl font-medium leading-tight text-zinc-950 sm:text-3xl md:text-5xl">
@@ -72,7 +72,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
               {fieldText(founders?.tagline)}
             </p>
           </div>
-          <div className="grid gap-8 md:grid-cols-2">
+          <div className="grid gap-8 lg:grid-cols-2">
             {founderPeople.map((person, index) => (
               <article className="rounded-lg bg-white p-7" key={`${person.name}-${index}`}>
                 <ImagePanel aspect="aspect-[1.35]" src={person.image} />

@@ -188,8 +188,8 @@ export function HeroFrame({
       <div
         className={`relative z-10 mx-auto grid w-full max-w-[1320px] px-5 pb-10 pt-24 sm:px-8 lg:px-12 ${
           compact
-            ? 'min-h-[min(540px,calc(100svh-64px))] content-end gap-12 md:grid-cols-[1fr_1.35fr]'
-            : 'min-h-[min(620px,calc(100svh-64px))] content-end gap-10 md:grid-cols-[1.2fr_1fr]'
+            ? 'min-h-[min(540px,calc(100svh-64px))] content-end gap-12 lg:grid-cols-[1fr_1.35fr]'
+            : 'min-h-[min(620px,calc(100svh-64px))] content-end gap-10 lg:grid-cols-[1.2fr_1fr]'
         }`}
       >
         {children}
@@ -260,7 +260,7 @@ export function FooterCta({
       <div className="pointer-events-none absolute inset-0 z-0">
         <AbstractImageBackground image={top?.background} imageClassName="opacity-20" priority={false} />
       </div>
-      <Container className="relative z-10 grid gap-10 md:grid-cols-[260px_1fr]">
+      <Container className="relative z-10 grid gap-10 lg:grid-cols-[260px_1fr]">
         <SectionLabel label={fieldText(top?.header)} />
         <div className="max-w-2xl">
           <h2 className="text-balance text-2xl font-medium leading-tight text-zinc-950 sm:text-3xl md:text-5xl">

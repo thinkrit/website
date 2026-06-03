@@ -125,15 +125,17 @@ export function FeatureIcon({ name }: { name?: string }) {
 
 export function FeatureColumns({ features }: { features: Feature[] }) {
   return (
-    <Container className="grid gap-10 py-24 md:grid-cols-3 lg:py-28">
+    <Container className="grid gap-10 py-24 lg:grid-cols-3 lg:py-28">
       {features.map((feature, index) => (
         <div
-          className="border-zinc-200 pr-10 md:border-l md:pl-14 md:first:border-l-0 md:first:pl-0"
+          className="-mx-5 border-b border-zinc-200 px-5 pb-10 last:border-b-0 last:pb-0 sm:-mx-8 sm:px-8 lg:mx-0 lg:border-b-0 lg:border-l lg:px-0 lg:pb-0 lg:pl-14 lg:pr-10 lg:first:border-l-0 lg:first:pl-0"
           key={`${feature.title}-${index}`}
         >
-          <FeatureIcon name={feature.icon} />
-          <h2 className="mt-8 max-w-[260px] text-2xl font-medium leading-tight text-zinc-950 sm:text-3xl">{feature.title}</h2>
-          <p className="mt-4 max-w-[280px] text-base leading-relaxed text-zinc-600">{feature.description}</p>
+          <div className="mx-auto max-w-[500px] lg:mx-0 lg:max-w-none">
+            <FeatureIcon name={feature.icon} />
+            <h2 className="mt-8 text-2xl font-medium leading-tight text-zinc-950 sm:text-3xl lg:max-w-[260px]">{feature.title}</h2>
+            <p className="mt-4 text-base leading-relaxed text-zinc-600 lg:max-w-[280px]">{feature.description}</p>
+          </div>
         </div>
       ))}
     </Container>
@@ -176,7 +178,7 @@ export function ApproachSplit({
 }) {
   return (
     <section className="bg-[var(--think-soft)] lg:bg-[linear-gradient(90deg,#09090b_0%,#09090b_50%,var(--think-soft)_50%,var(--think-soft)_100%)]">
-      <Container className="grid px-0 sm:px-0 lg:grid-cols-2">
+      <Container className="grid !px-0 lg:!px-12 lg:grid-cols-2">
         <div className="bg-zinc-950 px-5 py-20 text-white sm:px-8 lg:bg-transparent lg:px-12 lg:py-24">
           <div className="max-w-xl">
             <SectionLabel label={label} light />

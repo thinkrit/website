@@ -71,7 +71,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
       </HeroFrame>
 
       <section className="py-24 lg:py-28">
-        <Container className="grid gap-10 md:grid-cols-[260px_1fr]">
+        <Container className="grid gap-10 lg:grid-cols-[260px_1fr]">
           <SectionLabel label={fieldText(about?.header)} />
           <div className="max-w-4xl">
             <HighlightedTitle
@@ -99,7 +99,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
             {servicesTitle}
           </h2>
         </Container>
-        <Container className="mt-16 grid gap-8 md:grid-cols-3">
+        <Container className="mt-16 grid gap-8 lg:grid-cols-3">
           {serviceCards.map((card) => (
             <ServiceTile card={card} key={card.title} locale={locale} />
           ))}
