@@ -195,7 +195,7 @@ export function HeroFrame({
 export function AbstractImageBackground({
   fallback,
   image,
-  imageWrapperClassName = 'inset-0',
+  imageWrapperClassName = 'inset-y-0 right-0 w-full max-w-[900px]',
   imageClassName = 'opacity-30',
   priority = true,
 }: {
@@ -211,19 +211,24 @@ export function AbstractImageBackground({
 
   return (
     <>
-      <div className="absolute inset-0 bg-[#E4E4E74D]" />
-      <div className={`absolute ${imageWrapperClassName}`}>
+      <div
+        className={`absolute ${imageWrapperClassName}`}
+        style={{
+          WebkitMaskImage:
+            'radial-gradient(140% 140% at 100% 100%, #000 50%, transparent 100%)',
+          maskImage: 'radial-gradient(140% 140% at 100% 100%, #000 50%, transparent 100%)',
+        }}
+      >
         <Image
           alt=""
           aria-hidden
-          className={`object-contain object-bottom-right ${imageClassName}`}
+          className={`object-cover object-bottom-right ${imageClassName}`}
           fill
           priority={priority}
-          sizes="100vw"
+          sizes="900px"
           src={src}
         />
       </div>
-      <div className="absolute inset-0 bg-white/10" />
     </>
   )
 }
