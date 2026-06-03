@@ -197,32 +197,37 @@ function LogoShowcase({
         </div>
       </div>
       <div className="mt-24 grid items-center gap-x-24 gap-y-20 sm:grid-cols-2 lg:mt-40 lg:grid-cols-4">
-        {logos.map((logo) => {
-          const img = (
-            <Image
-              alt={logo.alt}
-              className="max-h-16 w-auto max-w-45 object-contain grayscale transition duration-300 hover:grayscale-0"
-              height={130}
-              src={logo.src}
-              width={360}
-            />
-          )
-
-          return (
-            <div
-              className="flex min-h-24 items-center justify-center lg:justify-start"
-              key={`${label}-${logo.alt}`}
-            >
-              {logo.website ? (
-                <Link href={logo.website} rel="noopener noreferrer" target="_blank">
-                  {img}
-                </Link>
-              ) : (
-                img
-              )}
-            </div>
-          )
-        })}
+        {logos.map((logo) => (
+          <div
+            className="flex min-h-24 items-center justify-center"
+            key={`${label}-${logo.alt}`}
+          >
+            {logo.website ? (
+              <Link
+                className="relative block h-16 w-45"
+                href={logo.website}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <Image
+                  alt={logo.alt}
+                  className="object-contain object-center opacity-50 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
+                  fill
+                  sizes="180px"
+                  src={logo.src}
+                />
+              </Link>
+            ) : (
+              <Image
+                alt={logo.alt}
+                className="max-h-16 w-auto max-w-45 object-contain opacity-50 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
+                height={130}
+                src={logo.src}
+                width={360}
+              />
+            )}
+          </div>
+        ))}
       </div>
     </Container>
   )

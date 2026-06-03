@@ -1,9 +1,6 @@
 import {
-  ArrowLeft,
-  ArrowRight,
   ArrowUpRight,
   CheckCircle,
-  Circle,
   Clock3,
   Cloud,
   Code2,
@@ -15,6 +12,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 
+import { CaseStudyCarousel } from '@/components/site/CaseStudyCarousel'
 import { Container, SectionLabel } from '@/components/site/chrome'
 import type { CaseStudy, Feature, ServiceCard, Step } from '@/lib/payload-local'
 import { localizedPath, type Locale } from '@/lib/routing'
@@ -119,7 +117,10 @@ export function FeatureRows({ features }: { features: Feature[] }) {
   return (
     <div className="border-y border-zinc-200">
       {features.map((feature) => (
-        <details className="group border-b border-zinc-200 last:border-b-0" key={feature.title}>
+        <details
+          className="group border-b border-zinc-200 transition-all duration-300 ease-out last:border-b-0 hover:border-transparent hover:bg-zinc-100 open:border-transparent open:bg-zinc-100"
+          key={feature.title}
+        >
           <summary className="cursor-pointer list-none text-zinc-950 [&::-webkit-details-marker]:hidden">
             <Container className="flex items-center justify-between gap-6 py-8">
               <span className="text-xl font-medium leading-tight sm:text-3xl">{feature.title}</span>
@@ -224,30 +225,7 @@ export function CaseStudies({
         <h2 className="max-w-4xl text-balance text-2xl font-medium leading-tight text-zinc-950 md:text-3xl">{title}</h2>
       </Container>
       <Container className="mt-16">
-        <div className="grid gap-8 md:grid-cols-3">
-          {studies.map((study, index) => (
-            <article className="min-h-[280px] rounded-lg bg-white p-8" key={`${study.title}-${index}`}>
-              <Circle className="h-10 w-10 fill-zinc-950 text-zinc-950" />
-              <div className="mt-28">
-                <h3 className="text-2xl font-medium leading-tight text-zinc-950">{study.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-zinc-500">{study.description}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-        <div className="mt-8 flex items-center justify-between">
-          <div className="h-1 w-72 bg-zinc-200">
-            <div className="h-full w-1/2 bg-zinc-950" />
-          </div>
-          <div className="flex gap-5">
-            <button aria-label="Previous case study" className="flex h-10 w-10 items-center justify-center rounded-md bg-[var(--think-red)] text-white" type="button">
-              <ArrowLeft className="h-5 w-5" />
-            </button>
-            <button aria-label="Next case study" className="flex h-10 w-10 items-center justify-center rounded-md bg-[var(--think-red)] text-white" type="button">
-              <ArrowRight className="h-5 w-5" />
-            </button>
-          </div>
-        </div>
+        <CaseStudyCarousel studies={studies} />
       </Container>
     </section>
   )
