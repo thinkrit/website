@@ -288,7 +288,9 @@ export function SiteFooter({ locale, shared }: { locale: Locale; shared: SharedD
   return (
     <footer className="mx-auto mt-24 w-[calc(100%-32px)] max-w-[1450px] rounded-[24px] bg-white px-8 py-10 text-zinc-950 sm:w-[calc(100%-48px)] sm:px-12 lg:px-16">
       <div className="grid gap-10 lg:grid-cols-[260px_1fr_48px]">
-        <Logo shared={shared} variant="red" />
+        <Link aria-label="ThinkRIT home" className="w-fit" href={localizedPath(locale, '/')}>
+          <Logo shared={shared} variant="red" />
+        </Link>
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {groups.map((group) => (
             <div key={group.label}>
