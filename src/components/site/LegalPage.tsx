@@ -2,6 +2,7 @@ import { RichText } from '@payloadcms/richtext-lexical/react'
 import type { SerializedEditorState } from 'lexical'
 
 import { Container, FooterCta, HeroFrame, SectionLabel } from '@/components/site/chrome'
+import { PixelBlastHeroBackground } from '@/components/site/PixelBlastHeroBackground'
 import { fieldRecord, fieldText } from '@/lib/payload-local'
 import { type Locale } from '@/lib/routing'
 
@@ -33,7 +34,7 @@ export function LegalPage({
 
   return (
     <>
-      <HeroFrame compact locale={locale} shared={shared}>
+      <HeroFrame background={<PixelBlastHeroBackground />} compact locale={locale} shared={shared}>
         <h1 className="text-balance text-3xl font-medium leading-tight text-zinc-950 sm:text-4xl md:text-6xl">
           {title}
         </h1>

@@ -134,7 +134,11 @@ function MobileGroupLabel({ label }: { label: string }) {
 function MobileLink({ item, locale }: { item: LinkItem; locale: Locale }) {
   const href = item.absolute ? item.url : localizedPath(locale, item.url)
   return (
-    <Link className="block rounded-md px-3 py-3 transition hover:bg-zinc-100" href={href}>
+    <Link
+      className="block rounded-md px-3 py-3 transition hover:bg-zinc-100"
+      href={href}
+      {...(item.absolute ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+    >
       {item.label}
     </Link>
   )
@@ -286,7 +290,7 @@ export function SiteFooter({ locale, shared }: { locale: Locale; shared: SharedD
   const copyright = fieldText(bottom?.copyright)
 
   return (
-    <footer className="mx-auto mt-24 w-[calc(100%-32px)] max-w-[1450px] rounded-[24px] bg-white px-8 py-10 text-zinc-950 sm:w-[calc(100%-48px)] sm:px-12 lg:px-16">
+    <footer className="mx-auto mt-24 w-[calc(100%-32px)] max-w-[1450px] rounded-[24px] bg-white px-8 pb-6 pt-10 text-zinc-950 sm:w-[calc(100%-48px)] sm:px-12 lg:px-16">
       <div className="grid gap-10 lg:grid-cols-[260px_1fr_48px]">
         <Link aria-label="ThinkRIT home" className="w-fit" href={localizedPath(locale, '/')}>
           <Logo shared={shared} variant="red" />
@@ -301,6 +305,7 @@ export function SiteFooter({ locale, shared }: { locale: Locale; shared: SharedD
                     className="text-sm font-medium uppercase leading-tight transition hover:text-[var(--think-red)]"
                     href={link.absolute ? link.url : localizedPath(locale, link.url)}
                     key={link.label}
+                    {...(link.absolute ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   >
                     {link.label}
                   </Link>

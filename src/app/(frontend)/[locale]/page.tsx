@@ -180,7 +180,7 @@ function LogoShowcase({
   className?: string
   description: string
   label: string
-  logos: Array<{ alt: string; src: string }>
+  logos: Array<{ alt: string; src: string; website: string }>
   title: string
 }) {
   return (
@@ -197,11 +197,8 @@ function LogoShowcase({
         </div>
       </div>
       <div className="mt-24 grid items-center gap-x-24 gap-y-20 sm:grid-cols-2 lg:mt-40 lg:grid-cols-4">
-        {logos.map((logo) => (
-          <div
-            className="flex min-h-24 items-center justify-center lg:justify-start"
-            key={`${label}-${logo.alt}`}
-          >
+        {logos.map((logo) => {
+          const img = (
             <Image
               alt={logo.alt}
               className="max-h-16 w-auto max-w-45 object-contain grayscale transition duration-300 hover:grayscale-0"
@@ -209,8 +206,23 @@ function LogoShowcase({
               src={logo.src}
               width={360}
             />
-          </div>
-        ))}
+          )
+
+          return (
+            <div
+              className="flex min-h-24 items-center justify-center lg:justify-start"
+              key={`${label}-${logo.alt}`}
+            >
+              {logo.website ? (
+                <Link href={logo.website} rel="noopener noreferrer" target="_blank">
+                  {img}
+                </Link>
+              ) : (
+                img
+              )}
+            </div>
+          )
+        })}
       </div>
     </Container>
   )
@@ -222,6 +234,7 @@ function readLogos(value: unknown) {
   return docs.map((doc) => ({
     alt: fieldText(doc.name),
     src: mediaUrl(doc.logo),
+    website: fieldText(doc.website),
   }))
 }
 
