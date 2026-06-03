@@ -71,7 +71,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
               </div>
               <div className="mt-8">
                 <p className="text-base font-semibold uppercase text-zinc-400">{uiLabels.social}</p>
-                <a className="transition hover:text-[var(--think-red)]" href={fieldLink(social) || '#'} rel="noreferrer" target="_blank">
+                <a aria-label={`${fieldText(social?.label)} (opens in new tab)`} className="transition hover:text-[var(--think-red)]" href={fieldLink(social) || '#'} rel="noreferrer" target="_blank">
                   {fieldText(social?.label)}
                 </a>
               </div>

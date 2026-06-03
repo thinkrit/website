@@ -18,11 +18,11 @@ export function CaseStudyCarousel({ studies }: { studies: CaseStudy[] }) {
   const progress = totalPages > 1 ? (page + 1) / totalPages : 1
 
   return (
-    <>
+    <div aria-label="Case studies" aria-live="polite" role="region">
       <div className="grid gap-8 md:grid-cols-3">
         {visible.map((study, index) => (
-          <article className="min-h-[280px] rounded-lg bg-white p-8" key={`${study.title}-${index}`}>
-            <Circle className="h-10 w-10 fill-zinc-950 text-zinc-950" />
+          <article className="min-h-[280px] rounded-[20px] bg-white p-8" key={`${study.title}-${index}`}>
+            <Circle aria-hidden="true" className="h-10 w-10 fill-zinc-950 text-zinc-950" />
             <div className="mt-28">
               <h3 className="text-2xl font-medium leading-tight text-zinc-950">{study.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-zinc-500">{study.description}</p>
@@ -40,6 +40,7 @@ export function CaseStudyCarousel({ studies }: { studies: CaseStudy[] }) {
           </div>
           <div className="flex gap-5">
             <button
+              aria-disabled={page === 0}
               aria-label="Previous case study"
               className="flex h-10 w-10 items-center justify-center rounded-md bg-[var(--think-red)] text-white transition-opacity disabled:opacity-40"
               disabled={page === 0}
@@ -49,6 +50,7 @@ export function CaseStudyCarousel({ studies }: { studies: CaseStudy[] }) {
               <ArrowLeft className="h-5 w-5" />
             </button>
             <button
+              aria-disabled={page === totalPages - 1}
               aria-label="Next case study"
               className="flex h-10 w-10 items-center justify-center rounded-md bg-[var(--think-red)] text-white transition-opacity disabled:opacity-40"
               disabled={page === totalPages - 1}
@@ -60,6 +62,6 @@ export function CaseStudyCarousel({ studies }: { studies: CaseStudy[] }) {
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }

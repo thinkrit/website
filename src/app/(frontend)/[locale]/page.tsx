@@ -137,7 +137,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
                     </span>
                   </span>
                   <span className="flex h-9 w-9 items-center justify-center rounded-md bg-[var(--think-red)] text-white transition-all duration-300 ease-out group-hover:bg-white group-hover:text-zinc-950 group-hover:translate-x-1 group-hover:-translate-y-1">
-                    <ArrowUpRight className="h-4 w-4" />
+                    <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
                   </span>
                 </Link>
                 {index < productItems.length - 1 ? (
@@ -196,14 +196,15 @@ function LogoShowcase({
           </p>
         </div>
       </div>
-      <div className="mt-24 grid items-center gap-x-24 gap-y-20 sm:grid-cols-2 lg:mt-40 lg:grid-cols-4">
+      <div className="mt-24 flex items-center justify-center gap-x-48 lg:mt-40">
         {logos.map((logo) => (
           <div
-            className="flex min-h-24 items-center justify-center"
+            className="flex h-16 items-center justify-center"
             key={`${label}-${logo.alt}`}
           >
             {logo.website ? (
               <Link
+                aria-label={`${logo.alt} (opens in new tab)`}
                 className="relative block h-16 w-45"
                 href={logo.website}
                 rel="noopener noreferrer"
@@ -211,7 +212,7 @@ function LogoShowcase({
               >
                 <Image
                   alt={logo.alt}
-                  className="object-contain object-center opacity-50 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
+                  className="object-contain object-center opacity-50 brightness-0 invert grayscale transition duration-300 hover:opacity-100 hover:brightness-100 hover:invert-0 hover:grayscale-0"
                   fill
                   sizes="180px"
                   src={logo.src}
@@ -220,7 +221,7 @@ function LogoShowcase({
             ) : (
               <Image
                 alt={logo.alt}
-                className="max-h-16 w-auto max-w-45 object-contain opacity-50 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
+                className="max-h-16 w-auto max-w-45 object-contain opacity-50 brightness-0 invert grayscale transition duration-300 hover:opacity-100 hover:brightness-100 hover:invert-0 hover:grayscale-0"
                 height={130}
                 src={logo.src}
                 width={360}

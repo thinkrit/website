@@ -4,7 +4,7 @@ import { getSiteUrl, locales, localizedPath } from '@/lib/routing'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = getSiteUrl()
-  const routes = ['/', '/company', '/contact', '/services/development', '/products/contactnow']
+  const routes = ['/', '/company', '/contact', '/services/development', '/products/contactnow', '/privacy-policy', '/terms-of-use']
   const now = new Date()
 
   const languages = (route: string) =>

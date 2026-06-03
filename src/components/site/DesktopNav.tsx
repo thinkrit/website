@@ -70,7 +70,7 @@ export function DesktopNav({
 
   return (
     <div className="hidden items-start gap-3 lg:flex" ref={navRef}>
-      <nav className="flex rounded-lg bg-white text-[13px] font-semibold uppercase leading-none text-zinc-700 shadow-[0_1px_0_rgba(0,0,0,0.03)]">
+      <nav aria-label="Main navigation" className="flex rounded-lg bg-white text-[13px] font-semibold uppercase leading-none text-zinc-700 shadow-[0_1px_0_rgba(0,0,0,0.03)]">
         <NavDropdown
           isOpen={open === 'services'}
           items={nav.services.links}
@@ -130,11 +130,12 @@ function NavDropdown({
       >
         <span>{label}</span>
         <ChevronDown
-          aria-hidden
+          aria-hidden="true"
           className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
         />
       </button>
       <div
+        aria-hidden={!isOpen}
         className={`nav-menu-panel absolute left-0 top-full min-w-44 pt-2 text-[12px] transition ${
           isOpen ? 'is-open' : ''
         }`}

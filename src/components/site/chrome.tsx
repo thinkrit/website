@@ -101,9 +101,9 @@ export function Header({
         nav={nav}
       />
 
-      <details className="group relative lg:hidden">
-        <summary className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-lg bg-white text-zinc-900 shadow-sm [&::-webkit-details-marker]:hidden">
-          <Menu aria-hidden className="h-5 w-5" />
+      <details aria-label="Navigation menu" className="group relative lg:hidden">
+        <summary aria-label="Open menu" className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-lg bg-white text-zinc-900 shadow-sm [&::-webkit-details-marker]:hidden">
+          <Menu aria-hidden="true" className="h-5 w-5" />
         </summary>
         <div className="absolute right-0 top-13 w-56 rounded-lg bg-white p-2 text-sm font-semibold uppercase text-zinc-800 shadow-xl">
           <MobileGroupLabel label={nav.services.label} />
@@ -137,7 +137,9 @@ function MobileLink({ item, locale }: { item: LinkItem; locale: Locale }) {
     <Link
       className="block rounded-md px-3 py-3 transition hover:bg-zinc-100"
       href={href}
-      {...(item.absolute ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      {...(item.absolute
+        ? { target: '_blank', rel: 'noopener noreferrer', 'aria-label': `${item.label} (opens in new tab)` }
+        : {})}
     >
       {item.label}
     </Link>
@@ -225,7 +227,7 @@ export function AbstractImageBackground({
       >
         <Image
           alt=""
-          aria-hidden
+          aria-hidden="true"
           className={`object-cover object-bottom-right ${imageClassName}`}
           fill
           priority={priority}
@@ -295,7 +297,7 @@ export function SiteFooter({ locale, shared }: { locale: Locale; shared: SharedD
         <Link aria-label="ThinkRIT home" className="w-fit" href={localizedPath(locale, '/')}>
           <Logo shared={shared} variant="red" />
         </Link>
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+        <nav aria-label="Footer navigation" className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {groups.map((group) => (
             <div key={group.label}>
               <h3 className="mb-4 text-sm font-semibold uppercase text-zinc-400">{group.label}</h3>
@@ -305,7 +307,9 @@ export function SiteFooter({ locale, shared }: { locale: Locale; shared: SharedD
                     className="text-sm font-medium uppercase leading-tight transition hover:text-[var(--think-red)]"
                     href={link.absolute ? link.url : localizedPath(locale, link.url)}
                     key={link.label}
-                    {...(link.absolute ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    {...(link.absolute
+                      ? { target: '_blank', rel: 'noopener noreferrer', 'aria-label': `${link.label} (opens in new tab)` }
+                      : {})}
                   >
                     {link.label}
                   </Link>
@@ -313,13 +317,13 @@ export function SiteFooter({ locale, shared }: { locale: Locale; shared: SharedD
               </div>
             </div>
           ))}
-        </div>
+        </nav>
         <Link
           aria-label="Back to top"
           className="flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-100 text-zinc-600 transition hover:bg-zinc-200"
           href="#top"
         >
-          <ArrowUp aria-hidden className="h-5 w-5" />
+          <ArrowUp aria-hidden="true" className="h-5 w-5" />
         </Link>
       </div>
       <div className="mt-16 flex flex-col gap-5 text-[13px] font-semibold uppercase tracking-normal text-zinc-400 sm:flex-row sm:items-center sm:justify-between">
@@ -340,7 +344,7 @@ export function ScrollCue({ label }: { label: string }) {
   return (
     <div className="flex items-center gap-2 text-[12px] font-semibold text-white/80">
       <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white text-zinc-700">
-        <ArrowDown aria-hidden className="h-4 w-4" />
+        <ArrowDown aria-hidden="true" className="h-4 w-4" />
       </span>
       <span>{label}</span>
     </div>

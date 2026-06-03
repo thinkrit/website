@@ -91,22 +91,26 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
             {fieldText(team?.tagline)}
           </h2>
         </Container>
-        <Container className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {teamMembers.map((person, index) => (
-            <article className="flex items-center gap-6 rounded-lg bg-white p-7" key={`${person.name}-${index}`}>
-              <ImagePanel
-                aspect="aspect-square"
-                className="h-20 w-20 shrink-0"
-                src={person.image}
-              />
-              <div>
-                <h3 className="text-lg font-medium leading-tight text-zinc-950">{person.name}</h3>
-                {person.role && <p className="mt-1 text-sm text-zinc-600">{person.role}</p>}
-                {person.department && (
-                  <p className="mt-2 text-xs font-medium tracking-[0.12em] text-zinc-500">{person.department}</p>
-                )}
+        <Container className="mt-16 space-y-12">
+          {groupByDepartment(teamMembers).map((group) => (
+            <div key={group.department}>
+              <h3 className="mb-6 text-sm font-semibold uppercase tracking-wide text-zinc-400">{group.department}</h3>
+              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                {group.members.map((person, index) => (
+                  <article className="flex items-center gap-6 rounded-lg bg-white p-7" key={`${person.name}-${index}`}>
+                    <ImagePanel
+                      aspect="aspect-square"
+                      className="h-20 w-20 shrink-0"
+                      src={person.image}
+                    />
+                    <div>
+                      <h4 className="text-lg font-medium leading-tight text-zinc-950">{person.name}</h4>
+                      {person.role && <p className="mt-1 text-sm font-medium tracking-[0.16em] text-zinc-500">{person.role}</p>}
+                    </div>
+                  </article>
+                ))}
               </div>
-            </article>
+            </div>
           ))}
         </Container>
       </section>
@@ -134,4 +138,20 @@ function readPeople(value: unknown): Person[] {
     department: fieldText(person.department),
     image: mediaUrl(person.image, '/avatar-placeholder.svg'),
   }))
+}
+
+function groupByDepartment(people: Person[]) {
+  const map = new Map<string, Person[]>()
+
+  for (const person of people) {
+    const dept = person.department || ''
+    const list = map.get(dept)
+    if (list) {
+      list.push(person)
+    } else {
+      map.set(dept, [person])
+    }
+  }
+
+  return Array.from(map, ([department, members]) => ({ department, members }))
 }

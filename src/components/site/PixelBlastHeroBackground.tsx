@@ -5,7 +5,7 @@ import PixelBlast from '@/components/site/PixelBlast'
 export function PixelBlastHeroBackground() {
   return (
     <div
-      aria-hidden
+      aria-hidden="true"
       className="pointer-events-none absolute h-full w-full"
       data-pixelblast-bg
       style={{ inset: 0, pointerEvents: 'none' }}

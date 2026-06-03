@@ -43,7 +43,7 @@ export function ContactForm({ labels }: { labels: ContactFormLabels }) {
     <form action={formAction} className="max-w-5xl">
       {/* Honeypot: hidden from users, bots tend to fill it. Off-screen rather
           than display:none so bots that skip hidden inputs still see it. */}
-      <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden" tabIndex={-1}>
+      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden" tabIndex={-1}>
         <label>
           Company
           <input autoComplete="off" name="company" tabIndex={-1} />

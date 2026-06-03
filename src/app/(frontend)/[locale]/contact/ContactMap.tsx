@@ -25,6 +25,7 @@ export function ContactMap({ latitude, longitude, zoom = 16, label, link }: Cont
         title={title}
       />
       <a
+        aria-label="View on Google Maps (opens in new tab)"
         className="absolute bottom-3 right-3 rounded-md bg-white/90 px-3 py-2 text-[11px] font-semibold uppercase leading-none text-zinc-900 shadow-sm backdrop-blur transition hover:bg-white"
         href={externalHref}
         rel="noreferrer"

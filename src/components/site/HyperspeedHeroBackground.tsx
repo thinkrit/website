@@ -43,7 +43,7 @@ const heroHyperspeedOptions: ComponentProps<typeof Hyperspeed>['effectOptions'] 
 export function HyperspeedHeroBackground() {
   return (
     <div
-      aria-hidden
+      aria-hidden="true"
       className="pointer-events-none absolute h-full w-full bg-black"
       data-hyperspeed-bg
       style={{ inset: 0, pointerEvents: 'none' }}

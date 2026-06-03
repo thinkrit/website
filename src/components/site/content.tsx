@@ -76,9 +76,9 @@ export function ServiceTile({
       href={localizedPath(locale, `/services/${card.slug}`)}
     >
       <div className="flex items-start justify-between">
-        {card.title === 'Cloud' ? <Cloud className="h-9 w-9 text-white" /> : card.title === 'Consulting' ? <MessageSquare className="h-9 w-9 text-white" /> : <Code2 className="h-9 w-9 text-white" />}
+        {card.title === 'Cloud' ? <Cloud aria-hidden="true" className="h-9 w-9 text-white" /> : card.title === 'Consulting' ? <MessageSquare aria-hidden="true" className="h-9 w-9 text-white" /> : <Code2 aria-hidden="true" className="h-9 w-9 text-white" />}
         <span className="flex h-8 w-8 items-center justify-center rounded-md bg-white text-zinc-800">
-          <ArrowUpRight className="h-4 w-4" />
+          <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
         </span>
       </div>
       <div>
@@ -91,9 +91,9 @@ export function ServiceTile({
 
 export function FeatureIcon({ name }: { name?: string }) {
   const className = 'h-10 w-10 text-[var(--think-red)]'
-  if (name === 'clock') return <Clock3 className={className} strokeWidth={1.7} />
-  if (name === 'globe') return <Globe2 className={className} strokeWidth={1.7} />
-  return <CheckCircle className={className} strokeWidth={1.7} />
+  if (name === 'clock') return <Clock3 aria-hidden="true" className={className} strokeWidth={1.7} />
+  if (name === 'globe') return <Globe2 aria-hidden="true" className={className} strokeWidth={1.7} />
+  return <CheckCircle aria-hidden="true" className={className} strokeWidth={1.7} />
 }
 
 export function FeatureColumns({ features }: { features: Feature[] }) {
@@ -125,7 +125,7 @@ export function FeatureRows({ features }: { features: Feature[] }) {
             <Container className="flex items-center justify-between gap-6 py-8">
               <span className="text-xl font-medium leading-tight sm:text-3xl">{feature.title}</span>
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-[var(--think-red)] text-white">
-                <Plus className="h-6 w-6 transition group-open:rotate-45" />
+                <Plus aria-hidden="true" className="h-6 w-6 transition group-open:rotate-45" />
               </span>
             </Container>
           </summary>
