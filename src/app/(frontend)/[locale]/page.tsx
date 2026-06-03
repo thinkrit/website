@@ -1,4 +1,5 @@
-import { ExternalLink } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
+import { Fragment } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -116,26 +117,33 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
       <section className="pb-24">
         <Container>
           <SectionLabel label={fieldText(products?.header)} />
-          <div className="mt-10 border-y border-zinc-200">
+          <div className="mx-4 mt-10 h-px bg-zinc-200" />
+          <div>
             {productItems.map((item, index) => (
-              <Link
-                className="grid gap-4 border-b border-zinc-200 py-8 transition last:border-b-0 hover:bg-zinc-50 sm:grid-cols-[56px_1fr_44px]"
-                href={localizedPath(locale, `/products/${item.slug}`)}
-                key={item.title}
-              >
-                <span className="text-2xl font-medium text-[var(--think-red)]">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <span>
-                  <span className="block text-2xl font-medium leading-tight text-zinc-950">
-                    {item.title}
+              <Fragment key={item.title}>
+                <Link
+                  className="group grid gap-4 rounded-3xl px-4 py-8 transition-all duration-300 ease-out hover:scale-[1.04] hover:bg-zinc-950 sm:grid-cols-[56px_1fr_44px]"
+                  href={localizedPath(locale, `/products/${item.slug}`)}
+                >
+                  <span className="text-2xl font-medium text-[var(--think-red)]">
+                    {String(index + 1).padStart(2, '0')}
                   </span>
-                  <span className="mt-2 block text-sm text-zinc-500">{item.description}</span>
-                </span>
-                <span className="flex h-9 w-9 items-center justify-center rounded-md bg-[var(--think-red)] text-white">
-                  <ExternalLink className="h-4 w-4" />
-                </span>
-              </Link>
+                  <span>
+                    <span className="block text-2xl font-medium leading-tight text-zinc-950 transition-colors duration-300 ease-out group-hover:text-white">
+                      {item.title}
+                    </span>
+                    <span className="mt-2 block text-sm text-zinc-500 transition-colors duration-300 ease-out group-hover:text-zinc-300">
+                      {item.description}
+                    </span>
+                  </span>
+                  <span className="flex h-9 w-9 items-center justify-center rounded-md bg-[var(--think-red)] text-white transition-all duration-300 ease-out group-hover:bg-white group-hover:text-zinc-950 group-hover:translate-x-1 group-hover:-translate-y-1">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </Link>
+                {index < productItems.length - 1 ? (
+                  <div className="mx-4 h-px bg-zinc-200" />
+                ) : null}
+              </Fragment>
             ))}
           </div>
         </Container>
