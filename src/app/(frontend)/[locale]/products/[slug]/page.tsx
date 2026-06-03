@@ -108,7 +108,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
         </Container>
         <Container className="mt-16 grid gap-8 md:grid-cols-4">
           {readTechnologies(technologies?.technologies).map((technology, index) => (
-            <article className="min-h-[190px] rounded-lg border border-white/15 p-8" key={`${technology.title}-${index}`}>
+            <article className="min-h-[190px] rounded-3xl border border-white/15 p-8" key={`${technology.title}-${index}`}>
               <Code2 className="h-7 w-7 text-white/25" />
               <h3 className="mt-14 text-lg font-medium text-white">{technology.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-white/55">{technology.description}</p>
