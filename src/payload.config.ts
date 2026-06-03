@@ -18,6 +18,8 @@ import { Services } from './collections/Services'
 import { Messages } from './collections/Messages'
 import { Company } from './globals/Company'
 import { Contact } from './globals/Contact'
+import { PrivacyPolicy } from './globals/PrivacyPolicy'
+import { TermsOfUse } from './globals/TermsOfUse'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -29,7 +31,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  globals: [Shared, Home, Contact, Company],
+  globals: [Shared, Home, Contact, Company, PrivacyPolicy, TermsOfUse],
   collections: [Products, Services, Customers, Partners, Messages, Users, Media],
   editor: lexicalEditor(),
   localization: {
@@ -90,6 +92,14 @@ export default buildConfig({
         },
         company: {
           description: 'Localized company page content.',
+          enabled: { find: true, update: true },
+        },
+        'privacy-policy': {
+          description: 'Localized privacy policy page content.',
+          enabled: { find: true, update: true },
+        },
+        'terms-of-use': {
+          description: 'Localized terms of use page content.',
           enabled: { find: true, update: true },
         },
       },

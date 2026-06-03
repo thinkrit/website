@@ -62,7 +62,7 @@ export function revalidateCollection(slug: CollectionSlug): CollectionAfterChang
 // Media is embedded into globals and collection lists via populated
 // relationships (depth: 2), so a media change can affect any page. These tags
 // cover every cached read in lib/payload-local.ts.
-const ALL_GLOBALS: GlobalSlug[] = ['shared', 'home', 'company', 'contact']
+const ALL_GLOBALS: GlobalSlug[] = ['shared', 'home', 'company', 'contact', 'privacy-policy', 'terms-of-use']
 const ALL_COLLECTIONS: CollectionSlug[] = ['services', 'products', 'partners', 'customers']
 
 function revalidateEverything(payload: { logger: { info: (msg: string) => void } }): void {

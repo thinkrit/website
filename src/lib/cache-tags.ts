@@ -4,7 +4,7 @@
 // Pages are cached indefinitely (no time-based revalidation). They are only
 // rebuilt when a Payload create/update/delete invalidates the matching tag.
 
-export type GlobalSlug = 'shared' | 'home' | 'company' | 'contact'
+export type GlobalSlug = 'shared' | 'home' | 'company' | 'contact' | 'privacy-policy' | 'terms-of-use'
 export type CollectionSlug = 'services' | 'products' | 'partners' | 'customers' | 'media'
 
 /** Tag for a single global, e.g. `global:home`. */

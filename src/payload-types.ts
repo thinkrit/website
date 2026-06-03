@@ -105,12 +105,16 @@ export interface Config {
     home: Home;
     contact: Contact;
     company: Company;
+    'privacy-policy': PrivacyPolicy;
+    'terms-of-use': TermsOfUse;
   };
   globalsSelect: {
     shared: SharedSelect<false> | SharedSelect<true>;
     home: HomeSelect<false> | HomeSelect<true>;
     contact: ContactSelect<false> | ContactSelect<true>;
     company: CompanySelect<false> | CompanySelect<true>;
+    'privacy-policy': PrivacyPolicySelect<false> | PrivacyPolicySelect<true>;
+    'terms-of-use': TermsOfUseSelect<false> | TermsOfUseSelect<true>;
   };
   locale: 'en' | 'el';
   widgets: {
@@ -1002,6 +1006,26 @@ export interface PayloadMcpApiKey {
      */
     update?: boolean | null;
   };
+  privacyPolicy?: {
+    /**
+     * Allow clients to find privacy-policy global.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to update privacy-policy global.
+     */
+    update?: boolean | null;
+  };
+  termsOfUse?: {
+    /**
+     * Allow clients to find terms-of-use global.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to update terms-of-use global.
+     */
+    update?: boolean | null;
+  };
   updatedAt: string;
   createdAt: string;
   enableAPIKey?: boolean | null;
@@ -1421,6 +1445,18 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
         update?: T;
       };
   company?:
+    | T
+    | {
+        find?: T;
+        update?: T;
+      };
+  privacyPolicy?:
+    | T
+    | {
+        find?: T;
+        update?: T;
+      };
+  termsOfUse?:
     | T
     | {
         find?: T;
@@ -2355,6 +2391,76 @@ export interface Company {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "privacy-policy".
+ */
+export interface PrivacyPolicy {
+  id: string;
+  /**
+   * Page title shown at the top of the privacy policy page.
+   */
+  title: string;
+  /**
+   * Date the privacy policy was last updated, shown to visitors.
+   */
+  lastUpdated?: string | null;
+  /**
+   * Full body of the privacy policy.
+   */
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "terms-of-use".
+ */
+export interface TermsOfUse {
+  id: string;
+  /**
+   * Page title shown at the top of the terms of use page.
+   */
+  title: string;
+  /**
+   * Date the terms of use were last updated, shown to visitors.
+   */
+  lastUpdated?: string | null;
+  /**
+   * Full body of the terms of use.
+   */
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "shared_select".
  */
 export interface SharedSelect<T extends boolean = true> {
@@ -2637,6 +2743,30 @@ export interface CompanySelect<T extends boolean = true> {
         header?: T;
         tagline?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "privacy-policy_select".
+ */
+export interface PrivacyPolicySelect<T extends boolean = true> {
+  title?: T;
+  lastUpdated?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "terms-of-use_select".
+ */
+export interface TermsOfUseSelect<T extends boolean = true> {
+  title?: T;
+  lastUpdated?: T;
+  content?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
