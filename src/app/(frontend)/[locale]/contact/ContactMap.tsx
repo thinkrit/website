@@ -18,7 +18,7 @@ export function ContactMap({ latitude, longitude, zoom = 16, label, link }: Cont
     <div className="relative aspect-[1.18] overflow-hidden rounded-lg bg-zinc-100">
       <iframe
         allowFullScreen
-        className="absolute inset-0 h-full w-full border-0 grayscale-[60%] brightness-100 contrast-110 transition-[filter] duration-300 hover:grayscale-0 hover:brightness-100 hover:contrast-100"
+        className="absolute inset-0 h-full w-full border-0 grayscale brightness-100 contrast-110 transition-[filter] duration-300 hover:grayscale-0 hover:brightness-100 hover:contrast-100"
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
         src={embedSrc}
