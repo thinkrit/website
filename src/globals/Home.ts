@@ -13,58 +13,88 @@ export const Home: GlobalConfig = {
     {
       name: 'heroSection',
       type: 'group',
+      admin: {
+        description: 'Primary hero content shown at the top of the home page.',
+      },
       fields: [
         {
           name: 'header',
           type: 'text',
           localized: true,
           required: true,
+          admin: {
+            description: 'Main headline shown in the home page hero.',
+          },
         },
         {
           name: 'tagline',
           type: 'textarea',
           localized: true,
           required: true,
+          admin: {
+            description: 'Short supporting tagline shown in the home page hero.',
+          },
         },
         {
           name: 'description',
           type: 'richText',
           localized: true,
           required: true,
+          admin: {
+            description: 'Introductory body copy for the home page hero.',
+          },
         },
         {
           name: 'discoverModeLabel',
           type: 'text',
           localized: true,
           required: true,
+          admin: {
+            description: 'Label shown for the discover mode control in the hero.',
+          },
         },
       ],
     },
     {
       name: 'aboutSection',
       type: 'group',
+      admin: {
+        description: 'Introductory about section shown on the home page.',
+      },
       fields: [
         {
           name: 'header',
           type: 'text',
           localized: true,
           required: true,
+          admin: {
+            description: 'Headline for the home page about section.',
+          },
         },
         {
           name: 'tagline',
           type: 'richText',
           localized: true,
           required: true,
+          admin: {
+            description: 'Supporting copy for the home page about section.',
+          },
         },
         {
           name: 'description',
           type: 'richText',
           localized: true,
           required: true,
+          admin: {
+            description: 'Detailed body copy for the home page about section.',
+          },
         },
         {
           name: 'cta',
           type: 'group',
+          admin: {
+            description: 'Call to action shown in the home page about section.',
+          },
           fields: CtaFields,
         },
       ],
@@ -72,18 +102,27 @@ export const Home: GlobalConfig = {
     {
       name: 'servicesSection',
       type: 'group',
+      admin: {
+        description: 'Section introducing services on the home page.',
+      },
       fields: [
         {
           name: 'header',
           type: 'text',
           localized: true,
           required: true,
+          admin: {
+            description: 'Headline for the home page services section.',
+          },
         },
         {
           name: 'tagline',
           type: 'richText',
           localized: true,
           required: true,
+          admin: {
+            description: 'Supporting copy for the home page services section.',
+          },
         },
         // {
         //   name: 'services',
@@ -96,18 +135,27 @@ export const Home: GlobalConfig = {
     {
       name: 'productsSection',
       type: 'group',
+      admin: {
+        description: 'Section introducing products on the home page.',
+      },
       fields: [
         {
           name: 'header',
           type: 'text',
           localized: true,
           required: true,
+          admin: {
+            description: 'Headline for the home page products section.',
+          },
         },
         {
           name: 'tagline',
           type: 'richText',
           localized: true,
           required: true,
+          admin: {
+            description: 'Supporting copy for the home page products section.',
+          },
         },
         // {
         //   name: 'products',
@@ -120,60 +168,90 @@ export const Home: GlobalConfig = {
     {
       name: 'partnersSection',
       type: 'group',
+      admin: {
+        description: 'Section introducing featured partners on the home page.',
+      },
       fields: [
         {
           name: 'header',
           type: 'text',
           localized: true,
           required: true,
+          admin: {
+            description: 'Headline for the home page partners section.',
+          },
         },
         {
           name: 'tagline',
           type: 'richText',
           localized: true,
           required: true,
+          admin: {
+            description: 'Supporting copy for the home page partners section.',
+          },
         },
         {
           name: 'description',
           type: 'richText',
           localized: true,
           required: true,
+          admin: {
+            description: 'Detailed body copy for the home page partners section.',
+          },
         },
         {
           name: 'partners',
           type: 'relationship',
           relationTo: 'partners',
           hasMany: true,
+          admin: {
+            description: 'Partners selected for display in this home page section.',
+          },
         },
       ],
     },
     {
       name: 'customersSection',
       type: 'group',
+      admin: {
+        description: 'Section introducing featured customers on the home page.',
+      },
       fields: [
         {
           name: 'header',
           type: 'text',
           localized: true,
           required: true,
+          admin: {
+            description: 'Headline for the home page customers section.',
+          },
         },
         {
           name: 'tagline',
           type: 'richText',
           localized: true,
           required: true,
+          admin: {
+            description: 'Supporting copy for the home page customers section.',
+          },
         },
         {
           name: 'description',
           type: 'richText',
           localized: true,
           required: true,
+          admin: {
+            description: 'Detailed body copy for the home page customers section.',
+          },
         },
         {
           name: 'customers',
           type: 'relationship',
           relationTo: 'customers',
           hasMany: true,
+          admin: {
+            description: 'Customers selected for display in this home page section.',
+          },
         },
       ],
     },

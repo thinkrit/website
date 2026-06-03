@@ -8,6 +8,7 @@ export const PageFields: Field[] = [
     localized: true,
     required: true,
     admin: {
+      description: 'Internal page title used in the admin and page metadata.',
       position: 'sidebar',
     },
   },
@@ -16,6 +17,7 @@ export const PageFields: Field[] = [
     type: 'text',
     required: true,
     admin: {
+      description: 'URL slug for this page, without a leading slash.',
       position: 'sidebar',
     },
   },

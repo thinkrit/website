@@ -21,6 +21,9 @@ export const Media: CollectionConfig = {
       type: 'text',
       localized: true,
       required: true,
+      admin: {
+        description: 'Accessible alt text describing the uploaded media.',
+      },
     },
   ],
   upload: true,

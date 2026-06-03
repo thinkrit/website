@@ -162,9 +162,21 @@ export interface PayloadMcpApiKeyAuthOperations {
  */
 export interface Product {
   id: string;
+  /**
+   * Primary hero content shown at the top of the product detail page.
+   */
   heroSection: {
+    /**
+     * Short product title used in the hero and admin title field.
+     */
     title: string;
+    /**
+     * Main headline for the product hero section.
+     */
     header: string;
+    /**
+     * Introductory body copy for the product hero section.
+     */
     description: {
       root: {
         type: string;
@@ -180,13 +192,35 @@ export interface Product {
       };
       [k: string]: unknown;
     };
+    /**
+     * Service category this product belongs to.
+     */
     service: string | Service;
+    /**
+     * Primary product image displayed in the hero section.
+     */
     image?: (string | null) | Media;
+    /**
+     * Abstract background image displayed behind this product hero.
+     */
+    background?: (string | null) | Media;
   };
+  /**
+   * Feature section that highlights key product capabilities.
+   */
   featuresSection?: {
+    /**
+     * List of product features shown in this section.
+     */
     features?:
       | {
+          /**
+           * Feature title shown in the product feature list.
+           */
           title: string;
+          /**
+           * Description explaining this product feature.
+           */
           description: {
             root: {
               type: string;
@@ -202,13 +236,25 @@ export interface Product {
             };
             [k: string]: unknown;
           };
+          /**
+           * Icon identifier used when rendering this feature.
+           */
           icon: string;
           id?: string | null;
         }[]
       | null;
   };
+  /**
+   * Section explaining how the product works.
+   */
   howItWorksSection: {
+    /**
+     * Headline for the how-it-works section.
+     */
     header: string;
+    /**
+     * Supporting copy for the how-it-works section.
+     */
     tagline: {
       root: {
         type: string;
@@ -224,9 +270,18 @@ export interface Product {
       };
       [k: string]: unknown;
     };
+    /**
+     * Ordered steps that explain the product workflow.
+     */
     steps?:
       | {
+          /**
+           * Step title shown in the product workflow.
+           */
           title: string;
+          /**
+           * Description explaining this product workflow step.
+           */
           description: {
             root: {
               type: string;
@@ -242,13 +297,25 @@ export interface Product {
             };
             [k: string]: unknown;
           };
+          /**
+           * Optional image displayed with this workflow step.
+           */
           image?: (string | null) | Media;
           id?: string | null;
         }[]
       | null;
   };
+  /**
+   * Section describing technologies associated with this product.
+   */
   technologiesSection: {
+    /**
+     * Headline for the technologies section.
+     */
     header: string;
+    /**
+     * Supporting copy for the technologies section.
+     */
     tagline: {
       root: {
         type: string;
@@ -264,6 +331,9 @@ export interface Product {
       };
       [k: string]: unknown;
     };
+    /**
+     * Detailed introduction for the technologies section.
+     */
     description: {
       root: {
         type: string;
@@ -279,9 +349,18 @@ export interface Product {
       };
       [k: string]: unknown;
     };
+    /**
+     * Technology entries displayed for this product.
+     */
     technologies?:
       | {
+          /**
+           * Technology name shown in the technologies list.
+           */
           name: string;
+          /**
+           * Description explaining this technology entry.
+           */
           description: {
             root: {
               type: string;
@@ -301,8 +380,17 @@ export interface Product {
         }[]
       | null;
   };
+  /**
+   * Section describing the areas of focus for this product.
+   */
   focusSection: {
+    /**
+     * Headline for the product focus section.
+     */
     header: string;
+    /**
+     * Supporting copy for the product focus section.
+     */
     tagline: {
       root: {
         type: string;
@@ -319,8 +407,17 @@ export interface Product {
       [k: string]: unknown;
     };
   };
+  /**
+   * Implementation examples and case study content for this product.
+   */
   implementationsSection: {
+    /**
+     * Headline for the product implementations section.
+     */
     header: string;
+    /**
+     * Supporting copy for the product implementations section.
+     */
     tagline: {
       root: {
         type: string;
@@ -336,9 +433,18 @@ export interface Product {
       };
       [k: string]: unknown;
     };
+    /**
+     * Case study entries displayed in the implementations section.
+     */
     caseStudies?:
       | {
+          /**
+           * Case study title shown in the implementations section.
+           */
           title: string;
+          /**
+           * Case study summary shown in the implementations section.
+           */
           description: {
             root: {
               type: string;
@@ -358,17 +464,41 @@ export interface Product {
         }[]
       | null;
   };
+  /**
+   * Internal page title used in the admin and page metadata.
+   */
   title: string;
+  /**
+   * URL slug for this page, without a leading slash.
+   */
   slug: string;
+  /**
+   * Search metadata used by browsers, social previews, and search engines.
+   */
   seo: {
+    /**
+     * SEO title shown in browser tabs and search result previews.
+     */
     title: string;
+    /**
+     * SEO summary shown in search result and social sharing previews.
+     */
     description: string;
+    /**
+     * Optional keywords that describe the page topic.
+     */
     keywords?:
       | {
+          /**
+           * Single SEO keyword or phrase.
+           */
           keyword: string;
           id?: string | null;
         }[]
       | null;
+    /**
+     * Image used for social sharing previews when this page is shared.
+     */
     image?: (string | null) | Media;
   };
   updatedAt: string;
@@ -380,9 +510,21 @@ export interface Product {
  */
 export interface Service {
   id: string;
+  /**
+   * Primary hero content shown at the top of the service detail page.
+   */
   heroSection: {
+    /**
+     * Short service title used in the hero and admin title field.
+     */
     title: string;
+    /**
+     * Main headline for the service hero section.
+     */
     header: string;
+    /**
+     * Introductory body copy for the service hero section.
+     */
     description: {
       root: {
         type: string;
@@ -398,12 +540,31 @@ export interface Service {
       };
       [k: string]: unknown;
     };
+    /**
+     * Abstract background image displayed behind this service hero.
+     */
+    background?: (string | null) | Media;
   };
+  /**
+   * Feature section that highlights what this service provides.
+   */
   featuresSection: {
+    /**
+     * Headline for the service features section.
+     */
     header: string;
+    /**
+     * List of service features shown in this section.
+     */
     features?:
       | {
+          /**
+           * Feature title shown in the feature list.
+           */
           title: string;
+          /**
+           * Description explaining this service feature.
+           */
           description: {
             root: {
               type: string;
@@ -423,8 +584,17 @@ export interface Service {
         }[]
       | null;
   };
+  /**
+   * Section describing the delivery approach for this service.
+   */
   approachSection: {
+    /**
+     * Headline for the service approach section.
+     */
     header: string;
+    /**
+     * Supporting copy for the service approach section.
+     */
     tagline: {
       root: {
         type: string;
@@ -440,9 +610,18 @@ export interface Service {
       };
       [k: string]: unknown;
     };
+    /**
+     * Ordered approach steps shown for this service.
+     */
     steps?:
       | {
+          /**
+           * Step title shown in the approach sequence.
+           */
           title: string;
+          /**
+           * Description explaining this approach step.
+           */
           description: {
             root: {
               type: string;
@@ -462,8 +641,17 @@ export interface Service {
         }[]
       | null;
   };
+  /**
+   * Section describing the areas of focus for this service.
+   */
   focusSection: {
+    /**
+     * Headline for the service focus section.
+     */
     header: string;
+    /**
+     * Supporting copy for the service focus section.
+     */
     tagline: {
       root: {
         type: string;
@@ -480,8 +668,17 @@ export interface Service {
       [k: string]: unknown;
     };
   };
+  /**
+   * Implementation examples and case study content for this service.
+   */
   implementationsSection: {
+    /**
+     * Headline for the service implementations section.
+     */
     header: string;
+    /**
+     * Supporting copy for the service implementations section.
+     */
     tagline: {
       root: {
         type: string;
@@ -497,9 +694,18 @@ export interface Service {
       };
       [k: string]: unknown;
     };
+    /**
+     * Case study entries displayed in the implementations section.
+     */
     caseStudies?:
       | {
+          /**
+           * Case study title shown in the implementations section.
+           */
           title: string;
+          /**
+           * Case study summary shown in the implementations section.
+           */
           description: {
             root: {
               type: string;
@@ -519,17 +725,41 @@ export interface Service {
         }[]
       | null;
   };
+  /**
+   * Internal page title used in the admin and page metadata.
+   */
   title: string;
+  /**
+   * URL slug for this page, without a leading slash.
+   */
   slug: string;
+  /**
+   * Search metadata used by browsers, social previews, and search engines.
+   */
   seo: {
+    /**
+     * SEO title shown in browser tabs and search result previews.
+     */
     title: string;
+    /**
+     * SEO summary shown in search result and social sharing previews.
+     */
     description: string;
+    /**
+     * Optional keywords that describe the page topic.
+     */
     keywords?:
       | {
+          /**
+           * Single SEO keyword or phrase.
+           */
           keyword: string;
           id?: string | null;
         }[]
       | null;
+    /**
+     * Image used for social sharing previews when this page is shared.
+     */
     image?: (string | null) | Media;
   };
   updatedAt: string;
@@ -541,6 +771,9 @@ export interface Service {
  */
 export interface Media {
   id: string;
+  /**
+   * Accessible alt text describing the uploaded media.
+   */
   alt: string;
   updatedAt: string;
   createdAt: string;
@@ -560,8 +793,17 @@ export interface Media {
  */
 export interface Customer {
   id: string;
+  /**
+   * Customer name shown across the site and in admin lists.
+   */
   name: string;
+  /**
+   * Customer logo displayed in customer listings and page sections.
+   */
   logo: string | Media;
+  /**
+   * Customer website URL used for outbound links.
+   */
   website: string;
   updatedAt: string;
   createdAt: string;
@@ -572,8 +814,17 @@ export interface Customer {
  */
 export interface Partner {
   id: string;
+  /**
+   * Partner name shown across the site and in admin lists.
+   */
   name: string;
+  /**
+   * Partner logo displayed in partner listings and page sections.
+   */
   logo: string | Media;
+  /**
+   * Partner website URL used for outbound links.
+   */
   website: string;
   updatedAt: string;
   createdAt: string;
@@ -857,6 +1108,7 @@ export interface ProductsSelect<T extends boolean = true> {
         description?: T;
         service?: T;
         image?: T;
+        background?: T;
       };
   featuresSection?:
     | T
@@ -946,6 +1198,7 @@ export interface ServicesSelect<T extends boolean = true> {
         title?: T;
         header?: T;
         description?: T;
+        background?: T;
       };
   featuresSection?:
     | T
@@ -1190,19 +1443,55 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Shared {
   id: string;
+  /**
+   * Primary site logo used in shared navigation and branding.
+   */
   logo: string | Media;
+  /**
+   * Browser favicon used for the site.
+   */
   favicon: string | Media;
+  /**
+   * Default site title used for branding and metadata.
+   */
   siteTitle: string;
+  /**
+   * Shared header navigation shown across the site.
+   */
   header?: {
+    /**
+     * Top-level navigation links shown in the site header.
+     */
     links?:
       | {
+          /**
+           * Navigation label shown in the header.
+           */
           label: string;
+          /**
+           * Mark this header link as the primary navigation action.
+           */
           primary?: boolean | null;
+          /**
+           * Destination path or URL for this header link.
+           */
           link?: string | null;
+          /**
+           * Dropdown or nested navigation links under this header item.
+           */
           subLinks?:
             | {
+                /**
+                 * Text shown for this call-to-action link.
+                 */
                 label: string;
+                /**
+                 * Destination path or URL for this call to action.
+                 */
                 url: string;
+                /**
+                 * Enable when the destination is a full external URL.
+                 */
                 absolute?: boolean | null;
                 id?: string | null;
               }[]
@@ -1211,26 +1500,78 @@ export interface Shared {
         }[]
       | null;
   };
+  /**
+   * Shared footer content shown across the site.
+   */
   footer: {
+    /**
+     * Top footer reach-out section with headline, tagline, and CTA.
+     */
     top: {
+      /**
+       * Headline shown in the top footer section.
+       */
       header: string;
+      /**
+       * Supporting tagline shown in the top footer section.
+       */
       tagline: string;
+      /**
+       * Call to action shown in the top footer section.
+       */
       cta: {
+        /**
+         * Text shown for this call-to-action link.
+         */
         label: string;
+        /**
+         * Destination path or URL for this call to action.
+         */
         url: string;
+        /**
+         * Enable when the destination is a full external URL.
+         */
         absolute?: boolean | null;
         id?: string | null;
       };
+      /**
+       * Abstract background image displayed behind the footer reach-out section.
+       */
+      background?: (string | null) | Media;
     };
+    /**
+     * Middle footer section with logo and grouped navigation links.
+     */
     middle: {
+      /**
+       * Logo displayed in the middle footer section.
+       */
       logo: string | Media;
+      /**
+       * Grouped footer navigation columns.
+       */
       linkGroups?:
         | {
+            /**
+             * Heading shown above this footer link group.
+             */
             label: string;
+            /**
+             * Links displayed inside this footer group.
+             */
             links?:
               | {
+                  /**
+                   * Text shown for this call-to-action link.
+                   */
                   label: string;
+                  /**
+                   * Destination path or URL for this call to action.
+                   */
                   url: string;
+                  /**
+                   * Enable when the destination is a full external URL.
+                   */
                   absolute?: boolean | null;
                   id?: string | null;
                 }[]
@@ -1239,12 +1580,30 @@ export interface Shared {
           }[]
         | null;
     };
+    /**
+     * Bottom footer bar with copyright text and legal links.
+     */
     bottom: {
+      /**
+       * Copyright text shown in the bottom footer bar.
+       */
       copyright: string;
+      /**
+       * Legal or utility links shown in the bottom footer bar.
+       */
       links?:
         | {
+            /**
+             * Text shown for this call-to-action link.
+             */
             label: string;
+            /**
+             * Destination path or URL for this call to action.
+             */
             url: string;
+            /**
+             * Enable when the destination is a full external URL.
+             */
             absolute?: boolean | null;
             id?: string | null;
           }[]
@@ -1260,9 +1619,21 @@ export interface Shared {
  */
 export interface Home {
   id: string;
+  /**
+   * Primary hero content shown at the top of the home page.
+   */
   heroSection: {
+    /**
+     * Main headline shown in the home page hero.
+     */
     header: string;
+    /**
+     * Short supporting tagline shown in the home page hero.
+     */
     tagline: string;
+    /**
+     * Introductory body copy for the home page hero.
+     */
     description: {
       root: {
         type: string;
@@ -1278,10 +1649,22 @@ export interface Home {
       };
       [k: string]: unknown;
     };
+    /**
+     * Label shown for the discover mode control in the hero.
+     */
     discoverModeLabel: string;
   };
+  /**
+   * Introductory about section shown on the home page.
+   */
   aboutSection: {
+    /**
+     * Headline for the home page about section.
+     */
     header: string;
+    /**
+     * Supporting copy for the home page about section.
+     */
     tagline: {
       root: {
         type: string;
@@ -1297,6 +1680,9 @@ export interface Home {
       };
       [k: string]: unknown;
     };
+    /**
+     * Detailed body copy for the home page about section.
+     */
     description: {
       root: {
         type: string;
@@ -1312,15 +1698,36 @@ export interface Home {
       };
       [k: string]: unknown;
     };
+    /**
+     * Call to action shown in the home page about section.
+     */
     cta: {
+      /**
+       * Text shown for this call-to-action link.
+       */
       label: string;
+      /**
+       * Destination path or URL for this call to action.
+       */
       url: string;
+      /**
+       * Enable when the destination is a full external URL.
+       */
       absolute?: boolean | null;
       id?: string | null;
     };
   };
+  /**
+   * Section introducing services on the home page.
+   */
   servicesSection: {
+    /**
+     * Headline for the home page services section.
+     */
     header: string;
+    /**
+     * Supporting copy for the home page services section.
+     */
     tagline: {
       root: {
         type: string;
@@ -1337,8 +1744,17 @@ export interface Home {
       [k: string]: unknown;
     };
   };
+  /**
+   * Section introducing products on the home page.
+   */
   productsSection: {
+    /**
+     * Headline for the home page products section.
+     */
     header: string;
+    /**
+     * Supporting copy for the home page products section.
+     */
     tagline: {
       root: {
         type: string;
@@ -1355,8 +1771,17 @@ export interface Home {
       [k: string]: unknown;
     };
   };
+  /**
+   * Section introducing featured partners on the home page.
+   */
   partnersSection: {
+    /**
+     * Headline for the home page partners section.
+     */
     header: string;
+    /**
+     * Supporting copy for the home page partners section.
+     */
     tagline: {
       root: {
         type: string;
@@ -1372,6 +1797,9 @@ export interface Home {
       };
       [k: string]: unknown;
     };
+    /**
+     * Detailed body copy for the home page partners section.
+     */
     description: {
       root: {
         type: string;
@@ -1387,10 +1815,22 @@ export interface Home {
       };
       [k: string]: unknown;
     };
+    /**
+     * Partners selected for display in this home page section.
+     */
     partners?: (string | Partner)[] | null;
   };
+  /**
+   * Section introducing featured customers on the home page.
+   */
   customersSection: {
+    /**
+     * Headline for the home page customers section.
+     */
     header: string;
+    /**
+     * Supporting copy for the home page customers section.
+     */
     tagline: {
       root: {
         type: string;
@@ -1406,6 +1846,9 @@ export interface Home {
       };
       [k: string]: unknown;
     };
+    /**
+     * Detailed body copy for the home page customers section.
+     */
     description: {
       root: {
         type: string;
@@ -1421,19 +1864,46 @@ export interface Home {
       };
       [k: string]: unknown;
     };
+    /**
+     * Customers selected for display in this home page section.
+     */
     customers?: (string | Customer)[] | null;
   };
+  /**
+   * Internal page title used in the admin and page metadata.
+   */
   title: string;
+  /**
+   * URL slug for this page, without a leading slash.
+   */
   slug: string;
+  /**
+   * Search metadata used by browsers, social previews, and search engines.
+   */
   seo: {
+    /**
+     * SEO title shown in browser tabs and search result previews.
+     */
     title: string;
+    /**
+     * SEO summary shown in search result and social sharing previews.
+     */
     description: string;
+    /**
+     * Optional keywords that describe the page topic.
+     */
     keywords?:
       | {
+          /**
+           * Single SEO keyword or phrase.
+           */
           keyword: string;
           id?: string | null;
         }[]
       | null;
+    /**
+     * Image used for social sharing previews when this page is shared.
+     */
     image?: (string | null) | Media;
   };
   updatedAt?: string | null;
@@ -1445,8 +1915,17 @@ export interface Home {
  */
 export interface Contact {
   id: string;
+  /**
+   * Primary hero content shown at the top of the contact page.
+   */
   heroSection: {
+    /**
+     * Main title shown in the contact page hero.
+     */
     title: string;
+    /**
+     * Introductory body copy for the contact page hero.
+     */
     description: {
       root: {
         type: string;
@@ -1462,23 +1941,63 @@ export interface Contact {
       };
       [k: string]: unknown;
     };
+    /**
+     * Abstract background image displayed behind the contact hero.
+     */
+    background?: (string | null) | Media;
   };
+  /**
+   * Contact details and social links shown on the contact page.
+   */
   contactSection: {
+    /**
+     * Headline for the contact details section.
+     */
     header: string;
+    /**
+     * Office or mailing address shown on the contact page.
+     */
     address: string;
+    /**
+     * Phone number shown on the contact page.
+     */
     phone: string;
+    /**
+     * Email address shown on the contact page.
+     */
     email: string;
+    /**
+     * Social profile links shown with the contact details.
+     */
     social?:
       | {
+          /**
+           * Text shown for this call-to-action link.
+           */
           label: string;
+          /**
+           * Destination path or URL for this call to action.
+           */
           url: string;
+          /**
+           * Enable when the destination is a full external URL.
+           */
           absolute?: boolean | null;
           id?: string | null;
         }[]
       | null;
   };
+  /**
+   * Introductory content and labels for the contact form.
+   */
   sendMessageSection: {
+    /**
+     * Headline shown above the contact form.
+     */
     header: string;
+    /**
+     * Supporting copy shown above the contact form.
+     */
     tagline: {
       root: {
         type: string;
@@ -1494,26 +2013,71 @@ export interface Contact {
       };
       [k: string]: unknown;
     };
+    /**
+     * Editable labels used by the contact form inputs and submit button.
+     */
     formLabels: {
+      /**
+       * Label for the first name input.
+       */
       firstnameLabel: string;
+      /**
+       * Label for the last name input.
+       */
       lastnameLabel: string;
+      /**
+       * Label for the email input.
+       */
       emailLabel: string;
+      /**
+       * Label for the phone input.
+       */
       phoneLabel: string;
+      /**
+       * Label for the message input.
+       */
       messageLabel: string;
+      /**
+       * Text shown on the contact form submit button.
+       */
       submitLabel: string;
     };
   };
+  /**
+   * Internal page title used in the admin and page metadata.
+   */
   title: string;
+  /**
+   * URL slug for this page, without a leading slash.
+   */
   slug: string;
+  /**
+   * Search metadata used by browsers, social previews, and search engines.
+   */
   seo: {
+    /**
+     * SEO title shown in browser tabs and search result previews.
+     */
     title: string;
+    /**
+     * SEO summary shown in search result and social sharing previews.
+     */
     description: string;
+    /**
+     * Optional keywords that describe the page topic.
+     */
     keywords?:
       | {
+          /**
+           * Single SEO keyword or phrase.
+           */
           keyword: string;
           id?: string | null;
         }[]
       | null;
+    /**
+     * Image used for social sharing previews when this page is shared.
+     */
     image?: (string | null) | Media;
   };
   updatedAt?: string | null;
@@ -1525,8 +2089,17 @@ export interface Contact {
  */
 export interface Company {
   id: string;
+  /**
+   * Primary hero content shown at the top of the company page.
+   */
   heroSection: {
+    /**
+     * Main title shown in the company page hero.
+     */
     title: string;
+    /**
+     * Introductory body copy for the company page hero.
+     */
     description: {
       root: {
         type: string;
@@ -1542,9 +2115,22 @@ export interface Company {
       };
       [k: string]: unknown;
     };
+    /**
+     * Abstract background image displayed behind the company hero.
+     */
+    background?: (string | null) | Media;
   };
+  /**
+   * About section content shown on the company page.
+   */
   aboutSection: {
+    /**
+     * Headline for the company about section.
+     */
     header: string;
+    /**
+     * Supporting copy for the company about section.
+     */
     tagline: {
       root: {
         type: string;
@@ -1560,6 +2146,9 @@ export interface Company {
       };
       [k: string]: unknown;
     };
+    /**
+     * Detailed body copy for the company about section.
+     */
     description: {
       root: {
         type: string;
@@ -1576,8 +2165,17 @@ export interface Company {
       [k: string]: unknown;
     };
   };
+  /**
+   * Founder profiles and introductory content for the company page.
+   */
   foundersSection: {
+    /**
+     * Headline for the founders section.
+     */
     header: string;
+    /**
+     * Supporting copy for the founders section.
+     */
     tagline: {
       root: {
         type: string;
@@ -1593,17 +2191,38 @@ export interface Company {
       };
       [k: string]: unknown;
     };
+    /**
+     * Founder profiles displayed on the company page.
+     */
     founders?:
       | {
+          /**
+           * Founder name shown on the profile card.
+           */
           name: string;
+          /**
+           * Founder role or title shown on the profile card.
+           */
           role: string;
+          /**
+           * Founder portrait shown on the company page.
+           */
           image: string | Media;
           id?: string | null;
         }[]
       | null;
   };
+  /**
+   * Team member profiles and introductory content for the company page.
+   */
   teamSection: {
+    /**
+     * Headline for the team section.
+     */
     header: string;
+    /**
+     * Supporting copy for the team section.
+     */
     tagline: {
       root: {
         type: string;
@@ -1619,18 +2238,42 @@ export interface Company {
       };
       [k: string]: unknown;
     };
+    /**
+     * Team member profiles displayed on the company page.
+     */
     teamMembers?:
       | {
+          /**
+           * Team member name shown on the profile card.
+           */
           name: string;
+          /**
+           * Team member role or title shown on the profile card.
+           */
           role: string;
+          /**
+           * Department or practice area shown for this team member.
+           */
           department: string;
+          /**
+           * Team member portrait shown on the company page.
+           */
           image: string | Media;
           id?: string | null;
         }[]
       | null;
   };
+  /**
+   * Manifesto section content shown on the company page.
+   */
   manifestoSection: {
+    /**
+     * Headline for the manifesto section.
+     */
     header: string;
+    /**
+     * Supporting copy for the manifesto section.
+     */
     tagline: {
       root: {
         type: string;
@@ -1694,6 +2337,7 @@ export interface SharedSelect<T extends boolean = true> {
                     absolute?: T;
                     id?: T;
                   };
+              background?: T;
             };
         middle?:
           | T
@@ -1817,6 +2461,7 @@ export interface ContactSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
+        background?: T;
       };
   contactSection?:
     | T
@@ -1879,6 +2524,7 @@ export interface CompanySelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
+        background?: T;
       };
   aboutSection?:
     | T

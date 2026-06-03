@@ -37,7 +37,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
   const services = fieldRecord(home?.servicesSection)
   const products = fieldRecord(home?.productsSection)
   const partners = fieldRecord(home?.partnersSection)
-  const customers = fieldRecord(home?.customersSection)
+  // const customers = fieldRecord(home?.customersSection)
   const aboutCta = fieldRecord(about?.cta)
 
   const heroTitle = fieldText(hero?.header)
@@ -141,20 +141,20 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
         </Container>
       </section>
 
-      <section className="mx-2 rounded-3xl bg-zinc-950 py-24 text-white lg:py-32">
+      <section className="mx-2 mb-16 rounded-3xl bg-zinc-950 py-24 text-white lg:mb-20 lg:py-32">
         <LogoShowcase
           description={fieldText(partners?.description)}
           label={fieldText(partners?.header)}
           logos={readLogos(partners?.partners)}
           title={fieldText(partners?.tagline)}
         />
-        <LogoShowcase
+        {/* <LogoShowcase
           className="mt-28 lg:mt-40"
           description={fieldText(customers?.description)}
           label={fieldText(customers?.header)}
           logos={readLogos(customers?.customers)}
           title={fieldText(customers?.tagline)}
-        />
+        /> */}
       </section>
 
       <FooterCta locale={locale} shared={shared} />

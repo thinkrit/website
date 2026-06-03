@@ -4,7 +4,15 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 
 import { DesktopNav } from '@/components/site/DesktopNav'
-import { fieldArray, fieldLink, fieldRecord, fieldText, mediaUrl, type LinkGroup, type LinkItem } from '@/lib/payload-local'
+import {
+  fieldArray,
+  fieldLink,
+  fieldRecord,
+  fieldText,
+  mediaUrl,
+  type LinkGroup,
+  type LinkItem,
+} from '@/lib/payload-local'
 import { localizedPath, type Locale } from '@/lib/routing'
 
 type SharedDoc = Record<string, unknown> | null
@@ -24,7 +32,11 @@ export function Container({
   children: ReactNode
   className?: string
 }) {
-  return <div className={`mx-auto w-full max-w-[1320px] px-5 sm:px-8 lg:px-12 ${className}`}>{children}</div>
+  return (
+    <div className={`mx-auto w-full max-w-[1320px] px-5 sm:px-8 lg:px-12 ${className}`}>
+      {children}
+    </div>
+  )
 }
 
 export function SectionLabel({ label, light = false }: { label: string; light?: boolean }) {
@@ -79,7 +91,7 @@ export function Header({
   return (
     <header className="relative z-20 mx-auto flex w-full max-w-[1320px] items-start justify-between gap-4 px-5 pt-7 sm:px-8 lg:px-12">
       <Link aria-label="ThinkRIT home" href={localizedPath(locale, '/')}>
-        <Logo className="w-[110px]" shared={shared} variant="red" />
+        <Logo className="w-[80px]" shared={shared} variant="red" />
       </Link>
 
       <DesktopNav
@@ -180,6 +192,42 @@ export function HeroFrame({
   )
 }
 
+export function AbstractImageBackground({
+  fallback,
+  image,
+  imageWrapperClassName = 'inset-0',
+  imageClassName = 'opacity-30',
+  priority = true,
+}: {
+  fallback?: ReactNode
+  image: unknown
+  imageWrapperClassName?: string
+  imageClassName?: string
+  priority?: boolean
+}) {
+  const src = mediaUrl(image, '')
+
+  if (!src) return fallback ?? null
+
+  return (
+    <>
+      <div className="absolute inset-0 bg-[#E4E4E74D]" />
+      <div className={`absolute ${imageWrapperClassName}`}>
+        <Image
+          alt=""
+          aria-hidden
+          className={`object-contain object-bottom-right ${imageClassName}`}
+          fill
+          priority={priority}
+          sizes="100vw"
+          src={src}
+        />
+      </div>
+      <div className="absolute inset-0 bg-white/10" />
+    </>
+  )
+}
+
 export function FooterCta({
   locale,
   shared,
@@ -197,11 +245,16 @@ export function FooterCta({
   const ctaHref = fieldLink(cta) || '/contact'
 
   return (
-    <section className="bg-[var(--think-footer-gray)] pb-4 pt-20 lg:pt-24">
-      <Container className="grid gap-10 md:grid-cols-[260px_1fr]">
+    <section className="relative overflow-hidden bg-[var(--think-footer-gray)] pb-16 pt-20 lg:pt-24">
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <AbstractImageBackground image={top?.background} imageClassName="opacity-20" priority={false} />
+      </div>
+      <Container className="relative z-10 grid gap-10 md:grid-cols-[260px_1fr]">
         <SectionLabel label={fieldText(top?.header)} />
         <div className="max-w-2xl">
-          <h2 className="text-balance text-2xl font-medium leading-tight text-zinc-950 sm:text-3xl md:text-5xl">{tagline}</h2>
+          <h2 className="text-balance text-2xl font-medium leading-tight text-zinc-950 sm:text-3xl md:text-5xl">
+            {tagline}
+          </h2>
           {showButton ? (
             <Link
               className="mt-8 inline-flex rounded-lg bg-zinc-950 px-6 py-4 text-[12px] font-semibold uppercase leading-none !text-white transition hover:bg-zinc-800"
@@ -212,7 +265,9 @@ export function FooterCta({
           ) : null}
         </div>
       </Container>
-      <SiteFooter locale={locale} shared={shared} />
+      <div className="relative z-10">
+        <SiteFooter locale={locale} shared={shared} />
+      </div>
     </section>
   )
 }

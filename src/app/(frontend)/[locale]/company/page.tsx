@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 
-import { Container, FooterCta, HeroFrame, SectionLabel } from '@/components/site/chrome'
+import { AbstractImageBackground, Container, FooterCta, HeroFrame, SectionLabel } from '@/components/site/chrome'
 import { ImagePanel } from '@/components/site/content'
 import { PixelBlastHeroBackground } from '@/components/site/PixelBlastHeroBackground'
 import { fieldArray, fieldRecord, fieldText, getGlobalDoc, mediaUrl, type Person } from '@/lib/payload-local'
@@ -28,7 +28,17 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
 
   return (
     <>
-      <HeroFrame background={<PixelBlastHeroBackground />} compact locale={locale} shared={shared}>
+      <HeroFrame
+        background={
+          <AbstractImageBackground
+            fallback={<PixelBlastHeroBackground />}
+            image={hero?.background}
+          />
+        }
+        compact
+        locale={locale}
+        shared={shared}
+      >
         <h1 className="text-balance text-3xl font-medium leading-tight text-zinc-950 sm:text-4xl md:text-6xl">
           {fieldText(hero?.title)}
         </h1>
