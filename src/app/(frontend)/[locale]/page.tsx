@@ -122,7 +122,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
             {productItems.map((item, index) => (
               <Fragment key={item.title}>
                 <Link
-                  className="group grid gap-4 rounded-3xl px-4 py-8 transition-all duration-300 ease-out hover:scale-[1.04] hover:bg-zinc-950 sm:grid-cols-[56px_1fr_44px]"
+                  className="group grid gap-4 rounded-3xl px-4 py-8 transition-all duration-300 ease-out hover:scale-[1.02] hover:bg-zinc-950 sm:grid-cols-[56px_1fr_44px]"
                   href={localizedPath(locale, `/products/${item.slug}`)}
                 >
                   <span className="text-2xl font-medium text-[var(--think-red)]">

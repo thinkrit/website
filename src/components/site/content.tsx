@@ -72,7 +72,7 @@ export function ServiceTile({
 
   return (
     <Link
-      className={`group flex min-h-[260px] flex-col justify-between rounded-[20px] p-8 transition hover:-translate-y-1 ${tones[card.tone]}`}
+      className={`group flex min-h-[260px] flex-col justify-between rounded-[20px] p-8 ring-0 ring-white/0 transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-lg hover:ring-2 hover:ring-white/20 ${tones[card.tone]}`}
       href={localizedPath(locale, `/services/${card.slug}`)}
     >
       <div className="flex items-start justify-between">
