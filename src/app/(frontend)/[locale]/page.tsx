@@ -76,7 +76,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
           <div className="max-w-4xl">
             <HighlightedTitle
               className="text-balance text-2xl font-medium leading-tight text-zinc-950 sm:text-3xl md:text-5xl"
-              highlight="future of the market"
+              highlights={['market-ready solutions']}
               text={aboutTitle}
             />
             <p className="mt-10 max-w-3xl text-base leading-loose text-zinc-600">

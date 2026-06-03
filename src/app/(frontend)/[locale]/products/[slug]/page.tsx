@@ -87,7 +87,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
             <SectionLabel label={fieldText(how?.header)} />
             <HighlightedTitle
               className="mt-12 text-balance text-2xl font-medium leading-tight text-zinc-950 sm:text-3xl md:text-4xl"
-              highlight="future-ready"
+              highlights={['future-ready']}
               text={fieldText(how?.tagline)}
             />
           </>

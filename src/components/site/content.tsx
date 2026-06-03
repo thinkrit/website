@@ -19,22 +19,49 @@ import { localizedPath, type Locale } from '@/lib/routing'
 
 export function HighlightedTitle({
   text,
-  highlight,
+  highlights,
   className = '',
 }: {
   text: string
-  highlight: string
+  highlights: string[]
   className?: string
 }) {
-  const index = text.toLowerCase().indexOf(highlight.toLowerCase())
+  const parts: { text: string; highlighted: boolean }[] = []
+  let remaining = text
 
-  if (index === -1) return <h2 className={className}>{text}</h2>
+  while (remaining.length > 0) {
+    let earliestIndex = -1
+    let earliestHighlight = ''
+
+    for (const highlight of highlights) {
+      const index = remaining.toLowerCase().indexOf(highlight.toLowerCase())
+      if (index !== -1 && (earliestIndex === -1 || index < earliestIndex)) {
+        earliestIndex = index
+        earliestHighlight = highlight
+      }
+    }
+
+    if (earliestIndex === -1) {
+      parts.push({ text: remaining, highlighted: false })
+      break
+    }
+
+    if (earliestIndex > 0) {
+      parts.push({ text: remaining.slice(0, earliestIndex), highlighted: false })
+    }
+    parts.push({ text: remaining.slice(earliestIndex, earliestIndex + earliestHighlight.length), highlighted: true })
+    remaining = remaining.slice(earliestIndex + earliestHighlight.length)
+  }
 
   return (
     <h2 className={className}>
-      {text.slice(0, index)}
-      <span className="text-[var(--think-red)]">{text.slice(index, index + highlight.length)}</span>
-      {text.slice(index + highlight.length)}
+      {parts.map((part, i) =>
+        part.highlighted ? (
+          <span key={i} className="text-[var(--think-red)]">{part.text}</span>
+        ) : (
+          <span key={i}>{part.text}</span>
+        )
+      )}
     </h2>
   )
 }
@@ -83,7 +110,7 @@ export function ServiceTile({
       </div>
       <div>
         <h3 className="text-2xl font-medium leading-tight text-white">{card.title}</h3>
-        <p className="mt-3 max-w-[260px] text-sm leading-relaxed text-white/80">{card.description}</p>
+        <p className="mt-3 max-w-[260px] text-sm leading-relaxed text-white/80 line-clamp-2">{card.description}</p>
       </div>
     </Link>
   )

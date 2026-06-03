@@ -52,7 +52,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
         </div>
       </HeroFrame>
 
-      <section className="pb-24 pt-24">
+      <section className="pb-12 pt-24">
         <Container>
           <SectionLabel label={fieldText(features?.header)} />
         </Container>
