@@ -3,8 +3,10 @@ import { notFound } from 'next/navigation'
 
 import { AbstractImageBackground, Container, FooterCta, HeroFrame, SectionLabel } from '@/components/site/chrome'
 import { PixelBlastHeroBackground } from '@/components/site/PixelBlastHeroBackground'
-import { fieldArray, fieldLink, fieldRecord, fieldText, getGlobalDoc, mediaUrl } from '@/lib/payload-local'
+import { ContactForm } from './ContactForm'
+import { fieldArray, fieldLink, fieldNumber, fieldRecord, fieldText, getGlobalDoc, mediaUrl } from '@/lib/payload-local'
 import { isLocale, type Locale } from '@/lib/routing'
+import { ContactMap } from './ContactMap'
 
 // Cache the rendered page indefinitely. It is rebuilt only when a Payload
 // create/update/delete invalidates a matching cache tag (see hooks/revalidate.ts).
@@ -22,6 +24,9 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
   const message = fieldRecord(contact?.sendMessageSection)
   const labels = fieldRecord(message?.formLabels)
   const social = fieldArray(info?.social)[0]
+  const location = fieldRecord(info?.location)
+  const mapLat = fieldNumber(location?.latitude)
+  const mapLng = fieldNumber(location?.longitude)
   const uiLabels = contactUiLabels(locale)
 
   return (
@@ -71,15 +76,25 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
                 </a>
               </div>
             </div>
-            <div className="relative aspect-[1.18] overflow-hidden rounded-lg bg-zinc-100">
-              <Image
-                alt="Map of ThinkRIT office in Metamorfosi"
-                className="object-cover"
-                fill
-                priority
-                src={mediaUrl(fieldRecord(contact?.seo)?.image, '/map-metamorfosi.svg')}
+            {mapLat !== null && mapLng !== null ? (
+              <ContactMap
+                label={fieldText(location?.label) || undefined}
+                latitude={mapLat}
+                link={fieldText(location?.link) || undefined}
+                longitude={mapLng}
+                zoom={fieldNumber(location?.zoom) ?? undefined}
               />
-            </div>
+            ) : (
+              <div className="relative aspect-[1.18] overflow-hidden rounded-lg bg-zinc-100">
+                <Image
+                  alt="Map of ThinkRIT office in Metamorfosi"
+                  className="object-cover"
+                  fill
+                  priority
+                  src={mediaUrl(fieldRecord(contact?.seo)?.image, '/map-metamorfosi.svg')}
+                />
+              </div>
+            )}
           </div>
         </Container>
       </section>
@@ -87,28 +102,24 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
       <section className="pb-24 lg:pb-32">
         <Container className="grid gap-10 md:grid-cols-[260px_1fr]">
           <SectionLabel label={fieldText(message?.header)} />
-          <form className="max-w-5xl">
+          <div className="max-w-5xl">
             <h2 className="max-w-3xl text-balance text-xl font-medium leading-tight text-zinc-950 sm:text-2xl md:text-4xl">
               {fieldText(message?.tagline)}
             </h2>
-            <div className="mt-14 grid gap-6 sm:grid-cols-2">
-              <input aria-label={fieldText(labels?.firstnameLabel)} placeholder={fieldText(labels?.firstnameLabel)} />
-              <input aria-label={fieldText(labels?.lastnameLabel)} placeholder={fieldText(labels?.lastnameLabel)} />
-              <input aria-label={fieldText(labels?.emailLabel)} placeholder={fieldText(labels?.emailLabel)} type="email" />
-              <input aria-label={fieldText(labels?.phoneLabel)} placeholder={fieldText(labels?.phoneLabel)} type="tel" />
-              <textarea
-                aria-label={fieldText(labels?.messageLabel)}
-                className="min-h-56 sm:col-span-2"
-                placeholder={fieldText(labels?.messageLabel)}
+            <div className="mt-14">
+              <ContactForm
+                labels={{
+                  firstname: fieldText(labels?.firstnameLabel),
+                  lastname: fieldText(labels?.lastnameLabel),
+                  email: fieldText(labels?.emailLabel),
+                  phone: fieldText(labels?.phoneLabel),
+                  message: fieldText(labels?.messageLabel),
+                  submit: fieldText(labels?.submitLabel),
+                  success: uiLabels.success,
+                }}
               />
             </div>
-            <button
-              className="mt-12 rounded-lg bg-zinc-950 px-7 py-5 text-[13px] font-semibold uppercase leading-none !text-white transition hover:bg-zinc-800"
-              type="submit"
-            >
-              {fieldText(labels?.submitLabel)}
-            </button>
-          </form>
+          </div>
         </Container>
       </section>
 
@@ -123,6 +134,7 @@ function contactUiLabels(locale: Locale) {
       email: 'Email',
       phone: 'Τηλέφωνο',
       social: 'Social',
+      success: 'Ευχαριστούμε! Το μήνυμά σας στάλθηκε.',
     }
   }
 
@@ -130,5 +142,6 @@ function contactUiLabels(locale: Locale) {
     email: 'Email',
     phone: 'Phone',
     social: 'Social',
+    success: 'Thank you! Your message has been sent.',
   }
 }

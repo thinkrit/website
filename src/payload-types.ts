@@ -72,6 +72,7 @@ export interface Config {
     services: Service;
     customers: Customer;
     partners: Partner;
+    messages: Message;
     users: User;
     media: Media;
     'payload-mcp-api-keys': PayloadMcpApiKey;
@@ -86,6 +87,7 @@ export interface Config {
     services: ServicesSelect<false> | ServicesSelect<true>;
     customers: CustomersSelect<false> | CustomersSelect<true>;
     partners: PartnersSelect<false> | PartnersSelect<true>;
+    messages: MessagesSelect<false> | MessagesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'payload-mcp-api-keys': PayloadMcpApiKeysSelect<false> | PayloadMcpApiKeysSelect<true>;
@@ -830,6 +832,22 @@ export interface Partner {
   createdAt: string;
 }
 /**
+ * Messages submitted through the contact page form.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "messages".
+ */
+export interface Message {
+  id: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  phone?: string | null;
+  message: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
@@ -1030,6 +1048,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'partners';
         value: string | Partner;
+      } | null)
+    | ({
+        relationTo: 'messages';
+        value: string | Message;
       } | null)
     | ({
         relationTo: 'users';
@@ -1281,6 +1303,19 @@ export interface PartnersSelect<T extends boolean = true> {
   name?: T;
   logo?: T;
   website?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "messages_select".
+ */
+export interface MessagesSelect<T extends boolean = true> {
+  firstname?: T;
+  lastname?: T;
+  email?: T;
+  phone?: T;
+  message?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1986,6 +2021,31 @@ export interface Contact {
           id?: string | null;
         }[]
       | null;
+    /**
+     * Map location shown beside the contact details.
+     */
+    location: {
+      /**
+       * Latitude of the map marker, e.g. 38.0660264.
+       */
+      latitude: number;
+      /**
+       * Longitude of the map marker, e.g. 23.760824.
+       */
+      longitude: number;
+      /**
+       * Initial map zoom level (1 = world, 21 = building). Defaults to 16.
+       */
+      zoom?: number | null;
+      /**
+       * Accessible label / title for the map (e.g. "ThinkRIT office in Metamorfosi").
+       */
+      label?: string | null;
+      /**
+       * Optional Google Maps URL opened when visitors click "View on Google Maps".
+       */
+      link?: string | null;
+    };
   };
   /**
    * Introductory content and labels for the contact form.
@@ -2477,6 +2537,15 @@ export interface ContactSelect<T extends boolean = true> {
               url?: T;
               absolute?: T;
               id?: T;
+            };
+        location?:
+          | T
+          | {
+              latitude?: T;
+              longitude?: T;
+              zoom?: T;
+              label?: T;
+              link?: T;
             };
       };
   sendMessageSection?:

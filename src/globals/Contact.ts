@@ -97,6 +97,56 @@ export const Contact: GlobalConfig = {
           },
           fields: CtaFields,
         },
+        {
+          name: 'location',
+          type: 'group',
+          admin: {
+            description: 'Map location shown beside the contact details.',
+          },
+          fields: [
+            {
+              name: 'latitude',
+              type: 'number',
+              required: true,
+              admin: {
+                description: 'Latitude of the map marker, e.g. 38.0660264.',
+              },
+            },
+            {
+              name: 'longitude',
+              type: 'number',
+              required: true,
+              admin: {
+                description: 'Longitude of the map marker, e.g. 23.760824.',
+              },
+            },
+            {
+              name: 'zoom',
+              type: 'number',
+              defaultValue: 16,
+              min: 1,
+              max: 21,
+              admin: {
+                description: 'Initial map zoom level (1 = world, 21 = building). Defaults to 16.',
+              },
+            },
+            {
+              name: 'label',
+              type: 'text',
+              localized: true,
+              admin: {
+                description: 'Accessible label / title for the map (e.g. "ThinkRIT office in Metamorfosi").',
+              },
+            },
+            {
+              name: 'link',
+              type: 'text',
+              admin: {
+                description: 'Optional Google Maps URL opened when visitors click "View on Google Maps".',
+              },
+            },
+          ],
+        },
       ],
     },
     {

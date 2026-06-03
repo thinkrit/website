@@ -1,12 +1,12 @@
 import {
   ArrowLeft,
   ArrowRight,
+  ArrowUpRight,
   CheckCircle,
   Circle,
   Clock3,
   Cloud,
   Code2,
-  ExternalLink,
   Globe2,
   MessageSquare,
   Plus,
@@ -80,7 +80,7 @@ export function ServiceTile({
       <div className="flex items-start justify-between">
         {card.title === 'Cloud' ? <Cloud className="h-9 w-9 text-white" /> : card.title === 'Consulting' ? <MessageSquare className="h-9 w-9 text-white" /> : <Code2 className="h-9 w-9 text-white" />}
         <span className="flex h-8 w-8 items-center justify-center rounded-md bg-white text-zinc-800">
-          <ExternalLink className="h-4 w-4" />
+          <ArrowUpRight className="h-4 w-4" />
         </span>
       </div>
       <div>

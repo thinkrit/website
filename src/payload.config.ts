@@ -15,6 +15,7 @@ import { Shared } from './globals/Shared'
 import { Home } from './globals/Home'
 import { Products } from './collections/Products'
 import { Services } from './collections/Services'
+import { Messages } from './collections/Messages'
 import { Company } from './globals/Company'
 import { Contact } from './globals/Contact'
 
@@ -29,7 +30,7 @@ export default buildConfig({
     },
   },
   globals: [Shared, Home, Contact, Company],
-  collections: [Products, Services, Customers, Partners, Users, Media],
+  collections: [Products, Services, Customers, Partners, Messages, Users, Media],
   editor: lexicalEditor(),
   localization: {
     locales: ['en', 'el'],

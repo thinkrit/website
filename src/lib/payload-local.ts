@@ -168,6 +168,15 @@ export function requiredText(value: unknown, fieldName: string): string {
   return text
 }
 
+export function fieldNumber(value: unknown): number | null {
+  if (typeof value === 'number' && Number.isFinite(value)) return value
+  if (typeof value === 'string' && value.trim() !== '') {
+    const parsed = Number(value)
+    if (Number.isFinite(parsed)) return parsed
+  }
+  return null
+}
+
 export function fieldLink(value: unknown): string | null {
   const record = fieldRecord(value)
   if (!record) return null
