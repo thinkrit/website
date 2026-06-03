@@ -196,16 +196,16 @@ function LogoShowcase({
           </p>
         </div>
       </div>
-      <div className="mt-24 flex items-center justify-center gap-x-48 lg:mt-40">
+      <div className="mt-16 flex flex-wrap items-center justify-center gap-16 sm:gap-16 md:gap-20 lg:mt-40 lg:gap-24 xl:gap-32">
         {logos.map((logo) => (
           <div
-            className="flex h-16 items-center justify-center"
+            className="flex h-12 items-center justify-center sm:h-14 md:h-16"
             key={`${label}-${logo.alt}`}
           >
             {logo.website ? (
               <Link
                 aria-label={`${logo.alt} (opens in new tab)`}
-                className="relative block h-16 w-45"
+                className="relative block h-12 w-32 sm:h-14 sm:w-36 md:h-16 md:w-45"
                 href={logo.website}
                 rel="noopener noreferrer"
                 target="_blank"
@@ -221,7 +221,7 @@ function LogoShowcase({
             ) : (
               <Image
                 alt={logo.alt}
-                className="max-h-16 w-auto max-w-45 object-contain opacity-50 brightness-0 invert grayscale transition duration-300 hover:opacity-100 hover:brightness-100 hover:invert-0 hover:grayscale-0"
+                className="max-h-12 w-auto max-w-32 object-contain opacity-50 brightness-0 invert grayscale transition duration-300 hover:opacity-100 hover:brightness-100 hover:invert-0 hover:grayscale-0 sm:max-h-14 sm:max-w-36 md:max-h-16 md:max-w-45"
                 height={130}
                 src={logo.src}
                 width={360}
