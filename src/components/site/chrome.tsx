@@ -1,9 +1,10 @@
-import { ArrowDown, ArrowUp, Menu } from 'lucide-react'
+import { ArrowDown, ArrowUp } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 
 import { DesktopNav } from '@/components/site/DesktopNav'
+import { MobileNav } from '@/components/site/MobileNav'
 import {
   fieldArray,
   fieldLink,
@@ -101,48 +102,8 @@ export function Header({
         nav={nav}
       />
 
-      <details aria-label="Navigation menu" className="group relative lg:hidden">
-        <summary aria-label="Open menu" className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-lg bg-white text-zinc-900 shadow-sm [&::-webkit-details-marker]:hidden">
-          <Menu aria-hidden="true" className="h-5 w-5" />
-        </summary>
-        <div className="absolute right-0 top-13 w-56 rounded-lg bg-white p-2 text-sm font-semibold uppercase text-zinc-800 shadow-xl">
-          <MobileGroupLabel label={nav.services.label} />
-          {nav.services.links.map((item) => (
-            <MobileLink item={item} key={item.label} locale={locale} />
-          ))}
-          <MobileGroupLabel label={nav.products.label} />
-          {nav.products.links.map((item) => (
-            <MobileLink item={item} key={item.label} locale={locale} />
-          ))}
-          <hr className="my-2 border-zinc-100" />
-          <MobileLink item={nav.company} locale={locale} />
-          <MobileLink item={nav.contact} locale={locale} />
-        </div>
-      </details>
+      <MobileNav locale={locale} nav={nav} />
     </header>
-  )
-}
-
-function MobileGroupLabel({ label }: { label: string }) {
-  return (
-    <p className="px-3 pb-1 pt-3 text-[11px] font-semibold uppercase tracking-wide text-zinc-400 first:pt-1">
-      {label}
-    </p>
-  )
-}
-
-function MobileLink({ item, locale }: { item: LinkItem; locale: Locale }) {
-  const href = item.absolute ? item.url : localizedPath(locale, item.url)
-  return (
-    <Link
-      className="block rounded-md px-3 py-3 transition hover:bg-zinc-100"
-      href={href}
-      {...(item.absolute
-        ? { target: '_blank', rel: 'noopener noreferrer', 'aria-label': `${item.label} (opens in new tab)` }
-        : {})}
-    >
-      {item.label}
-    </Link>
   )
 }
 

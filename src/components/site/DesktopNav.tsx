@@ -2,13 +2,14 @@
 
 import { ChevronDown } from 'lucide-react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
 const HOVER_CLOSE_DELAY = 120
 
 import type { NavData } from '@/components/site/chrome'
 import type { LinkItem } from '@/lib/payload-local'
-import { localizedPath, type Locale } from '@/lib/routing'
+import { isActivePath, localizedPath, type Locale } from '@/lib/routing'
 
 type OpenMenu = 'services' | 'products' | null
 
@@ -24,6 +25,7 @@ export function DesktopNav({
   forceServicesOpen?: boolean
 }) {
   const [open, setOpen] = useState<OpenMenu>(forceServicesOpen ? 'services' : null)
+  const pathname = usePathname()
   const navRef = useRef<HTMLDivElement>(null)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -70,7 +72,7 @@ export function DesktopNav({
 
   return (
     <div className="hidden items-start gap-3 lg:flex" ref={navRef}>
-      <nav aria-label="Main navigation" className="flex rounded-lg bg-white text-[13px] font-semibold uppercase leading-none text-zinc-700 shadow-[0_1px_0_rgba(0,0,0,0.03)]">
+      <nav aria-label="Main navigation" className="flex items-stretch rounded-lg bg-white text-[13px] font-semibold uppercase leading-none text-zinc-700 shadow-[0_1px_0_rgba(0,0,0,0.03)]">
         <NavDropdown
           isOpen={open === 'services'}
           items={nav.services.links}
@@ -79,6 +81,7 @@ export function DesktopNav({
           onHoverClose={hoverClose}
           onHoverOpen={() => hoverOpen('services')}
           onToggle={() => toggle('services')}
+          pathname={pathname}
         />
         <NavDropdown
           isOpen={open === 'products'}
@@ -88,13 +91,28 @@ export function DesktopNav({
           onHoverClose={hoverClose}
           onHoverOpen={() => hoverOpen('products')}
           onToggle={() => toggle('products')}
+          pathname={pathname}
         />
-        <Link className="px-8 py-5 transition hover:text-black" href={localizedPath(locale, nav.company.url)}>
-          {nav.company.label}
-        </Link>
+        {isActivePath(pathname, nav.company.url) ? (
+          <span
+            aria-current="page"
+            className="relative px-8 py-5 text-zinc-400 after:absolute after:inset-x-8 after:bottom-0 after:h-0.5 after:bg-(--think-red)"
+          >
+            {nav.company.label}
+          </span>
+        ) : (
+          <Link className="px-8 py-5 transition hover:text-black" href={localizedPath(locale, nav.company.url)}>
+            {nav.company.label}
+          </Link>
+        )}
       </nav>
       <Link
-        className="rounded-lg bg-zinc-950 px-7 py-5 text-[13px] font-semibold uppercase leading-none !text-white transition hover:bg-zinc-800"
+        aria-current={isActivePath(pathname, nav.contact.url) ? 'page' : undefined}
+        className={`relative rounded-lg bg-zinc-950 px-7 py-5 text-[13px] font-semibold uppercase leading-none !text-white transition hover:bg-zinc-800 ${
+          isActivePath(pathname, nav.contact.url)
+            ? 'after:absolute after:bottom-0 after:inset-x-7 after:h-0.5 after:bg-(--think-red)'
+            : ''
+        }`}
         href={contactHref}
       >
         {nav.contact.label}
@@ -111,6 +129,7 @@ function NavDropdown({
   onToggle,
   onHoverOpen,
   onHoverClose,
+  pathname,
 }: {
   label: string
   items: LinkItem[]
@@ -119,12 +138,19 @@ function NavDropdown({
   onToggle: () => void
   onHoverOpen: () => void
   onHoverClose: () => void
+  pathname: string
 }) {
+  const hasActiveChild = items.some((item) => isActivePath(pathname, item.url))
+
   return (
     <div className="relative" onMouseEnter={onHoverOpen} onMouseLeave={onHoverClose}>
       <button
         aria-expanded={isOpen}
-        className="flex items-center gap-2 px-8 py-5 uppercase transition hover:text-black"
+        className={`relative flex items-center gap-2 px-8 py-5 uppercase transition hover:text-black ${
+          hasActiveChild
+            ? 'text-zinc-400 after:absolute after:bottom-0 after:left-8 after:right-14 after:h-0.5 after:bg-(--think-red)'
+            : ''
+        }`}
         onClick={onToggle}
         type="button"
       >
@@ -141,15 +167,32 @@ function NavDropdown({
         }`}
       >
         <div className="rounded-lg bg-white p-3 shadow-xl">
-          {items.map((item) => (
-            <Link
-              className="block rounded-md px-3 py-3 uppercase text-zinc-800 transition hover:bg-zinc-100"
-              href={localizedPath(locale, item.url)}
-              key={item.label}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {items.map((item) => {
+            const isActive = isActivePath(pathname, item.url)
+
+            if (isActive) {
+              return (
+                <span
+                  aria-current="page"
+                  className="flex items-center justify-between gap-2 rounded-md px-3 py-3 uppercase text-zinc-400"
+                  key={item.label}
+                >
+                  <span>{item.label}</span>
+                  <span aria-hidden="true" className="h-1 w-1 shrink-0 bg-(--think-red)" />
+                </span>
+              )
+            }
+
+            return (
+              <Link
+                className="block rounded-md px-3 py-3 uppercase text-zinc-800 transition hover:bg-zinc-100"
+                href={localizedPath(locale, item.url)}
+                key={item.label}
+              >
+                {item.label}
+              </Link>
+            )
+          })}
         </div>
       </div>
     </div>
