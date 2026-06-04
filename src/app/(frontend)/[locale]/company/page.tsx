@@ -94,7 +94,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
               <article className="rounded-lg bg-white p-7" key={`${person.name}-${index}`}>
                 <ImagePanel aspect="aspect-[1.35]" src={person.image} />
                 <h3 className="mt-7 text-2xl font-medium leading-tight text-zinc-950">{person.name}</h3>
-                <p className="mt-3 text-sm font-medium tracking-[0.16em] text-zinc-500">{person.role}</p>
+                <p className="mt-3 text-xs font-medium tracking-[0.08em] text-zinc-500">{person.role}</p>
               </article>
             ))}
           </div>
@@ -122,7 +122,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
                     />
                     <div>
                       <h4 className="text-lg font-medium leading-tight text-zinc-950">{person.name}</h4>
-                      {person.role && <p className="mt-1 text-sm font-medium tracking-[0.16em] text-zinc-500">{person.role}</p>}
+                      {person.role && <p className="mt-1 text-xs font-medium tracking-[0.08em] text-zinc-500">{person.role}</p>}
                     </div>
                   </article>
                 ))}
