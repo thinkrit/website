@@ -46,11 +46,16 @@ export function MobileNav({ nav, locale }: { nav: NavData; locale: Locale }) {
 
   useEffect(() => clearCloseTimer, [])
 
+  // Hover open/close is a desktop affordance. On touch devices the browser
+  // fires synthetic mouse events that race the click toggle below, which made
+  // the button require two taps to open. Gate hover behavior to fine pointers.
   const hoverOpen = () => {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
     clearCloseTimer()
     setOpen(true)
   }
   const hoverClose = () => {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
     clearCloseTimer()
     closeTimer.current = setTimeout(() => setOpen(false), HOVER_CLOSE_DELAY)
   }
@@ -81,6 +86,7 @@ export function MobileNav({ nav, locale }: { nav: NavData; locale: Locale }) {
         {nav.services.links.map((item) => (
           <MobileLink item={item} key={item.label} locale={locale} pathname={pathname} />
         ))}
+        <hr className="my-2 border-zinc-100" />
         <MobileGroupLabel label={nav.products.label} />
         {nav.products.links.map((item) => (
           <MobileLink item={item} key={item.label} locale={locale} pathname={pathname} />
