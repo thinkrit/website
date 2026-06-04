@@ -1,4 +1,4 @@
-import { defaultJSXConverters, type JSXConvertersFunction } from '@payloadcms/richtext-lexical/react'
+import { type JSXConvertersFunction } from '@payloadcms/richtext-lexical/react'
 
 // Maps TextStateFeature color keys to their CSS values.
 // Must stay in sync with the TextStateFeature config in payload.config.ts.
@@ -13,7 +13,8 @@ export const richTextConverters: JSXConvertersFunction = ({ defaultConverters })
       | Record<string, string>
       | undefined
     const color = state?.color ? textStateColors[state.color] : undefined
-    const base = (defaultConverters.text as (typeof defaultJSXConverters)['text'])!(args)
+    const textFn = defaultConverters.text
+    const base = typeof textFn === 'function' ? textFn(args) : null
 
     if (color) {
       return <span style={{ color }}>{base}</span>
