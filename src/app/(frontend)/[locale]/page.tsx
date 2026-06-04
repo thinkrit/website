@@ -4,15 +4,18 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+import { RichText } from '@payloadcms/richtext-lexical/react'
+import type { SerializedEditorState } from 'lexical'
+
 import { Container, SectionLabel, FooterCta, HeroFrame, ScrollCue } from '@/components/site/chrome'
-import { HighlightedTitle, ServiceTile } from '@/components/site/content'
+import { richTextConverters } from '@/lib/rich-text-converters'
+import { ServiceTile } from '@/components/site/content'
 import { HyperspeedHeroBackground } from '@/components/site/HyperspeedHeroBackground'
 import {
   fieldArray,
   fieldLink,
   fieldRecord,
   fieldText,
-  getCollectionDocs,
   getGlobalDoc,
   mediaUrl,
   type ServiceCard,
@@ -25,11 +28,9 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
   const { locale } = await params
   if (!isLocale(locale)) notFound()
 
-  const [shared, home, servicesDocs, productsDocs] = await Promise.all([
+  const [shared, home] = await Promise.all([
     getGlobalDoc('shared', locale),
     getGlobalDoc('home', locale),
-    getCollectionDocs('services', locale),
-    getCollectionDocs('products', locale),
   ])
   if (!shared || !home) notFound()
 
@@ -44,12 +45,12 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
   const heroTitle = fieldText(hero?.header)
   const heroDescription = fieldText(hero?.description)
   const heroCta = fieldText(hero?.discoverModeLabel)
-  const aboutTitle = fieldText(about?.tagline)
+  const aboutTagline = about?.tagline as unknown as SerializedEditorState | null
   const aboutDescription = fieldText(about?.description)
   const servicesTitle = fieldText(services?.tagline)
   const productsTitle = fieldText(products?.tagline)
-  const serviceCards = readServiceCards(servicesDocs)
-  const productItems = readProductItems(productsDocs)
+  const serviceCards = readServiceCards(fieldArray(services?.services))
+  const productItems = readProductItems(fieldArray(products?.products))
 
   return (
     <>
@@ -74,11 +75,13 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
         <Container className="grid gap-10 lg:grid-cols-[260px_1fr]">
           <SectionLabel label={fieldText(about?.header)} />
           <div className="max-w-4xl">
-            <HighlightedTitle
-              className="text-balance text-2xl font-medium leading-tight text-zinc-950 sm:text-3xl md:text-5xl"
-              highlights={['market-ready solutions']}
-              text={aboutTitle}
-            />
+            {aboutTagline && (
+              <RichText
+                className="[&_p]:text-balance [&_p]:text-2xl [&_p]:font-medium [&_p]:leading-tight [&_p]:text-zinc-950 [&_p]:sm:text-3xl [&_p]:md:text-5xl"
+                converters={richTextConverters}
+                data={aboutTagline}
+              />
+            )}
             <p className="mt-10 max-w-3xl text-base leading-loose text-zinc-600">
               {aboutDescription}
             </p>

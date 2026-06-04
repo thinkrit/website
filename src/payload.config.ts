@@ -1,6 +1,6 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { mcpPlugin } from '@payloadcms/plugin-mcp'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { lexicalEditor, TextStateFeature } from '@payloadcms/richtext-lexical'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -30,10 +30,27 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      actions: ['./components/admin/RevalidateButton#RevalidateButton'],
+    },
   },
   globals: [Shared, Home, Contact, Company, PrivacyPolicy, TermsOfUse],
   collections: [Products, Services, Customers, Partners, Messages, Users, Media],
-  editor: lexicalEditor(),
+  editor: lexicalEditor({
+    features: ({ defaultFeatures }) => [
+      ...defaultFeatures,
+      TextStateFeature({
+        state: {
+          color: {
+            red: {
+              label: 'Red',
+              css: { color: '#ed1c24' },
+            },
+          },
+        },
+      }),
+    ],
+  }),
   localization: {
     locales: ['en', 'el'],
     defaultLocale: 'en',

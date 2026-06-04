@@ -2,6 +2,7 @@ import { RichText } from '@payloadcms/richtext-lexical/react'
 import type { SerializedEditorState } from 'lexical'
 
 import { Container, FooterCta, HeroFrame, SectionLabel } from '@/components/site/chrome'
+import { richTextConverters } from '@/lib/rich-text-converters'
 import { PixelBlastHeroBackground } from '@/components/site/PixelBlastHeroBackground'
 import { fieldRecord, fieldText } from '@/lib/payload-local'
 import { type Locale } from '@/lib/routing'
@@ -53,6 +54,7 @@ export function LegalPage({
           {content ? (
             <RichText
               className="max-w-3xl text-base leading-loose text-zinc-700 [&_a]:text-(--think-red) [&_a]:underline [&_h2]:mt-12 [&_h2]:text-2xl [&_h2]:font-medium [&_h2]:leading-tight [&_h2]:text-zinc-950 [&_h2]:first:mt-0 [&_h3]:mt-10 [&_h3]:text-xl [&_h3]:font-medium [&_h3]:text-zinc-950 [&_li]:mt-2 [&_ol]:mt-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_p]:mt-6 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6"
+              converters={richTextConverters}
               data={content}
             />
           ) : null}

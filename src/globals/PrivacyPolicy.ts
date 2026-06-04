@@ -1,6 +1,7 @@
 import { GlobalConfig } from 'payload'
 
 import { revalidateGlobal } from '@/hooks/revalidate'
+import { PageFields } from '@/shared/fields/PageFields'
 
 export const PrivacyPolicy: GlobalConfig = {
   slug: 'privacy-policy',
@@ -8,15 +9,6 @@ export const PrivacyPolicy: GlobalConfig = {
     afterChange: [revalidateGlobal('privacy-policy')],
   },
   fields: [
-    {
-      name: 'title',
-      type: 'text',
-      localized: true,
-      required: true,
-      admin: {
-        description: 'Page title shown at the top of the privacy policy page.',
-      },
-    },
     {
       name: 'lastUpdated',
       type: 'date',
@@ -38,5 +30,6 @@ export const PrivacyPolicy: GlobalConfig = {
         description: 'Full body of the privacy policy.',
       },
     },
+    ...PageFields,
   ],
 }

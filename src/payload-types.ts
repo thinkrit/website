@@ -1540,13 +1540,10 @@ export interface Shared {
            */
           label: string;
           /**
-           * Mark this header link as the primary navigation action.
-           */
-          primary?: boolean | null;
-          /**
            * Destination path or URL for this header link.
            */
           link?: string | null;
+          primary?: boolean | null;
           /**
            * Dropdown or nested navigation links under this header item.
            */
@@ -1560,9 +1557,6 @@ export interface Shared {
                  * Destination path or URL for this call to action.
                  */
                 url: string;
-                /**
-                 * Enable when the destination is a full external URL.
-                 */
                 absolute?: boolean | null;
                 id?: string | null;
               }[]
@@ -1599,9 +1593,6 @@ export interface Shared {
          * Destination path or URL for this call to action.
          */
         url: string;
-        /**
-         * Enable when the destination is a full external URL.
-         */
         absolute?: boolean | null;
         id?: string | null;
       };
@@ -1640,9 +1631,6 @@ export interface Shared {
                    * Destination path or URL for this call to action.
                    */
                   url: string;
-                  /**
-                   * Enable when the destination is a full external URL.
-                   */
                   absolute?: boolean | null;
                   id?: string | null;
                 }[]
@@ -1672,9 +1660,6 @@ export interface Shared {
              * Destination path or URL for this call to action.
              */
             url: string;
-            /**
-             * Enable when the destination is a full external URL.
-             */
             absolute?: boolean | null;
             id?: string | null;
           }[]
@@ -1781,9 +1766,6 @@ export interface Home {
        * Destination path or URL for this call to action.
        */
       url: string;
-      /**
-       * Enable when the destination is a full external URL.
-       */
       absolute?: boolean | null;
       id?: string | null;
     };
@@ -1814,6 +1796,10 @@ export interface Home {
       };
       [k: string]: unknown;
     };
+    /**
+     * Select and order the services to display in this section.
+     */
+    services?: (string | Service)[] | null;
   };
   /**
    * Section introducing products on the home page.
@@ -1841,6 +1827,10 @@ export interface Home {
       };
       [k: string]: unknown;
     };
+    /**
+     * Select and order the products to display in this section.
+     */
+    products?: (string | Product)[] | null;
   };
   /**
    * Section introducing featured partners on the home page.
@@ -2050,9 +2040,6 @@ export interface Contact {
            * Destination path or URL for this call to action.
            */
           url: string;
-          /**
-           * Enable when the destination is a full external URL.
-           */
           absolute?: boolean | null;
           id?: string | null;
         }[]
@@ -2386,6 +2373,43 @@ export interface Company {
       [k: string]: unknown;
     };
   };
+  /**
+   * Internal page title used in the admin and page metadata.
+   */
+  title: string;
+  /**
+   * URL slug for this page, without a leading slash.
+   */
+  slug: string;
+  /**
+   * Search metadata used by browsers, social previews, and search engines.
+   */
+  seo: {
+    /**
+     * SEO title shown in browser tabs and search result previews.
+     */
+    title: string;
+    /**
+     * SEO summary shown in search result and social sharing previews.
+     */
+    description: string;
+    /**
+     * Optional keywords that describe the page topic.
+     */
+    keywords?:
+      | {
+          /**
+           * Single SEO keyword or phrase.
+           */
+          keyword: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Image used for social sharing previews when this page is shared.
+     */
+    image?: (string | null) | Media;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2395,10 +2419,6 @@ export interface Company {
  */
 export interface PrivacyPolicy {
   id: string;
-  /**
-   * Page title shown at the top of the privacy policy page.
-   */
-  title: string;
   /**
    * Date the privacy policy was last updated, shown to visitors.
    */
@@ -2421,6 +2441,43 @@ export interface PrivacyPolicy {
     };
     [k: string]: unknown;
   };
+  /**
+   * Internal page title used in the admin and page metadata.
+   */
+  title: string;
+  /**
+   * URL slug for this page, without a leading slash.
+   */
+  slug: string;
+  /**
+   * Search metadata used by browsers, social previews, and search engines.
+   */
+  seo: {
+    /**
+     * SEO title shown in browser tabs and search result previews.
+     */
+    title: string;
+    /**
+     * SEO summary shown in search result and social sharing previews.
+     */
+    description: string;
+    /**
+     * Optional keywords that describe the page topic.
+     */
+    keywords?:
+      | {
+          /**
+           * Single SEO keyword or phrase.
+           */
+          keyword: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Image used for social sharing previews when this page is shared.
+     */
+    image?: (string | null) | Media;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2430,10 +2487,6 @@ export interface PrivacyPolicy {
  */
 export interface TermsOfUse {
   id: string;
-  /**
-   * Page title shown at the top of the terms of use page.
-   */
-  title: string;
   /**
    * Date the terms of use were last updated, shown to visitors.
    */
@@ -2456,6 +2509,43 @@ export interface TermsOfUse {
     };
     [k: string]: unknown;
   };
+  /**
+   * Internal page title used in the admin and page metadata.
+   */
+  title: string;
+  /**
+   * URL slug for this page, without a leading slash.
+   */
+  slug: string;
+  /**
+   * Search metadata used by browsers, social previews, and search engines.
+   */
+  seo: {
+    /**
+     * SEO title shown in browser tabs and search result previews.
+     */
+    title: string;
+    /**
+     * SEO summary shown in search result and social sharing previews.
+     */
+    description: string;
+    /**
+     * Optional keywords that describe the page topic.
+     */
+    keywords?:
+      | {
+          /**
+           * Single SEO keyword or phrase.
+           */
+          keyword: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Image used for social sharing previews when this page is shared.
+     */
+    image?: (string | null) | Media;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2474,8 +2564,8 @@ export interface SharedSelect<T extends boolean = true> {
           | T
           | {
               label?: T;
-              primary?: T;
               link?: T;
+              primary?: T;
               subLinks?:
                 | T
                 | {
@@ -2575,12 +2665,14 @@ export interface HomeSelect<T extends boolean = true> {
     | {
         header?: T;
         tagline?: T;
+        services?: T;
       };
   productsSection?:
     | T
     | {
         header?: T;
         tagline?: T;
+        products?: T;
       };
   partnersSection?:
     | T
@@ -2743,6 +2835,21 @@ export interface CompanySelect<T extends boolean = true> {
         header?: T;
         tagline?: T;
       };
+  title?: T;
+  slug?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        keywords?:
+          | T
+          | {
+              keyword?: T;
+              id?: T;
+            };
+        image?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -2752,9 +2859,23 @@ export interface CompanySelect<T extends boolean = true> {
  * via the `definition` "privacy-policy_select".
  */
 export interface PrivacyPolicySelect<T extends boolean = true> {
-  title?: T;
   lastUpdated?: T;
   content?: T;
+  title?: T;
+  slug?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        keywords?:
+          | T
+          | {
+              keyword?: T;
+              id?: T;
+            };
+        image?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -2764,9 +2885,23 @@ export interface PrivacyPolicySelect<T extends boolean = true> {
  * via the `definition` "terms-of-use_select".
  */
 export interface TermsOfUseSelect<T extends boolean = true> {
-  title?: T;
   lastUpdated?: T;
   content?: T;
+  title?: T;
+  slug?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        keywords?:
+          | T
+          | {
+              keyword?: T;
+              id?: T;
+            };
+        image?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

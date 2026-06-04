@@ -1,6 +1,7 @@
 import { GlobalConfig } from 'payload'
 
 import { revalidateGlobal } from '@/hooks/revalidate'
+import { PageFields } from '@/shared/fields/PageFields'
 
 export const TermsOfUse: GlobalConfig = {
   slug: 'terms-of-use',
@@ -8,15 +9,6 @@ export const TermsOfUse: GlobalConfig = {
     afterChange: [revalidateGlobal('terms-of-use')],
   },
   fields: [
-    {
-      name: 'title',
-      type: 'text',
-      localized: true,
-      required: true,
-      admin: {
-        description: 'Page title shown at the top of the terms of use page.',
-      },
-    },
     {
       name: 'lastUpdated',
       type: 'date',
@@ -38,5 +30,6 @@ export const TermsOfUse: GlobalConfig = {
         description: 'Full body of the terms of use.',
       },
     },
+    ...PageFields,
   ],
 }

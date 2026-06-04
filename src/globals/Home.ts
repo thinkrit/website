@@ -124,12 +124,15 @@ export const Home: GlobalConfig = {
             description: 'Supporting copy for the home page services section.',
           },
         },
-        // {
-        //   name: 'services',
-        //   type: 'relationship',
-        //   relationTo: 'services',
-        //   hasMany: true,
-        // },
+        {
+          name: 'services',
+          type: 'relationship',
+          relationTo: 'services',
+          hasMany: true,
+          admin: {
+            description: 'Select and order the services to display in this section.',
+          },
+        },
       ],
     },
     {
@@ -157,12 +160,15 @@ export const Home: GlobalConfig = {
             description: 'Supporting copy for the home page products section.',
           },
         },
-        // {
-        //   name: 'products',
-        //   type: 'relationship',
-        //   relationTo: 'products',
-        //   hasMany: true,
-        // },
+        {
+          name: 'products',
+          type: 'relationship',
+          relationTo: 'products',
+          hasMany: true,
+          admin: {
+            description: 'Select and order the products to display in this section.',
+          },
+        },
       ],
     },
     {

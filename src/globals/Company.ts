@@ -1,6 +1,7 @@
 import { GlobalConfig } from 'payload'
 
 import { revalidateGlobal } from '@/hooks/revalidate'
+import { PageFields } from '@/shared/fields/PageFields'
 
 export const Company: GlobalConfig = {
   slug: 'company',
@@ -242,5 +243,6 @@ export const Company: GlobalConfig = {
         },
       ],
     },
+    ...PageFields,
   ],
 }

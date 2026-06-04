@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { LegalPage } from '@/components/site/LegalPage'
-import { fieldText, getGlobalDoc } from '@/lib/payload-local'
+import { fieldRecord, fieldText, getGlobalDoc } from '@/lib/payload-local'
 import { isLocale } from '@/lib/routing'
 
 // Cache the rendered page indefinitely. It is rebuilt only when a Payload
@@ -19,8 +19,11 @@ export async function generateMetadata({
   if (!isLocale(locale)) return {}
 
   const doc = await getGlobalDoc('privacy-policy', locale)
-  const title = fieldText(doc?.title, 'Privacy Policy')
-  return { title }
+  const seo = fieldRecord(doc?.seo)
+  return {
+    title: fieldText(seo?.title) || fieldText(doc?.title) || 'Privacy Policy',
+    description: fieldText(seo?.description) || undefined,
+  }
 }
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {

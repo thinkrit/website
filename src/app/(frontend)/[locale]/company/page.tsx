@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { AbstractImageBackground, Container, FooterCta, HeroFrame, SectionLabel } from '@/components/site/chrome'
@@ -9,6 +10,22 @@ import { isLocale } from '@/lib/routing'
 // Cache the rendered page indefinitely. It is rebuilt only when a Payload
 // create/update/delete invalidates a matching cache tag (see hooks/revalidate.ts).
 export const dynamic = 'force-static'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  if (!isLocale(locale)) return {}
+
+  const doc = await getGlobalDoc('company', locale)
+  const seo = fieldRecord(doc?.seo)
+  return {
+    title: fieldText(seo?.title) || fieldText(doc?.title) || 'Company',
+    description: fieldText(seo?.description) || undefined,
+  }
+}
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params

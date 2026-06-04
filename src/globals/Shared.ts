@@ -50,30 +50,40 @@ export const Shared: GlobalConfig = {
           },
           fields: [
             {
-              name: 'label',
-              type: 'text',
-              localized: true,
-              required: true,
-              admin: {
-                description: 'Navigation label shown in the header.',
-              },
+              type: 'row',
+              fields: [
+                {
+                  name: 'label',
+                  type: 'text',
+                  localized: true,
+                  required: true,
+                  admin: {
+                    description: 'Navigation label shown in the header.',
+                  },
+                },
+                {
+                  name: 'link',
+                  type: 'text',
+                  required: false,
+                  admin: {
+                    description: 'Destination path or URL for this header link.',
+                  },
+                },
+                {
+                  name: 'primary',
+                  type: 'checkbox',
+                  label: 'Is Primary Action',
+                  required: false,
+                  admin: {
+                    width: 'auto',
+                    style: {
+                      marginTop: '2.5rem',
+                    },
+                  },
+                },
+              ],
             },
-            {
-              name: 'primary',
-              type: 'checkbox',
-              required: false,
-              admin: {
-                description: 'Mark this header link as the primary navigation action.',
-              },
-            },
-            {
-              name: 'link',
-              type: 'text',
-              required: false,
-              admin: {
-                description: 'Destination path or URL for this header link.',
-              },
-            },
+
             {
               name: 'subLinks',
               type: 'array',
