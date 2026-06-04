@@ -199,7 +199,7 @@ function LogoShowcase({
           </p>
         </div>
       </div>
-      <div className="mt-16 flex flex-wrap items-center justify-center gap-16 sm:gap-16 md:gap-20 lg:mt-40 lg:gap-24 xl:gap-32">
+      <div className="mt-16 grid grid-cols-2 items-center gap-x-12 gap-y-12 lg:mt-40 lg:grid-cols-4 lg:gap-x-20 lg:gap-y-16 *:justify-self-center">
         {logos.map((logo) => (
           <div
             className="flex h-12 items-center justify-center sm:h-14 md:h-16"
