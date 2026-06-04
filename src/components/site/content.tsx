@@ -147,7 +147,7 @@ export function FeatureRows({ features }: { features: Feature[] }) {
     <div className="border-y border-zinc-200">
       {features.map((feature) => (
         <details
-          className="group border-b border-zinc-200 transition-all duration-300 ease-out last:border-b-0 hover:border-transparent hover:bg-zinc-100 open:border-transparent open:bg-zinc-100"
+          className="group border-b border-zinc-200 transition-all duration-300 ease-out last:border-b-0 hover:border-transparent hover:bg-zinc-50 open:border-transparent open:bg-zinc-50"
           key={feature.title}
         >
           <summary className="cursor-pointer list-none text-zinc-950 [&::-webkit-details-marker]:hidden">
