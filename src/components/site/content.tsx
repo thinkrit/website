@@ -14,6 +14,7 @@ import type { ReactNode } from 'react'
 
 import { CaseStudyCarousel } from '@/components/site/CaseStudyCarousel'
 import { Container, SectionLabel } from '@/components/site/chrome'
+import { ZoomableImage } from '@/components/site/ZoomableImage'
 import type { CaseStudy, Feature, ServiceCard, Step } from '@/lib/payload-local'
 import { localizedPath, type Locale } from '@/lib/routing'
 
@@ -71,15 +72,17 @@ export function ImagePanel({
   alt = '',
   className = '',
   aspect = 'aspect-[4/3]',
+  fit = 'object-cover',
 }: {
   src?: string
   alt?: string
   className?: string
   aspect?: string
+  fit?: string
 }) {
   return (
     <div className={`relative overflow-hidden rounded-lg bg-[#dfdfe2] ${aspect} ${className}`}>
-      <Image alt={alt} className="object-cover" fill sizes="(max-width: 768px) 100vw, 45vw" src={src} />
+      <Image alt={alt} className={fit} fill sizes="(max-width: 768px) 100vw, 45vw" src={src} />
     </div>
   )
 }
@@ -218,7 +221,7 @@ export function ProductSteps({ title, steps }: { title: ReactNode; steps: Step[]
                   <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-500">{step.description}</p>
                 </div>
               </div>
-              <ImagePanel aspect="aspect-[5/3]" src={step.image} />
+              <ZoomableImage aspect="aspect-[5/3]" src={step.image} />
             </div>
           ))}
         </div>

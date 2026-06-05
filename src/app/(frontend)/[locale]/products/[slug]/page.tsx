@@ -7,7 +7,6 @@ import {
   FeatureColumns,
   FocusStatement,
   HighlightedTitle,
-  ImagePanel,
   ProductSteps,
 } from '@/components/site/content'
 import { PixelBlastHeroBackground } from '@/components/site/PixelBlastHeroBackground'
@@ -60,22 +59,17 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
         locale={locale}
         shared={shared}
       >
-        <div className="self-end">
+        <div>
           <h1 className="text-balance text-3xl font-medium leading-tight text-zinc-950 sm:text-4xl md:text-6xl">
             {fieldText(hero?.header)}
           </h1>
-          <div className="mt-12 border-l border-zinc-200 pl-8">
-            <SectionLabel label={fieldText(hero?.title)} />
-            <p className="mt-8 max-w-3xl text-base leading-loose text-zinc-700">
-              {fieldText(hero?.description)}
-            </p>
-          </div>
         </div>
-        <ImagePanel
-          aspect="aspect-[1.65]"
-          className="self-end"
-          src={mediaUrl(hero?.image, '/placeholder-panel.svg')}
-        />
+        <div className="self-end border-l border-zinc-200 pl-8">
+          <SectionLabel label={fieldText(hero?.title)} />
+          <p className="mt-8 max-w-3xl text-base leading-loose text-zinc-700">
+            {fieldText(hero?.description)}
+          </p>
+        </div>
       </HeroFrame>
 
       <FeatureColumns features={readFeatures(features?.features)} />
