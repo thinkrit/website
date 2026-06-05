@@ -39,7 +39,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
   const services = fieldRecord(home?.servicesSection)
   const products = fieldRecord(home?.productsSection)
   const partners = fieldRecord(home?.partnersSection)
-  // const customers = fieldRecord(home?.customersSection)
+  const customers = fieldRecord(home?.customersSection)
   const aboutCta = fieldRecord(about?.cta)
 
   const heroTitle = fieldText(hero?.header)
@@ -159,13 +159,13 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
           logos={readLogos(partners?.partners)}
           title={fieldText(partners?.tagline)}
         />
-        {/* <LogoShowcase
+        <LogoShowcase
           className="mt-28 lg:mt-40"
           description={fieldText(customers?.description)}
           label={fieldText(customers?.header)}
           logos={readLogos(customers?.customers)}
           title={fieldText(customers?.tagline)}
-        /> */}
+        />
       </section>
 
       <FooterCta locale={locale} shared={shared} />
@@ -188,7 +188,7 @@ function LogoShowcase({
 }) {
   return (
     <Container className={className}>
-      <div className="grid gap-12 lg:grid-cols-[360px_1fr]">
+      <div className="grid gap-6 lg:grid-cols-[360px_1fr]">
         <SectionLabel label={label} light />
         <div className="max-w-3xl">
           <h2 className="text-balance text-2xl font-medium leading-tight text-white sm:text-3xl md:text-5xl">
@@ -197,41 +197,41 @@ function LogoShowcase({
           <p className="mt-8 max-w-3xl text-lg leading-loose text-white/90 sm:text-xl md:text-2xl">
             {description}
           </p>
-        </div>
-      </div>
-      <div className="mt-16 grid grid-cols-2 items-center gap-x-12 gap-y-12 lg:mt-40 lg:grid-cols-4 lg:gap-x-20 lg:gap-y-16 *:justify-self-center">
-        {logos.map((logo) => (
-          <div
-            className="flex h-12 items-center justify-center sm:h-14 md:h-16"
-            key={`${label}-${logo.alt}`}
-          >
-            {logo.website ? (
-              <Link
-                aria-label={`${logo.alt} (opens in new tab)`}
-                className="relative block h-12 w-32 sm:h-14 sm:w-36 md:h-16 md:w-45"
-                href={logo.website}
-                rel="noopener noreferrer"
-                target="_blank"
+          <div className="mt-10 flex w-full flex-row flex-wrap items-start justify-start gap-x-10 gap-y-10 sm:gap-x-16 sm:gap-y-12 md:gap-x-28 md:gap-y-20 lg:mt-14 lg:gap-x-28 lg:gap-y-16">
+            {logos.map((logo) => (
+              <div
+                className="flex h-8 items-center justify-center sm:h-7 lg:h-14"
+                key={`${label}-${logo.alt}`}
               >
-                <Image
-                  alt={logo.alt}
-                  className="object-contain object-center opacity-50 brightness-0 invert grayscale transition duration-300 hover:opacity-100 hover:brightness-100 hover:invert-0 hover:grayscale-0"
-                  fill
-                  sizes="180px"
-                  src={logo.src}
-                />
-              </Link>
-            ) : (
-              <Image
-                alt={logo.alt}
-                className="max-h-12 w-auto max-w-32 object-contain opacity-50 brightness-0 invert grayscale transition duration-300 hover:opacity-100 hover:brightness-100 hover:invert-0 hover:grayscale-0 sm:max-h-14 sm:max-w-36 md:max-h-16 md:max-w-45"
-                height={130}
-                src={logo.src}
-                width={360}
-              />
-            )}
+                {logo.website ? (
+                  <Link
+                    aria-label={`${logo.alt} (opens in new tab)`}
+                    className="relative block h-8 w-24 sm:h-7 sm:w-24 md:w-28 lg:h-14 lg:w-36"
+                    href={logo.website}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <Image
+                      alt={logo.alt}
+                      className="object-contain object-left opacity-50 brightness-0 invert grayscale transition duration-300 hover:opacity-100 hover:brightness-100 hover:invert-0 hover:grayscale-0"
+                      fill
+                      sizes="180px"
+                      src={logo.src}
+                    />
+                  </Link>
+                ) : (
+                  <Image
+                    alt={logo.alt}
+                    className="max-h-8 w-auto max-w-24 object-contain opacity-50 brightness-0 invert grayscale transition duration-300 hover:opacity-100 hover:brightness-100 hover:invert-0 hover:grayscale-0 sm:max-h-7 sm:max-w-24 md:max-w-28 lg:max-h-14 lg:max-w-36"
+                    height={130}
+                    src={logo.src}
+                    width={360}
+                  />
+                )}
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </Container>
   )
