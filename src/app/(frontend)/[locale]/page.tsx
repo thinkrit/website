@@ -190,7 +190,7 @@ function LogoShowcase({
     <Container className={className}>
       <div className="grid gap-6 lg:grid-cols-[360px_1fr]">
         <SectionLabel label={label} light />
-        <div className="max-w-3xl">
+        <div>
           <h2 className="text-balance text-2xl font-medium leading-tight text-white sm:text-3xl md:text-5xl">
             {title}
           </h2>
