@@ -143,7 +143,7 @@ function readSteps(value: unknown): Step[] {
   return steps.map((step) => ({
     title: fieldText(step.title),
     description: fieldText(step.description),
-    image: mediaUrl(step.image),
+    image: mediaUrl(step.image, ''),
   }))
 }
 

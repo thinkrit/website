@@ -213,7 +213,7 @@ export function ProductSteps({ title, steps }: { title: ReactNode; steps: Step[]
         <div className="max-w-3xl">{title}</div>
         <div className="mt-16 grid gap-10">
           {steps.map((step, index) => (
-            <div className="grid gap-8 border-b border-zinc-200 pb-10 lg:grid-cols-[1fr_360px]" key={`${step.title}-${index}`}>
+            <div className={`grid gap-8 border-b border-zinc-200 pb-10 ${step.image ? 'lg:grid-cols-[1fr_360px]' : ''}`} key={`${step.title}-${index}`}>
               <div className="grid gap-4 sm:grid-cols-[46px_1fr]">
                 <span className="text-2xl font-medium text-[var(--think-red)]">{String(index + 1).padStart(2, '0')}</span>
                 <div>
@@ -221,7 +221,7 @@ export function ProductSteps({ title, steps }: { title: ReactNode; steps: Step[]
                   <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-500">{step.description}</p>
                 </div>
               </div>
-              <ZoomableImage aspect="aspect-[5/3]" src={step.image} />
+              {step.image ? <ZoomableImage aspect="aspect-[5/3]" src={step.image} /> : null}
             </div>
           ))}
         </div>
