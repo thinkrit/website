@@ -120,10 +120,10 @@ function MobileLink({
     return (
       <span
         aria-current="page"
-        className="flex items-center justify-between gap-2 rounded-md px-3 py-3 text-zinc-400"
+        className="flex items-center gap-2 rounded-md px-3 py-3 text-zinc-800"
       >
-        <span>{item.label}</span>
         <span aria-hidden="true" className="h-1 w-1 shrink-0 bg-(--think-red)" />
+        <span>{item.label}</span>
       </span>
     )
   }

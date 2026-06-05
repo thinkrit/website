@@ -96,7 +96,7 @@ export function DesktopNav({
         {isActivePath(pathname, nav.company.url) ? (
           <span
             aria-current="page"
-            className="relative px-8 py-5 text-zinc-400 after:absolute after:inset-x-8 after:bottom-0 after:h-0.5 after:bg-(--think-red)"
+            className="relative px-8 py-5 text-black after:absolute after:inset-x-8 after:bottom-0 after:h-px after:bg-(--think-red)"
           >
             {nav.company.label}
           </span>
@@ -110,7 +110,7 @@ export function DesktopNav({
         aria-current={isActivePath(pathname, nav.contact.url) ? 'page' : undefined}
         className={`relative rounded-lg bg-zinc-950 px-7 py-5 text-[13px] font-semibold uppercase leading-none !text-white transition hover:bg-zinc-800 ${
           isActivePath(pathname, nav.contact.url)
-            ? 'after:absolute after:bottom-0 after:inset-x-7 after:h-0.5 after:bg-(--think-red)'
+            ? 'after:absolute after:bottom-0 after:inset-x-7 after:h-px after:bg-(--think-red)'
             : ''
         }`}
         href={contactHref}
@@ -148,7 +148,7 @@ function NavDropdown({
         aria-expanded={isOpen}
         className={`relative flex items-center gap-2 px-8 py-5 uppercase transition hover:text-black ${
           hasActiveChild
-            ? 'text-zinc-400 after:absolute after:bottom-0 after:left-8 after:right-14 after:h-0.5 after:bg-(--think-red)'
+            ? 'text-black after:absolute after:bottom-0 after:left-8 after:right-14 after:h-px after:bg-(--think-red)'
             : ''
         }`}
         onClick={onToggle}
@@ -174,11 +174,11 @@ function NavDropdown({
               return (
                 <span
                   aria-current="page"
-                  className="flex items-center justify-between gap-2 rounded-md px-3 py-3 uppercase text-zinc-400"
+                  className="flex items-center gap-2 rounded-md px-3 py-3 uppercase text-zinc-800"
                   key={item.label}
                 >
-                  <span>{item.label}</span>
                   <span aria-hidden="true" className="h-1 w-1 shrink-0 bg-(--think-red)" />
+                  <span>{item.label}</span>
                 </span>
               )
             }
