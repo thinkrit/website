@@ -92,7 +92,7 @@ export function Header({
   return (
     <header className="relative z-20 mx-auto flex w-full max-w-[1320px] items-start justify-between gap-4 px-5 pt-7 sm:px-8 lg:px-12">
       <Link aria-label="ThinkRIT home" href={localizedPath(locale, '/')}>
-        <Logo className="w-32" shared={shared} variant="red" />
+        <Logo className="w-24" shared={shared} variant="red" />
       </Link>
 
       <DesktopNav
@@ -256,7 +256,7 @@ export function SiteFooter({ locale, shared }: { locale: Locale; shared: SharedD
     <footer className="mx-auto mt-24 w-[calc(100%-32px)] max-w-[1450px] rounded-[24px] bg-white px-8 pb-6 pt-10 text-zinc-950 sm:w-[calc(100%-48px)] sm:px-12 lg:px-16">
       <div className="grid gap-10 lg:grid-cols-[260px_1fr_48px]">
         <Link aria-label="ThinkRIT home" className="w-fit" href={localizedPath(locale, '/')}>
-          <Logo className="w-32" shared={shared} variant="red" />
+          <Logo className="w-24" shared={shared} variant="red" />
         </Link>
         <nav aria-label="Footer navigation" className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {groups.map((group) => (
