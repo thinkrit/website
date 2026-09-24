@@ -4,6 +4,7 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 
 import { DesktopNav } from '@/components/site/DesktopNav'
+import { LanguageSwitcher } from '@/components/site/LanguageSwitcher'
 import { MobileNav } from '@/components/site/MobileNav'
 import {
   fieldArray,
@@ -95,14 +96,18 @@ export function Header({
         <Logo className="w-24" shared={shared} variant="red" />
       </Link>
 
-      <DesktopNav
-        contactHref={contactHref}
-        forceServicesOpen={forceServicesOpen}
-        locale={locale}
-        nav={nav}
-      />
+      <div className="flex items-start gap-2 lg:gap-3">
+        <DesktopNav
+          contactHref={contactHref}
+          forceServicesOpen={forceServicesOpen}
+          locale={locale}
+          nav={nav}
+        />
 
-      <MobileNav locale={locale} nav={nav} />
+        <LanguageSwitcher locale={locale} />
+
+        <MobileNav locale={locale} nav={nav} />
+      </div>
     </header>
   )
 }
@@ -287,9 +292,16 @@ export function SiteFooter({ locale, shared }: { locale: Locale; shared: SharedD
           <ArrowUp aria-hidden="true" className="h-5 w-5" />
         </Link>
       </div>
-      <div className="mt-16 flex flex-col gap-5 text-[13px] font-semibold uppercase tracking-normal text-zinc-400 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mt-16 flex flex-col gap-5 text-[13px] font-semibold uppercase tracking-normal text-zinc-400 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center">
         <p>{copyright}</p>
-        <div className="flex gap-8">
+        <Image
+          alt="Banner"
+          className="h-auto w-[240px] max-w-full"
+          height={168}
+          src="/Banner_Blue.png"
+          width={986}
+        />
+        <div className="flex gap-8 lg:justify-end">
           {bottomLinks.map((link) => (
             <Link href={localizedPath(locale, link.url)} key={link.label}>
               {link.label}

@@ -68,7 +68,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
         locale={locale}
         shared={shared}
       >
-        <div>
+        <div className="self-end">
           {banner ? (
             <Image
               alt={banner.alt}
