@@ -8,7 +8,7 @@
  *
  * Usage:
  *   npx payload run scripts/i18n-el/translate-el.ts            # dry run (read-only)
- *   npx payload run scripts/i18n-el/translate-el.ts --apply    # write
+ *   APPLY=1 npx payload run scripts/i18n-el/translate-el.ts    # write
  *
  * On --apply, every document is backed up (all locales) to
  * scripts/i18n-el/backup-<timestamp>/ first, and its en content is compared
@@ -25,7 +25,8 @@ import { globals, products, services } from './translations'
 
 type Obj = Record<string, unknown>
 
-const APPLY = process.argv.includes('--apply')
+// `payload run` does not forward CLI flags, so APPLY=1 is the reliable switch.
+const APPLY = process.argv.includes('--apply') || process.env.APPLY === '1'
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 const backupDir = path.join(dirname, `backup-${new Date().toISOString().replace(/[:.]/g, '-')}`)
 

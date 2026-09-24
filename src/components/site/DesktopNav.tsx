@@ -16,12 +16,10 @@ type OpenMenu = 'services' | 'products' | null
 export function DesktopNav({
   nav,
   locale,
-  contactHref,
   forceServicesOpen = false,
 }: {
   nav: NavData
   locale: Locale
-  contactHref: string
   forceServicesOpen?: boolean
 }) {
   const [open, setOpen] = useState<OpenMenu>(forceServicesOpen ? 'services' : null)
@@ -106,18 +104,24 @@ export function DesktopNav({
           </Link>
         )}
       </nav>
-      <Link
-        aria-current={isActivePath(pathname, nav.contact.url) ? 'page' : undefined}
-        className={`relative rounded-lg bg-zinc-950 px-7 py-5 text-[13px] font-semibold uppercase leading-none !text-white transition hover:bg-zinc-800 ${
-          isActivePath(pathname, nav.contact.url)
-            ? 'after:absolute after:bottom-0 after:inset-x-7 after:h-px after:bg-(--think-red)'
-            : ''
-        }`}
-        href={contactHref}
-      >
-        {nav.contact.label}
-      </Link>
     </div>
+  )
+}
+
+export function DesktopContactLink({ nav, contactHref }: { nav: NavData; contactHref: string }) {
+  const pathname = usePathname()
+  const isActive = isActivePath(pathname, nav.contact.url)
+
+  return (
+    <Link
+      aria-current={isActive ? 'page' : undefined}
+      className={`relative hidden rounded-lg bg-zinc-950 px-7 py-5 text-[13px] font-semibold uppercase leading-none !text-white transition hover:bg-zinc-800 lg:block ${
+        isActive ? 'after:absolute after:bottom-0 after:inset-x-7 after:h-px after:bg-(--think-red)' : ''
+      }`}
+      href={contactHref}
+    >
+      {nav.contact.label}
+    </Link>
   )
 }
 

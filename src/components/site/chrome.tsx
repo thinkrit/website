@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 
-import { DesktopNav } from '@/components/site/DesktopNav'
+import { DesktopContactLink, DesktopNav } from '@/components/site/DesktopNav'
 import { LanguageSwitcher } from '@/components/site/LanguageSwitcher'
 import { MobileNav } from '@/components/site/MobileNav'
 import {
@@ -97,14 +97,11 @@ export function Header({
       </Link>
 
       <div className="flex items-start gap-2 lg:gap-3">
-        <DesktopNav
-          contactHref={contactHref}
-          forceServicesOpen={forceServicesOpen}
-          locale={locale}
-          nav={nav}
-        />
+        <DesktopNav forceServicesOpen={forceServicesOpen} locale={locale} nav={nav} />
 
         <LanguageSwitcher locale={locale} />
+
+        <DesktopContactLink contactHref={contactHref} nav={nav} />
 
         <MobileNav locale={locale} nav={nav} />
       </div>
