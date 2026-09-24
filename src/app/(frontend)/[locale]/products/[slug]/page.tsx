@@ -2,6 +2,9 @@ import { Code2 } from 'lucide-react'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
+import { RichText } from '@payloadcms/richtext-lexical/react'
+import type { SerializedEditorState } from 'lexical'
+
 import { AbstractImageBackground, Container, FooterCta, HeroFrame, SectionLabel } from '@/components/site/chrome'
 import {
   CaseStudies,
@@ -23,6 +26,7 @@ import {
   type Feature,
   type Step,
 } from '@/lib/payload-local'
+import { richTextConverters } from '@/lib/rich-text-converters'
 import { isLocale } from '@/lib/routing'
 
 // Cache the rendered page indefinitely. It is rebuilt only when a Payload
@@ -49,6 +53,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
   const productSteps = readSteps(how?.steps)
   const banner = readBanner(hero?.banner)
   const subheader = fieldText(hero?.subheader)
+  const description = fieldRecord(hero?.description) as unknown as SerializedEditorState | null
 
   return (
     <>
@@ -85,9 +90,13 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
         </div>
         <div className="self-end border-l border-zinc-200 pl-8">
           <SectionLabel label={fieldText(hero?.title)} />
-          <p className="mt-8 max-w-3xl text-base leading-loose text-zinc-700">
-            {fieldText(hero?.description)}
-          </p>
+          {description ? (
+            <RichText
+              className="mt-8 max-w-3xl text-base leading-loose text-zinc-700 [&_a]:text-(--think-red) [&_a]:underline [&_li]:mt-2 [&_ol]:mt-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_p+p]:mt-4 [&_strong]:font-semibold [&_strong]:text-zinc-950 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6"
+              converters={richTextConverters}
+              data={description}
+            />
+          ) : null}
         </div>
       </HeroFrame>
 
