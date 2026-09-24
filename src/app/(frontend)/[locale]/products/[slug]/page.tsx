@@ -72,7 +72,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
           {banner ? (
             <Image
               alt={banner.alt}
-              className="mb-8 h-auto max-h-24 w-auto max-w-full object-contain object-left"
+              className="mb-20 h-auto max-h-24 w-auto max-w-full object-contain object-left"
               height={banner.height}
               priority
               src={banner.src}
@@ -92,7 +92,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
           <SectionLabel label={fieldText(hero?.title)} />
           {description ? (
             <RichText
-              className="mt-8 max-w-3xl text-base leading-loose text-zinc-700 [&_a]:text-(--think-red) [&_a]:underline [&_li]:mt-2 [&_ol]:mt-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_p+p]:mt-4 [&_strong]:font-semibold [&_strong]:text-zinc-950 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6"
+              className="mt-8 max-w-3xl text-base leading-relaxed text-zinc-700 [&_a]:text-zinc-500 [&_a]:underline [&_li]:mt-2 [&_ol]:mt-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_p+p]:mt-4 [&_strong]:font-semibold [&_strong]:text-zinc-950 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:marker:text-zinc-400"
               converters={richTextConverters}
               data={description}
             />

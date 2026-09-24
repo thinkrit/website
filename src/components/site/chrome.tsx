@@ -305,7 +305,7 @@ export function SiteFooter({ locale, shared }: { locale: Locale; shared: SharedD
         >
           <Image
             alt="Banner"
-            className="block h-auto w-[240px] max-w-full"
+            className="block h-auto w-[340px] max-w-full"
             height={168}
             src="/Banner_Blue.png"
             width={986}
