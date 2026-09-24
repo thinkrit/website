@@ -1,4 +1,5 @@
 import { Code2 } from 'lucide-react'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
 import { AbstractImageBackground, Container, FooterCta, HeroFrame, SectionLabel } from '@/components/site/chrome'
@@ -12,6 +13,7 @@ import {
 import { PixelBlastHeroBackground } from '@/components/site/PixelBlastHeroBackground'
 import {
   fieldArray,
+  fieldNumber,
   fieldRecord,
   fieldText,
   getCollectionDoc,
@@ -45,6 +47,8 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
   const implementations = fieldRecord(product?.implementationsSection)
 
   const productSteps = readSteps(how?.steps)
+  const banner = readBanner(hero?.banner)
+  const subheader = fieldText(hero?.subheader)
 
   return (
     <>
@@ -60,9 +64,24 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
         shared={shared}
       >
         <div>
+          {banner ? (
+            <Image
+              alt={banner.alt}
+              className="mb-8 h-auto max-h-24 w-auto max-w-full object-contain object-left"
+              height={banner.height}
+              priority
+              src={banner.src}
+              width={banner.width}
+            />
+          ) : null}
           <h1 className="text-balance text-3xl font-medium leading-tight text-zinc-950 sm:text-4xl md:text-6xl">
             {fieldText(hero?.header)}
           </h1>
+          {subheader ? (
+            <p className="mt-6 max-w-2xl text-balance text-lg leading-relaxed text-zinc-600 sm:text-xl">
+              {subheader}
+            </p>
+          ) : null}
         </div>
         <div className="self-end border-l border-zinc-200 pl-8">
           <SectionLabel label={fieldText(hero?.title)} />
@@ -125,6 +144,20 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
       <FooterCta locale={locale} shared={shared} />
     </>
   )
+}
+
+function readBanner(value: unknown) {
+  const src = mediaUrl(value, '')
+  if (!src) return null
+
+  const media = fieldRecord(value)
+
+  return {
+    src,
+    alt: fieldText(media?.alt),
+    width: fieldNumber(media?.width) ?? 800,
+    height: fieldNumber(media?.height) ?? 200,
+  }
 }
 
 function readFeatures(value: unknown): Feature[] {

@@ -21,6 +21,17 @@ export const Products: CollectionConfig = {
       },
       fields: [
         {
+          name: 'banner',
+          type: 'upload',
+          relationTo: 'media',
+          hasMany: false,
+          localized: false,
+          required: false,
+          admin: {
+            description: 'Banner image displayed at the top of the product hero section.',
+          },
+        },
+        {
           name: 'title',
           type: 'text',
           localized: true,
@@ -36,6 +47,15 @@ export const Products: CollectionConfig = {
           required: true,
           admin: {
             description: 'Main headline for the product hero section.',
+          },
+        },
+        {
+          name: 'subheader',
+          type: 'text',
+          localized: true,
+          required: false,
+          admin: {
+            description: 'Subheadline for the product hero section.',
           },
         },
         {
