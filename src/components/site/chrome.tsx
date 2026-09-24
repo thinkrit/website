@@ -292,22 +292,28 @@ export function SiteFooter({ locale, shared }: { locale: Locale; shared: SharedD
           <ArrowUp aria-hidden="true" className="h-5 w-5" />
         </Link>
       </div>
-      <div className="mt-16 flex flex-col gap-5 text-[13px] font-semibold uppercase tracking-normal text-zinc-400 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center">
+      <div className="mt-16 flex flex-col gap-5 text-[13px] font-semibold uppercase tracking-normal text-zinc-400 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-end">
         <p>{copyright}</p>
-        <Image
-          alt="Banner"
-          className="h-auto w-[240px] max-w-full"
-          height={168}
-          src="/Banner_Blue.png"
-          width={986}
-        />
-        <div className="flex gap-8 lg:justify-end">
+        <div className="flex gap-8">
           {bottomLinks.map((link) => (
             <Link href={localizedPath(locale, link.url)} key={link.label}>
               {link.label}
             </Link>
           ))}
         </div>
+        <Link
+          aria-label="NeuroBI"
+          className="w-fit lg:justify-self-end"
+          href={localizedPath(locale, '/products/neuro-bi')}
+        >
+          <Image
+            alt="Banner"
+            className="block h-auto w-[240px] max-w-full"
+            height={168}
+            src="/Banner_Blue.png"
+            width={986}
+          />
+        </Link>
       </div>
     </footer>
   )
