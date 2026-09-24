@@ -71,6 +71,27 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
         </div>
       </HeroFrame>
 
+      <section className="pt-16 lg:pt-20">
+        <Container className="flex justify-center">
+          <a
+            aria-label="NeuroBI poster (PDF, opens in new tab)"
+            className="block w-full max-w-[400px] transition hover:opacity-90"
+            href="/Poster.pdf"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <Image
+              alt="Banner"
+              className="block h-auto w-full"
+              height={171}
+              sizes="400px"
+              src="/Banner_White.png"
+              width={1002}
+            />
+          </a>
+        </Container>
+      </section>
+
       <section className="py-24 lg:py-28">
         <Container className="grid gap-10 lg:grid-cols-[260px_1fr]">
           <SectionLabel label={fieldText(about?.header)} />

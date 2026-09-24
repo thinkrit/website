@@ -8,12 +8,12 @@ import {
   MessageSquare,
   Plus,
 } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 
 import { CaseStudyCarousel } from '@/components/site/CaseStudyCarousel'
 import { Container, SectionLabel } from '@/components/site/chrome'
+import { FallbackImage } from '@/components/site/FallbackImage'
 import { ZoomableImage } from '@/components/site/ZoomableImage'
 import type { CaseStudy, Feature, ServiceCard, Step } from '@/lib/payload-local'
 import { localizedPath, type Locale } from '@/lib/routing'
@@ -69,12 +69,14 @@ export function HighlightedTitle({
 
 export function ImagePanel({
   src = '/placeholder-panel.svg',
+  fallbackSrc = '/placeholder-panel.svg',
   alt = '',
   className = '',
   aspect = 'aspect-[4/3]',
   fit = 'object-cover',
 }: {
   src?: string
+  fallbackSrc?: string
   alt?: string
   className?: string
   aspect?: string
@@ -82,7 +84,7 @@ export function ImagePanel({
 }) {
   return (
     <div className={`relative overflow-hidden rounded-lg bg-[#dfdfe2] ${aspect} ${className}`}>
-      <Image alt={alt} className={fit} fill sizes="(max-width: 768px) 100vw, 45vw" src={src} />
+      <FallbackImage alt={alt} className={fit} fallbackSrc={fallbackSrc} sizes="(max-width: 768px) 100vw, 45vw" src={src} />
     </div>
   )
 }

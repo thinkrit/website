@@ -32,6 +32,15 @@ export const Products: CollectionConfig = {
           },
         },
         {
+          name: 'bannerLink',
+          type: 'text',
+          localized: false,
+          required: false,
+          admin: {
+            description: 'Optional URL the banner links to. Opens in a new tab.',
+          },
+        },
+        {
           name: 'title',
           type: 'text',
           localized: true,

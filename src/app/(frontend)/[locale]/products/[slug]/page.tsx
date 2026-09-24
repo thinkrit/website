@@ -52,6 +52,17 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
 
   const productSteps = readSteps(how?.steps)
   const banner = readBanner(hero?.banner)
+  const bannerLink = fieldText(hero?.bannerLink).trim()
+  const bannerImage = banner ? (
+    <Image
+      alt={banner.alt}
+      className="mb-20 h-auto max-h-24 w-auto max-w-full object-contain object-left"
+      height={banner.height}
+      priority
+      src={banner.src}
+      width={banner.width}
+    />
+  ) : null
   const subheader = fieldText(hero?.subheader)
   const description = fieldRecord(hero?.description) as unknown as SerializedEditorState | null
 
@@ -69,16 +80,13 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
         shared={shared}
       >
         <div className="self-end">
-          {banner ? (
-            <Image
-              alt={banner.alt}
-              className="mb-20 h-auto max-h-24 w-auto max-w-full object-contain object-left"
-              height={banner.height}
-              priority
-              src={banner.src}
-              width={banner.width}
-            />
-          ) : null}
+          {bannerImage && bannerLink ? (
+            <a className="inline-block" href={bannerLink} rel="noopener noreferrer" target="_blank">
+              {bannerImage}
+            </a>
+          ) : (
+            bannerImage
+          )}
           <h1 className="text-balance text-3xl font-medium leading-tight text-zinc-950 sm:text-4xl md:text-6xl">
             {fieldText(hero?.header)}
           </h1>

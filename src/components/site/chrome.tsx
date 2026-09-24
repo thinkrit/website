@@ -298,10 +298,12 @@ export function SiteFooter({ locale, shared }: { locale: Locale; shared: SharedD
             </Link>
           ))}
         </div>
-        <Link
-          aria-label="NeuroBI"
+        <a
+          aria-label="NeuroBI poster (PDF)"
           className="w-fit lg:justify-self-end"
-          href={localizedPath(locale, '/products/neuro-bi')}
+          href="/Poster.pdf"
+          rel="noopener noreferrer"
+          target="_blank"
         >
           <Image
             alt="Banner"
@@ -310,7 +312,7 @@ export function SiteFooter({ locale, shared }: { locale: Locale; shared: SharedD
             src="/Banner_Blue.png"
             width={986}
           />
-        </Link>
+        </a>
       </div>
     </footer>
   )

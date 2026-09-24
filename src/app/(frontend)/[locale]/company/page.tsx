@@ -92,7 +92,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
           <div className="grid gap-8 lg:grid-cols-2">
             {founderPeople.map((person, index) => (
               <article className="rounded-lg bg-white p-7" key={`${person.name}-${index}`}>
-                <ImagePanel aspect="aspect-[1.35]" src={person.image} />
+                <ImagePanel aspect="aspect-[1.35]" fallbackSrc="/avatar-placeholder.svg" src={person.image} />
                 <h3 className="mt-7 text-2xl font-medium leading-tight text-zinc-950">{person.name}</h3>
                 <p className="mt-3 text-xs font-medium tracking-[0.08em] text-zinc-500">{person.role}</p>
               </article>
@@ -118,6 +118,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
                     <ImagePanel
                       aspect="aspect-square"
                       className="h-20 w-20 shrink-0"
+                      fallbackSrc="/avatar-placeholder.svg"
                       src={person.image}
                     />
                     <div>

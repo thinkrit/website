@@ -177,6 +177,10 @@ export interface Product {
      */
     banner?: (string | null) | Media;
     /**
+     * Optional URL the banner links to. Opens in a new tab.
+     */
+    bannerLink?: string | null;
+    /**
      * Short product title used in the hero and admin title field.
      */
     title: string;
@@ -1161,6 +1165,7 @@ export interface ProductsSelect<T extends boolean = true> {
     | T
     | {
         banner?: T;
+        bannerLink?: T;
         title?: T;
         header?: T;
         subheader?: T;
