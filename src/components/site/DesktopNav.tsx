@@ -166,7 +166,7 @@ function NavDropdown({
       </button>
       <div
         aria-hidden={!isOpen}
-        className={`nav-menu-panel absolute left-0 top-full min-w-44 pt-2 text-[12px] transition ${
+        className={`nav-menu-panel absolute left-0 top-full min-w-44 w-max whitespace-nowrap pt-2 text-[12px] transition ${
           isOpen ? 'is-open' : ''
         }`}
       >

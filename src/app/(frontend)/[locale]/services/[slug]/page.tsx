@@ -39,16 +39,18 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
         locale={locale}
         shared={shared}
       >
-        <div>
-          <h1 className="text-balance text-3xl font-medium leading-tight text-zinc-950 sm:text-4xl md:text-6xl">
-            {fieldText(hero?.title)}
-          </h1>
-        </div>
-        <div className="self-end border-l border-zinc-200 pl-8">
-          <SectionLabel label={fieldText(hero?.header)} />
-          <p className="mt-8 max-w-3xl text-base leading-loose text-zinc-700">
-            {fieldText(hero?.description)}
-          </p>
+        <div className="grid gap-12 lg:col-span-2 lg:grid-cols-2 lg:gap-0">
+          <div className="lg:self-end lg:pr-12">
+            <h1 className="text-balance text-3xl font-medium leading-tight text-zinc-950 sm:text-4xl md:text-6xl">
+              {fieldText(hero?.title)}
+            </h1>
+          </div>
+          <div className="self-end border-l border-zinc-200 pl-8">
+            <SectionLabel label={fieldText(hero?.header)} />
+            <p className="mt-8 max-w-3xl text-base leading-loose text-zinc-700">
+              {fieldText(hero?.description)}
+            </p>
+          </div>
         </div>
       </HeroFrame>
 
